@@ -339,6 +339,81 @@
 
     {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
     {{ 'neomfitness-premium.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'neomfitness-interactions.js' | asset_url }}" defer></script>
+    <style>
+      /* ── Header scroll behavior ── */
+      .header-wrapper {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        transition: transform 0.32s cubic-bezier(0.4,0,0.2,1),
+                    box-shadow 0.32s cubic-bezier(0.4,0,0.2,1),
+                    background-color 0.32s cubic-bezier(0.4,0,0.2,1);
+        will-change: transform;
+      }
+      .header-wrapper.nf-hidden {
+        transform: translateY(-100%);
+      }
+      .header-wrapper.nf-scrolled {
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      }
+
+      /* ── Card reveal on scroll ── */
+      .nf-reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1),
+                    transform 0.5s cubic-bezier(0.4,0,0.2,1);
+      }
+      .nf-reveal.nf-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ── Ripple effect ── */
+      .button { overflow: hidden; }
+      .nf-ripple {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        margin: -40px 0 0 -40px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.25);
+        pointer-events: none;
+        animation: nf-ripple-anim 0.55s ease-out forwards;
+      }
+      @keyframes nf-ripple-anim {
+        from { transform: scale(0); opacity: 1; }
+        to   { transform: scale(4); opacity: 0; }
+      }
+
+      /* ── Cart bubble pop ── */
+      .nf-count-pop {
+        animation: nf-pop 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+      }
+      @keyframes nf-pop {
+        from { transform: scale(0.6); }
+        to   { transform: scale(1); }
+      }
+
+      /* ── Section reveal ── */
+      .nf-section-reveal {
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1),
+                    transform 0.6s cubic-bezier(0.4,0,0.2,1);
+      }
+      .nf-section-reveal.nf-section-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ── Parallax hero ── */
+      .banner__media,
+      .hero-slide__background {
+        will-change: transform;
+      }
+    </style>
 
     {%- unless settings.type_body_font.system? -%}
       <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>

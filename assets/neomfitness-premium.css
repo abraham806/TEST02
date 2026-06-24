@@ -1,145 +1,148 @@
-/* ============================================================
-   NEOMFITNESS PREMIUM LAYER — v1.0
-   Toutes les couleurs passent par les variables CSS du thème.
-   Aucune valeur hexadécimale codée en dur.
-   Modifier la palette via : Éditeur de thème > Couleurs
-   ============================================================ */
+/* ================================================================
+   NEOMFITNESS — PREMIUM MINIMALIST LAYER
+   Mobile-first · Zero hardcoded colors · 100% Theme Editor driven
+   ================================================================ */
 
-/* ----------------------------------------------------------
-   ALIASES SÉMANTIQUES
-   Mappés sur les réglages globaux du thème (settings_schema)
-   ---------------------------------------------------------- */
+/* ----------------------------------------------------------------
+   1. DESIGN TOKENS — Aliases sur les variables Shrine Pro
+   ---------------------------------------------------------------- */
 :root {
-  --nf-dark:      rgb(var(--color-base-text));
-  --nf-primary:   rgb(var(--color-base-accent-1));
-  --nf-secondary: rgb(var(--color-base-accent-2));
-  --nf-bg-main:   rgb(var(--color-base-background-1));
-  --nf-bg-alt:    rgb(var(--color-base-background-2));
-  --nf-btn-text:  rgb(var(--color-base-solid-button-labels));
+  --nf-dark:    rgb(var(--color-base-text));
+  --nf-cta:     rgb(var(--color-base-accent-1));
+  --nf-accent2: rgb(var(--color-base-accent-2));
+  --nf-bg:      rgb(var(--color-base-background-1));
+  --nf-bg-alt:  rgb(var(--color-base-background-2));
+  --nf-label:   rgb(var(--color-base-solid-button-labels));
 
-  /* Tokens de transition réutilisables */
-  --nf-t-fast:    0.18s ease;
-  --nf-t-smooth:  0.32s cubic-bezier(0.4, 0, 0.2, 1);
-  --nf-t-lift:    0.38s cubic-bezier(0.34, 1.4, 0.64, 1);
+  /* Transitions */
+  --nf-ease:    cubic-bezier(0.4, 0, 0.2, 1);
+  --nf-bounce:  cubic-bezier(0.34, 1.4, 0.64, 1);
+  --nf-t1: 0.15s var(--nf-ease);
+  --nf-t2: 0.28s var(--nf-ease);
+  --nf-t3: 0.42s var(--nf-ease);
+
+  /* Spacing système */
+  --nf-space-xs: 0.4rem;
+  --nf-space-sm: 0.8rem;
+  --nf-space-md: 1.6rem;
+  --nf-space-lg: 3.2rem;
+  --nf-space-xl: 6.4rem;
+
+  /* Rayons */
+  --nf-r-sm: 4px;
+  --nf-r-md: 8px;
+  --nf-r-lg: 16px;
+  --nf-r-pill: 999px;
 }
 
-/* ----------------------------------------------------------
-   SCROLL FLUIDE
-   ---------------------------------------------------------- */
+/* ----------------------------------------------------------------
+   2. RESET & BASE GLOBAL
+   ---------------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 }
 
-/* ----------------------------------------------------------
-   SÉLECTION DE TEXTE — couleur de marque
-   ---------------------------------------------------------- */
 ::selection {
-  background-color: rgba(var(--color-base-accent-1), 0.22);
-  color: var(--nf-dark);
+  background-color: rgba(var(--color-base-accent-1), 0.2);
 }
 
-/* ----------------------------------------------------------
-   BOUTONS — Transitions & élévation premium
-   ---------------------------------------------------------- */
-.button,
-.button--primary,
-.button--secondary,
-.shopify-payment-button__button--unbranded,
-.cart__checkout-button,
-.product-form__submit {
-  position: relative;
-  overflow: hidden;
-  transition:
-    background-color var(--nf-t-smooth),
-    border-color     var(--nf-t-smooth),
-    color            var(--nf-t-smooth),
-    transform        var(--nf-t-lift),
-    box-shadow       var(--nf-t-smooth);
-  will-change: transform;
+img, video {
+  display: block;
+  max-width: 100%;
 }
 
-.button:hover:not([disabled]),
-.button--primary:hover:not([disabled]),
-.button--secondary:hover:not([disabled]) {
-  transform: translateY(-2px);
-  box-shadow:
-    0 8px 24px rgba(var(--color-base-accent-1), 0.28),
-    0 2px 8px  rgba(var(--color-base-text), 0.08);
+/* ----------------------------------------------------------------
+   3. TYPOGRAPHIE PREMIUM
+   ---------------------------------------------------------------- */
+
+/* Headings — espacés, respiration */
+h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4 {
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-weight: 700;
 }
 
-.button:active:not([disabled]),
-.button--primary:active:not([disabled]),
-.button--secondary:active:not([disabled]) {
-  transform: translateY(1px);
-  box-shadow: 0 2px 6px rgba(var(--color-base-text), 0.12);
-  transition-duration: 0.08s;
+/* Taille des titres de section */
+.title.h2 { font-size: clamp(2.4rem, 5vw, 4.8rem); }
+.title.h1 { font-size: clamp(3.2rem, 6vw, 6.4rem); }
+.title.h0 { font-size: clamp(4rem, 8vw, 9.6rem); }
+
+/* Sous-titres de section */
+.section-header__subheading,
+.subtitle {
+  font-size: 1.2rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  font-weight: 500;
 }
 
-/* ----------------------------------------------------------
-   CARTES PRODUITS — Hover premium (lift + image zoom)
-   ---------------------------------------------------------- */
-.card-wrapper {
-  transition:
-    transform    var(--nf-t-smooth),
-    box-shadow   var(--nf-t-smooth);
-  will-change: transform;
+/* ----------------------------------------------------------------
+   4. ANNOUNCEMENT BAR — Thin, propre
+   ---------------------------------------------------------------- */
+.announcement-bar {
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  font-weight: 500;
 }
 
-.card-wrapper:hover {
-  transform: translateY(-5px);
-  box-shadow:
-    0 20px 48px rgba(var(--color-base-text), 0.10),
-    0 6px  16px rgba(var(--color-base-text), 0.05) !important;
+.announcement-bar__message {
+  gap: 0.8rem;
+  transition: opacity var(--nf-t1);
 }
 
-/* Zoom de l'image au survol */
-.card__media .media {
-  overflow: hidden;
-}
-
-.card__media .media img {
-  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.card-wrapper:hover .card__media .media img {
-  transform: scale(1.05);
-}
-
-/* ----------------------------------------------------------
-   HEADER — Transitions fluides & soulignement de navigation
-   ---------------------------------------------------------- */
-.header,
+/* ----------------------------------------------------------------
+   5. HEADER — Sticky premium avec backdrop blur
+   ---------------------------------------------------------------- */
 .header-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
   transition:
-    background-color var(--nf-t-smooth),
-    box-shadow       var(--nf-t-smooth),
-    padding          var(--nf-t-smooth);
+    background-color var(--nf-t2),
+    box-shadow       var(--nf-t2),
+    padding          var(--nf-t2);
 }
 
-/* Suppression de la bordure rigide du bas de header */
+/* Suppression bordure inférieure rigide */
 .header-wrapper--border-bottom {
   border-bottom: none;
   box-shadow: 0 1px 0 rgba(var(--color-base-text), 0.06);
 }
 
-/* Liens de navigation — soulignement animé */
-.header__menu-item > a {
-  position: relative;
-  transition: color var(--nf-t-fast);
+/* Header compact au scroll */
+.scrolled-past-header .header-wrapper {
+  box-shadow: 0 4px 24px rgba(var(--color-base-text), 0.08);
 }
 
+.header {
+  transition: padding var(--nf-t2);
+}
+
+/* ---- Navigation desktop ---- */
+.header__menu-item > a,
+.header__menu-item > span {
+  position: relative;
+  font-size: 1.35rem;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: color var(--nf-t1);
+}
+
+/* Soulignement animé */
 .header__menu-item > a::after {
   content: '';
   position: absolute;
   inset-inline-start: 0;
-  bottom: -2px;
+  bottom: -4px;
   width: 0;
   height: 2px;
-  background: var(--nf-primary);
-  transition: width var(--nf-t-smooth);
+  background: var(--nf-cta);
   border-radius: 1px;
+  transition: width var(--nf-t2);
 }
 
 .header__menu-item > a:hover::after,
@@ -147,107 +150,392 @@
   width: 100%;
 }
 
-/* ----------------------------------------------------------
-   CHAMPS DE FORMULAIRE — Focus ring premium
-   ---------------------------------------------------------- */
-.field__input:focus,
-.select__select:focus,
-input[type="email"]:focus,
-input[type="text"]:focus,
-input[type="number"]:focus,
-textarea:focus {
-  box-shadow: 0 0 0 3px rgba(var(--color-base-accent-1), 0.18);
-  outline: none;
-  transition: box-shadow var(--nf-t-fast);
+/* Icônes header */
+.header__icon {
+  transition: opacity var(--nf-t1), transform var(--nf-t1);
 }
 
-/* ----------------------------------------------------------
-   TITRES DE SECTIONS — Accent décoratif gradient
-   ---------------------------------------------------------- */
-.section-header__title,
-.title--primary {
+.header__icon:hover {
+  opacity: 0.7;
+  transform: scale(0.95);
+}
+
+/* ----------------------------------------------------------------
+   6. MEGA MENU — Premium dropdown
+   ---------------------------------------------------------------- */
+.header__submenu {
+  border-top: 2px solid var(--nf-cta);
+  box-shadow: 0 24px 48px rgba(var(--color-base-text), 0.1);
+  animation: nf-slide-down var(--nf-t2) both;
+}
+
+@keyframes nf-slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------------------------------------------
+   7. BOUTONS — Design éditorial premium
+   ---------------------------------------------------------------- */
+.button,
+.button--primary,
+.button--secondary {
   position: relative;
-  display: inline-block;
-}
-
-.section-header__title::after,
-.title--primary::after {
-  content: '';
-  display: block;
-  width: 44px;
-  height: 3px;
-  margin-top: 0.45em;
-  background: linear-gradient(
-    90deg,
-    rgb(var(--color-base-accent-1))   0%,
-    rgb(var(--color-base-accent-2)) 100%
-  );
-  border-radius: 2px;
-  transition: width var(--nf-t-smooth);
-}
-
-.section-header__title:hover::after,
-.title--primary:hover::after {
-  width: 72px;
-}
-
-/* ----------------------------------------------------------
-   NETTOYAGE VISUEL — Suppressions des séparateurs rigides
-   ---------------------------------------------------------- */
-.header-wrapper--border-bottom {
-  border-bottom: none;
-}
-
-/* Suppression des lignes de séparation entre sections */
-hr.section-divider,
-.section-divider-hr,
-.shopify-section--bordered > *:first-child {
-  border-top: none;
-}
-
-/* ----------------------------------------------------------
-   BADGES — Style typographique premium
-   ---------------------------------------------------------- */
-.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  font-size: 1.1rem;
+  border-radius: var(--nf-r-sm);
+  padding: 1.4rem 2.8rem;
+  min-height: 4.8rem;       /* Touch target mobile */
+  overflow: hidden;
+  transition:
+    background-color var(--nf-t2),
+    border-color     var(--nf-t2),
+    color            var(--nf-t2),
+    transform        0.22s var(--nf-bounce),
+    box-shadow       var(--nf-t2);
+  will-change: transform;
+  cursor: pointer;
 }
 
-/* ----------------------------------------------------------
-   PRIX — Hiérarchie visuelle renforcée
-   ---------------------------------------------------------- */
+/* Bouton primaire — solide */
+.button--primary:hover:not([disabled]) {
+  transform: translateY(-3px);
+  box-shadow:
+    0 10px 28px rgba(var(--color-base-accent-1), 0.3),
+    0 2px  8px  rgba(var(--color-base-text), 0.06);
+}
+
+.button--primary:active:not([disabled]) {
+  transform: translateY(1px);
+  box-shadow: none;
+  transition-duration: 0.08s;
+}
+
+/* Bouton secondaire — contour */
+.button--secondary:hover:not([disabled]) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(var(--color-base-text), 0.1);
+}
+
+/* État chargement */
+.button[aria-disabled="true"],
+.button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ----------------------------------------------------------------
+   8. CARTES PRODUIT — Minimaliste, aéré, hover premium
+   ---------------------------------------------------------------- */
+
+/* Wrapper global */
+.card-wrapper {
+  transition:
+    transform  var(--nf-t3),
+    box-shadow var(--nf-t3);
+  will-change: transform;
+  border-radius: var(--nf-r-md);
+}
+
+.card-wrapper:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 24px 56px rgba(var(--color-base-text), 0.09),
+    0 6px  18px rgba(var(--color-base-text), 0.04) !important;
+}
+
+/* Conteneur image — zoom fluide */
+.card__media {
+  overflow: hidden;
+  border-radius: var(--nf-r-md) var(--nf-r-md) 0 0;
+}
+
+.card__media .media img {
+  transition: transform 0.65s var(--nf-ease);
+  transform-origin: center center;
+}
+
+.card-wrapper:hover .card__media .media img {
+  transform: scale(1.06);
+}
+
+/* Info carte */
+.card__information {
+  padding: var(--nf-space-md) var(--nf-space-md) var(--nf-space-lg);
+}
+
+/* Titre carte */
+.card__heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin-bottom: var(--nf-space-xs);
+}
+
+/* Prix */
+.price {
+  font-size: 1.4rem;
+}
+
 .price__regular .price-item--regular,
 .price__sale   .price-item--sale {
   font-weight: 800;
+  font-size: 1.6rem;
 }
 
 .price__sale .price-item--regular {
-  opacity: 0.55;
+  opacity: 0.4;
+  font-size: 1.3rem;
   text-decoration: line-through;
 }
 
-/* ----------------------------------------------------------
-   QUICK ADD — Révélation fluide
-   ---------------------------------------------------------- */
-.quick-add__submit {
-  transition:
-    opacity          var(--nf-t-smooth),
-    transform        var(--nf-t-smooth),
-    background-color var(--nf-t-smooth);
+/* Badges */
+.badge {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--nf-r-sm);
+  padding: 0.3rem 0.8rem;
 }
 
-/* ----------------------------------------------------------
-   PAGINATION — Micro-interactions
-   ---------------------------------------------------------- */
+/* Quick add — révélation fluide */
+.card__content {
+  gap: 0;
+}
+
+.quick-add__submit,
+.product-form__submit {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition:
+    opacity          var(--nf-t2),
+    transform        var(--nf-t2),
+    background-color var(--nf-t2);
+}
+
+/* ----------------------------------------------------------------
+   9. GRILLE COLLECTION — Espacements aérés
+   ---------------------------------------------------------------- */
+.collection {
+  padding-inline: 0;
+}
+
+/* Titre de section */
+.collection__title .title {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.6em;
+}
+
+.collection__title .title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 3.2rem;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    rgb(var(--color-base-accent-1)),
+    rgb(var(--color-base-accent-2))
+  );
+  border-radius: 2px;
+  transition: width var(--nf-t3);
+}
+
+.collection__title:hover .title::after,
+.collection__title .title:hover::after {
+  width: 6.4rem;
+}
+
+/* Lien "Voir tout" */
+.collection__view-all .button--tertiary {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: opacity var(--nf-t1);
+}
+
+/* ----------------------------------------------------------------
+   10. BANNIÈRE HERO — Immersive, plein écran
+   ---------------------------------------------------------------- */
+.banner {
+  overflow: hidden;
+}
+
+/* Overlay gradient dynamique */
+.banner__media::after {
+  transition: opacity var(--nf-t3);
+}
+
+/* Boîte contenu sur la bannière */
+.banner__box {
+  border-radius: var(--nf-r-sm);
+  backdrop-filter: blur(0);
+}
+
+/* Suppression fond opaque sur le texte si transparent */
+.banner--desktop-transparent .banner__box {
+  background: transparent;
+  backdrop-filter: none;
+}
+
+/* Titres hero */
+.banner__heading {
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+/* ----------------------------------------------------------------
+   11. SLIDESHOW HERO
+   ---------------------------------------------------------------- */
+.hero-slide__content {
+  border-radius: var(--nf-r-md);
+}
+
+.hero__heading {
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.hero__text {
+  font-size: 1.6rem;
+  line-height: 1.7;
+  opacity: 0.85;
+}
+
+/* Dots de navigation */
+.splide__pagination__page {
+  transition: transform var(--nf-t1), background-color var(--nf-t1);
+}
+
+.splide__pagination__page.is-active {
+  transform: scale(1.4);
+}
+
+/* ----------------------------------------------------------------
+   12. PAGE PRODUIT — Layout premium
+   ---------------------------------------------------------------- */
+.product {
+  --product-gap: clamp(2rem, 5vw, 6rem);
+}
+
+.product__title {
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: var(--nf-space-md);
+}
+
+.product__description {
+  font-size: 1.5rem;
+  line-height: 1.8;
+  opacity: 0.8;
+}
+
+/* Sélecteurs de variantes */
+.variant-pills__item {
+  min-width: 4.4rem;
+  min-height: 4.4rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  transition:
+    border-color     var(--nf-t1),
+    background-color var(--nf-t1),
+    transform        var(--nf-t1);
+}
+
+.variant-pills__item:hover {
+  transform: scale(1.05);
+}
+
+/* Accordéons produit */
+.product__accordion {
+  border-top: 1px solid rgba(var(--color-base-text), 0.1);
+}
+
+.product__accordion summary {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  padding-block: var(--nf-space-md);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: opacity var(--nf-t1);
+}
+
+.product__accordion summary:hover { opacity: 0.7; }
+
+/* ----------------------------------------------------------------
+   13. FORMULAIRES — Premium focus states
+   ---------------------------------------------------------------- */
+.field__input,
+.select__select,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+textarea {
+  font-size: 1.5rem;
+  border-radius: var(--nf-r-sm);
+  transition:
+    border-color var(--nf-t1),
+    box-shadow   var(--nf-t1);
+  -webkit-appearance: none;
+}
+
+.field__input:focus,
+.select__select:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+  outline: none;
+  box-shadow:
+    0 0 0 1px rgb(var(--color-base-accent-1)),
+    0 0 0 4px rgba(var(--color-base-accent-1), 0.12);
+}
+
+.field__label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ----------------------------------------------------------------
+   14. PAGINATION
+   ---------------------------------------------------------------- */
 .pagination__item a,
 .pagination__item button {
+  min-width: 4rem;
+  min-height: 4rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-radius: var(--nf-r-sm);
   transition:
-    background-color var(--nf-t-fast),
-    color            var(--nf-t-fast),
-    border-color     var(--nf-t-fast),
-    transform        var(--nf-t-fast);
+    background-color var(--nf-t1),
+    color            var(--nf-t1),
+    transform        var(--nf-t1);
 }
 
 .pagination__item a:hover,
@@ -255,54 +543,394 @@ hr.section-divider,
   transform: scale(1.08);
 }
 
-/* ----------------------------------------------------------
-   BANNER / HERO — Overlay fluide
-   ---------------------------------------------------------- */
-.banner__media::after {
-  transition: opacity var(--nf-t-smooth);
+/* ----------------------------------------------------------------
+   15. PANIER DRAWER — Premium sidebar
+   ---------------------------------------------------------------- */
+.cart-drawer {
+  display: flex;
+  flex-direction: column;
 }
 
-/* ----------------------------------------------------------
-   ANNONCE BAR — Transitions
-   ---------------------------------------------------------- */
-.announcement-bar__message {
-  transition: opacity var(--nf-t-fast);
+.cart-drawer__header {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-/* ----------------------------------------------------------
-   NEWSLETTER / EMAIL SIGNUP — Accent latéral
-   ---------------------------------------------------------- */
-.email-signup-banner {
-  border-inline-start: 4px solid var(--nf-primary);
+.cart-item__name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
-/* ----------------------------------------------------------
-   FOOTER — Séparateur subtil entre colonnes
-   ---------------------------------------------------------- */
-@media screen and (min-width: 750px) {
-  .footer-block + .footer-block {
-    border-inline-start: 1px solid rgba(var(--color-base-solid-button-labels), 0.12);
-  }
+.cart-item__price {
+  font-weight: 700;
 }
 
-/* ----------------------------------------------------------
-   SCROLLBAR PERSONNALISÉE — Variables du thème (desktop)
-   Activer via : Éditeur de thème > Barre de défilement > Personnalisée
-   ---------------------------------------------------------- */
-@media screen and (min-width: 750px) {
-  ::-webkit-scrollbar        { width: 7px; }
-  ::-webkit-scrollbar-track  { background: var(--nf-bg-alt); }
-  ::-webkit-scrollbar-thumb  {
-    background: var(--nf-dark);
-    border-radius: 4px;
-    transition: background var(--nf-t-fast);
-  }
-  ::-webkit-scrollbar-thumb:hover { background: var(--nf-primary); }
+.cart-item__image-container {
+  border-radius: var(--nf-r-sm);
+  overflow: hidden;
 }
 
-/* ----------------------------------------------------------
-   BARRE DE CHARGEMENT — Accent couleur
-   ---------------------------------------------------------- */
+/* ----------------------------------------------------------------
+   16. FOOTER — Épuré, structuré
+   ---------------------------------------------------------------- */
+.footer {
+  position: relative;
+}
+
+.footer-block__heading {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: var(--nf-space-md);
+  opacity: 1;
+}
+
+.footer__list a {
+  font-size: 1.4rem;
+  opacity: 0.75;
+  transition: opacity var(--nf-t1);
+  text-decoration: none;
+  display: inline-block;
+  padding-block: 0.3rem;
+}
+
+.footer__list a:hover {
+  opacity: 1;
+}
+
+/* Newsletter dans le footer */
+.footer__newsletter .field__input {
+  border-radius: var(--nf-r-sm) 0 0 var(--nf-r-sm);
+}
+
+.footer__newsletter .button {
+  border-radius: 0 var(--nf-r-sm) var(--nf-r-sm) 0;
+}
+
+/* Séparateur et copyright */
+.footer__copyright {
+  font-size: 1.2rem;
+  opacity: 0.5;
+  letter-spacing: 0.04em;
+}
+
+/* ----------------------------------------------------------------
+   17. NETTOYAGE — Suppressions des éléments rigides
+   ---------------------------------------------------------------- */
+
+/* Bordures de section obsolètes */
+.header-wrapper--border-bottom {
+  border-bottom: none;
+}
+
+.shopify-section + .shopify-section > .section--bordered {
+  border-top: none;
+}
+
+hr.section-divider {
+  display: none;
+}
+
+/* Suppressions box-shadow statiques sur certains composants */
+.card--card:after,
+.card--standard .card__inner:after {
+  box-shadow: none;
+  transition: box-shadow var(--nf-t3);
+}
+
+.card-wrapper:hover .card--card:after,
+.card-wrapper:hover .card--standard .card__inner:after {
+  box-shadow:
+    0 24px 56px rgba(var(--color-shadow), 0.08),
+    0 6px  18px rgba(var(--color-shadow), 0.04);
+}
+
+/* ----------------------------------------------------------------
+   18. COMPOSANTS UTILITAIRES
+   ---------------------------------------------------------------- */
+
+/* Page width — plus respirante */
+.page-width {
+  padding-inline: clamp(1.6rem, 4vw, 4rem);
+}
+
+/* Focus visible accessible */
+:focus-visible {
+  outline: 2px solid rgb(var(--color-base-accent-1));
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Loader spinner */
 .loading-overlay__spinner .spinner {
-  stroke: var(--nf-primary);
+  stroke: var(--nf-cta);
+}
+
+.loading-overlay__spinner circle {
+  stroke-dasharray: 66;
+  stroke-dashoffset: 0;
+  animation: nf-spin 1s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes nf-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ----------------------------------------------------------------
+   19. MOBILE FIRST — Overrides spécifiques ≤749px
+   ---------------------------------------------------------------- */
+@media screen and (max-width: 749px) {
+
+  /* Espacement généreux sur mobile */
+  .page-width {
+    padding-inline: 1.6rem;
+  }
+
+  /* Titres de section */
+  .title-wrapper {
+    margin-bottom: 2.4rem;
+  }
+
+  .collection__title .title::after {
+    width: 2.4rem;
+  }
+
+  /* Cartes — hauteur image fixe sur mobile */
+  .card__media {
+    aspect-ratio: 1 / 1;
+  }
+
+  /* Boutons — pleine largeur sur mobile si isolés */
+  .banner__buttons .button,
+  .hero__buttons  .button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Grille — 2 colonnes minimum sur mobile */
+  .grid--2-col-tablet-down {
+    --grid-desktop-horizontal-spacing: 1.2rem;
+    --grid-mobile-horizontal-spacing: 1.2rem;
+  }
+
+  /* Touch targets */
+  .header__icon,
+  .header__menu-item > a,
+  .list-menu__item--link {
+    min-height: 4.4rem;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Prix mobile */
+  .price__regular .price-item--regular,
+  .price__sale   .price-item--sale {
+    font-size: 1.5rem;
+  }
+
+  /* Hero heading plus compact */
+  .banner__heading,
+  .hero__heading {
+    font-size: clamp(2.8rem, 7vw, 4.8rem);
+    letter-spacing: -0.03em;
+  }
+}
+
+/* ----------------------------------------------------------------
+   20. DESKTOP — Améliorations ≥750px
+   ---------------------------------------------------------------- */
+@media screen and (min-width: 750px) {
+
+  /* Hover sur images de collection */
+  .collection-card-wrapper:hover .media img {
+    transform: scale(1.04);
+    transition: transform 0.55s var(--nf-ease);
+  }
+
+  /* Aspect ratio cartes desktop */
+  .card__media {
+    aspect-ratio: 3 / 4;
+  }
+
+  /* Grille avec bonne gouttière */
+  .collection {
+    --grid-desktop-horizontal-spacing: 2.4rem;
+    --grid-desktop-vertical-spacing: 2.4rem;
+  }
+}
+
+/* ----------------------------------------------------------------
+   21. SCROLLBAR — Raffinée (desktop)
+   ---------------------------------------------------------------- */
+@media screen and (min-width: 990px) {
+  ::-webkit-scrollbar          { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track    { background: var(--nf-bg-alt); }
+  ::-webkit-scrollbar-thumb    {
+    background: var(--nf-dark);
+    border-radius: 3px;
+    transition: background var(--nf-t1);
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--nf-cta); }
+}
+
+/* ----------------------------------------------------------------
+   22. ANIMATIONS D'ENTRÉE — Subtiles et purposeful
+   ---------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+
+  .animate-section.animate--hidden .animate-item {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity   0.55s var(--nf-ease),
+      transform 0.55s var(--nf-ease);
+  }
+
+  .animate-section.animate--shown .animate-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Délais en cascade */
+  .animate-item:nth-child(1) { transition-delay: 0ms; }
+  .animate-item:nth-child(2) { transition-delay: 80ms; }
+  .animate-item:nth-child(3) { transition-delay: 160ms; }
+  .animate-item:nth-child(4) { transition-delay: 240ms; }
+  .animate-item:nth-child(5) { transition-delay: 320ms; }
+  .animate-item:nth-child(6) { transition-delay: 400ms; }
+}
+
+/* ----------------------------------------------------------------
+   23. MICRO-INTERACTIONS
+   ---------------------------------------------------------------- */
+
+/* Lien de navigation actif */
+.header__active-menu-item-v2 {
+  position: relative;
+}
+
+/* Sélection texte — couleur marque */
+::selection {
+  background-color: rgba(var(--color-base-accent-1), 0.2);
+  color: var(--nf-dark);
+}
+
+/* Annonce bar text */
+.announcement-bar__item {
+  gap: 0.6rem;
+}
+
+/* Icônes Material — ajustement vertical */
+.material-symbols-outlined {
+  font-size: 1em;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+/* Tags / Chips */
+.tag,
+.tag a {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--nf-r-pill);
+  padding: 0.4rem 1.2rem;
+  transition: background-color var(--nf-t1);
+}
+
+/* ----------------------------------------------------------------
+   24. SECTION DIVIDER — Remplacement des bordures par du vide
+   ---------------------------------------------------------------- */
+.shopify-section {
+  position: relative;
+}
+
+/* Alternance de fond via color_scheme — aucune border nécessaire */
+.color-background-1 + .shopify-section .color-background-2,
+.color-background-2 + .shopify-section .color-background-1 {
+  border: none;
+  box-shadow: none;
+}
+
+/* ----------------------------------------------------------------
+   25. CONTENU ÉDITORIAL — Rich text, pages, articles
+   ---------------------------------------------------------------- */
+.rte {
+  line-height: 1.8;
+  font-size: 1.5rem;
+}
+
+.rte h1, .rte h2, .rte h3 {
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+.rte p {
+  margin-bottom: 1.2em;
+}
+
+.rte a {
+  color: var(--nf-cta);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: opacity var(--nf-t1);
+}
+
+.rte a:hover { opacity: 0.75; }
+
+/* ----------------------------------------------------------------
+   26. NEWSLETTER / EMAIL SIGNUP BANNER — Accent
+   ---------------------------------------------------------------- */
+.email-signup-banner__container {
+  border-radius: var(--nf-r-lg);
+  overflow: hidden;
+}
+
+/* ----------------------------------------------------------------
+   27. POPUPS & MODALS — Premium overlay
+   ---------------------------------------------------------------- */
+.popup-modal__content {
+  border-radius: var(--nf-r-lg);
+  overflow: hidden;
+}
+
+.popup-modal__close {
+  transition: transform var(--nf-t1), opacity var(--nf-t1);
+}
+
+.popup-modal__close:hover {
+  transform: rotate(90deg);
+  opacity: 0.6;
+}
+
+/* Overlay fond */
+.overlay {
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.4);
+  transition: opacity var(--nf-t2);
+}
+
+/* ----------------------------------------------------------------
+   28. RECHERCHE PRÉDICTIVE — Premium dropdown
+   ---------------------------------------------------------------- */
+predictive-search .predictive-search {
+  border-top: 2px solid var(--nf-cta);
+  border-radius: 0 0 var(--nf-r-md) var(--nf-r-md);
+  box-shadow: 0 16px 40px rgba(var(--color-base-text), 0.1);
+  overflow: hidden;
+}
+
+.predictive-search__item:hover {
+  background: rgba(var(--color-base-accent-1), 0.06);
+}
+
+.predictive-search__item-heading {
+  font-weight: 600;
+  font-size: 1.4rem;
 }
