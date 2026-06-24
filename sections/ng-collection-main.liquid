@@ -44,7 +44,7 @@
 
 {%- paginate collection.products by section.settings.products_per_page -%}
 
-{# ── Header de collection ── #}
+<!-- ── Header de collection ── -->
 <div class="ng-collection-header ng-col-header-{{ section.id }}">
   <div class="ng-container">
     <h1>{{ collection.title }}</h1>
@@ -54,10 +54,10 @@
   </div>
 </div>
 
-{# ── Zone produits ── #}
+<!-- ── Zone produits ── -->
 <div class="ng-col-content-{{ section.id }}">
   <div class="ng-container">
-    {# Filter / Sort bar #}
+    <!-- Filter / Sort bar -->
     <div class="ng-filter-bar">
       <p class="ng-filter-count">
         {{ collection.products_count }}
@@ -78,7 +78,7 @@
       {%- endif -%}
     </div>
 
-    {# Product grid #}
+    <!-- Product grid -->
     {%- if collection.products.size > 0 -%}
       <div class="ng-product-grid ng-col-grid-{{ section.id }}" style="margin-top:3.2rem;">
         {%- for product in collection.products -%}

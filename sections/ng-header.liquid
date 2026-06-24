@@ -34,7 +34,7 @@
   <div class="ng-container">
     <header class="ng-header ng-header-{{ section.id }}" role="banner">
 
-      {# ── Logo ── #}
+      <!-- ── Logo ── -->
       <div class="ng-header__logo">
         <a href="/" aria-label="{{ shop.name }}" style="display:flex;align-items:center;">
           {%- if settings.logo != blank -%}
@@ -53,7 +53,7 @@
         </a>
       </div>
 
-      {# ── Navigation desktop ── #}
+      <!-- ── Navigation desktop ── -->
       <nav class="ng-header__nav" aria-label="Navigation principale">
         <ul class="ng-nav__list" role="list">
           {%- for link in linklists[settings.main_menu].links -%}
@@ -80,7 +80,7 @@
         </ul>
       </nav>
 
-      {# ── Icônes d'actions ── #}
+      <!-- ── Icônes d'actions ── -->
       <div class="ng-header__actions">
         {%- if settings.show_search -%}
           <button
@@ -134,7 +134,7 @@
   </div>
 </div>
 
-{# ── Menu mobile ── #}
+<!-- ── Menu mobile ── -->
 <div
   id="ng-mobile-nav"
   class="ng-mobile-nav"
@@ -207,7 +207,7 @@
         </form>
       {%- endif -%}
 
-      {# Liens sociaux #}
+      <!-- Liens sociaux -->
       {%- liquid
         assign has_social = false
         if settings.social_instagram != blank or settings.social_tiktok != blank or settings.social_facebook != blank

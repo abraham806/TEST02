@@ -4,7 +4,7 @@
     {%- if cart.item_count > 0 -%}
       {%- form 'cart', cart -%}
         <div style="display:grid;gap:3.2rem;" id="ng-cart-page">
-          {# Items #}
+          <!-- Items -->
           <div>
             {%- for item in cart.items -%}
               <div class="ng-cart-item">
@@ -29,7 +29,7 @@
               </div>
             {%- endfor -%}
           </div>
-          {# Summary #}
+          <!-- Summary -->
           <div style="background:var(--ng-bg-2);border-radius:var(--ng-r-lg);padding:3.2rem;align-self:start;position:sticky;top:9.6rem;">
             <h3 style="margin-bottom:2.4rem;">Récapitulatif</h3>
             <div style="display:flex;justify-content:space-between;margin-bottom:1.6rem;font-size:var(--ng-size-base);">

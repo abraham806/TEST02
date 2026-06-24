@@ -2,7 +2,7 @@
   <div class="ng-container">
     <div class="ng-footer__grid">
 
-      {# ── Brand col ── #}
+      <!-- ── Brand col ── -->
       <div class="ng-footer__brand">
         <div class="ng-header__logo" style="margin-bottom:1.6rem;">
           {%- if settings.logo != blank -%}
@@ -14,7 +14,7 @@
         {%- if section.settings.brand_desc != blank -%}
           <p>{{ section.settings.brand_desc }}</p>
         {%- endif -%}
-        {# Social icons #}
+        <!-- Social icons -->
         <div class="ng-footer__social" style="margin-top:2.4rem;">
           {%- if settings.social_instagram != blank -%}
             <a href="{{ settings.social_instagram }}" class="ng-footer__social-icon" target="_blank" rel="noopener" aria-label="Instagram">{%- render 'ng-icon', icon: 'instagram', size: 18 -%}</a>
@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      {# ── Link cols ── #}
+      <!-- ── Link cols ── -->
       {%- if section.settings.col2_menu != blank -%}
         <div>
           <p class="ng-footer__heading">{{ section.settings.col2_title | default: 'Liens rapides' }}</p>
@@ -57,7 +57,7 @@
         </div>
       {%- endif -%}
 
-      {# ── Newsletter col ── #}
+      <!-- ── Newsletter col ── -->
       <div>
         <p class="ng-footer__heading">{{ section.settings.newsletter_title | default: 'Restez informé' }}</p>
         <p style="font-size:1.3rem;color:rgba(255,255,255,.6);margin-bottom:1.6rem;">{{ section.settings.newsletter_text | default: 'Offres exclusives et nouveautés en avant-première.' }}</p>
@@ -84,7 +84,7 @@
       </div>
     </div>
 
-    {# ── Bottom bar ── #}
+    <!-- ── Bottom bar ── -->
     <div class="ng-footer__bottom">
       <span>© {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ 'sections.footer.copyright' | t }}.</span>
       <div style="display:flex;gap:1.6rem;flex-wrap:wrap;justify-content:center;">
