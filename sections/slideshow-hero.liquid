@@ -39,8 +39,8 @@
   {% endif %}
 
   .section-{{ section.id }}-padding {
-    padding-top: calc({{ section.settings.padding_top | times: 0.75 | round: 0 }}px + var( --additional-padding));
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-top: calc({{ section.settings.padding_top_mobile }}px + var( --additional-padding));
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
   }
 
   .hero-{{ section.id }} .hero-slide__content-container {
@@ -592,7 +592,7 @@
       "max": 100,
       "step": 5,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
+      "label": "Padding supérieur (bureau)",
       "default": 50
     },
     {
@@ -602,8 +602,32 @@
       "max": 100,
       "step": 5,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
+      "label": "Padding inférieur (bureau)",
       "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Espacement — Mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding supérieur (mobile)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding inférieur (mobile)",
+      "default": 36
     }
   ],
   "blocks": [
