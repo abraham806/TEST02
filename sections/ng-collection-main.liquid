@@ -1,0 +1,77 @@
+{%- paginate collection.products by section.settings.products_per_page -%}
+
+{# Collection Header #}
+<div class="ng-collection-header">
+  <div class="ng-container">
+    <h1>{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <p>{{ collection.description }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{# Main content #}
+<div style="padding-block:var(--ng-section-gap-sm);background:var(--ng-bg);">
+  <div class="ng-container">
+    {# Filter / Sort bar #}
+    <div class="ng-filter-bar">
+      <p class="ng-filter-count">
+        {{ collection.products_count }}
+        {%- if collection.products_count == 1 %} produit{%- else %} produits{%- endif -%}
+      </p>
+      {%- if section.settings.show_sort -%}
+        {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+        <select
+          class="ng-sort-select"
+          id="ng-sort"
+          aria-label="Trier par"
+          onchange="window.location.href = window.location.pathname + '?sort_by=' + this.value + '{{ paginate.page_param }}=' + '1'"
+        >
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>
+          {%- endfor -%}
+        </select>
+      {%- endif -%}
+    </div>
+
+    {# Product grid #}
+    {%- if collection.products.size > 0 -%}
+      <div
+        class="ng-product-grid"
+        style="grid-template-columns:repeat({{ section.settings.columns_mobile }},1fr);margin-top:3.2rem;"
+      >
+        {%- for product in collection.products -%}
+          {%- render 'ng-product-card', product: product, index: forloop.index0 -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="ng-cart-empty" style="padding-block:8rem;">
+        <p style="font-size:var(--ng-size-xl);color:var(--ng-text-muted);">Aucun produit dans cette collection.</p>
+        <a href="/collections/all" class="ng-btn ng-btn--primary">Voir tous les produits</a>
+      </div>
+    {%- endif -%}
+
+    {%- render 'ng-pagination', paginate: paginate -%}
+  </div>
+</div>
+
+{%- endpaginate -%}
+
+<style>
+  @media(min-width:990px){
+    .ng-product-grid { grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr) !important; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Page collection",
+  "tag": "div",
+  "settings": [
+    { "type": "range", "id": "products_per_page", "min": 8, "max": 48, "step": 4, "default": 24, "label": "Produits par page" },
+    { "type": "range", "id": "columns_desktop", "min": 2, "max": 5, "step": 1, "default": 3, "label": "Colonnes (bureau)" },
+    { "type": "range", "id": "columns_mobile", "min": 1, "max": 3, "step": 1, "default": 2, "label": "Colonnes (mobile)" },
+    { "type": "checkbox", "id": "show_sort", "label": "Afficher le tri", "default": true }
+  ]
+}
+{% endschema %}

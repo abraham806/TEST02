@@ -1,1 +1,88 @@
-{"sections":{"cfca4268-6358-426c-98ab-d292aeef11e5":{"type":"slideshow","blocks":{"template--21507361505575__cfca4268-6358-426c-98ab-d292aeef11e5-slide-1":{"type":"slide","settings":{"image":"shopify:\/\/shop_images\/WhatsApp_Image_2025-03-22_a_18.06.57_8aaa40e5.jpg","image_overlay_opacity":0,"heading":"Razer Gaming Finger Sleeves –","heading_size":"h2","subheading":"Améliorez votre performance avec une meilleure réactivité tactile.","button_label":"SHOP NOW","link":"shopify:\/\/collections\/all","button_style_secondary":false,"atc_button_label":"","atc_product":"","atc_skip_cart":false,"box_align":"bottom-right","show_text_box":true,"text_alignment":"center","color_scheme":"background-1","transparent_container_color":"white","text_alignment_mobile":"center"}},"template--21507361505575__cfca4268-6358-426c-98ab-d292aeef11e5-slide-2":{"type":"slide","disabled":true,"settings":{"image_overlay_opacity":0,"heading":"Image slide","heading_size":"h1","subheading":"Tell your brand's story through images","button_label":"Button label","link":"","button_style_secondary":false,"atc_button_label":"","atc_product":"","atc_skip_cart":false,"box_align":"middle-center","show_text_box":true,"text_alignment":"center","color_scheme":"background-1","transparent_container_color":"white","text_alignment_mobile":"center"}}},"block_order":["template--21507361505575__cfca4268-6358-426c-98ab-d292aeef11e5-slide-1","template--21507361505575__cfca4268-6358-426c-98ab-d292aeef11e5-slide-2"],"settings":{"visibility":"always-display","layout":"full_bleed","slide_height":"medium","slider_visual":"dots","desktop_pagination_position":"over","auto_rotate":false,"change_slides_speed":5,"show_text_below":true,"mobile_pagination_position":"under","accessibility_info":"Slideshow about our brand"}},"section_divider_gMmFqj":{"type":"section-divider","settings":{"shape":"waves_3","flip_horizontal":false,"flip_vertical":false,"shape_color":"accent-1","background_color":"background-1","padding_top":0,"padding_bottom":0}},"section_divider_7pHfKf":{"type":"section-divider","settings":{"shape":"waves_3","flip_horizontal":false,"flip_vertical":true,"shape_color":"accent-1","background_color":"background-1","padding_top":0,"padding_bottom":0}},"image_slider_pVattx":{"type":"image-slider","blocks":{"image_slide_Kx6Ynn":{"type":"image_slide","settings":{"image":"shopify:\/\/shop_images\/WhatsApp_Image_2025-03-22_a_21.14.20_aaddef64.jpg","link":"","description":"","desc_alignment":"center","desc_color_scheme":"background-2"}},"image_slide_6DteF9":{"type":"image_slide","settings":{"image":"shopify:\/\/shop_images\/WhatsApp_Image_2025-03-22_a_21.20.27_9f6d391b.jpg","link":"","description":"","desc_alignment":"center","desc_color_scheme":"background-2"}},"image_slide_ycdmRx":{"type":"image_slide","settings":{"image":"shopify:\/\/shop_images\/WhatsApp_Image_2025-03-22_a_21.26.52_8d66df0c.jpg","link":"","description":"","desc_alignment":"center","desc_color_scheme":"background-2"}}},"block_order":["image_slide_Kx6Ynn","image_slide_6DteF9","image_slide_ycdmRx"],"settings":{"display_id":false,"visibility":"always-display","title":"<em><strong>Nos meilleurs fingers<\/strong><\/em>","heading_size":"h1","color_scheme":"background-1","type":"slide","drag":"enabled","autoplay":true,"autoplay_speed":2,"center_mode":false,"arrows_color_scheme":"inverse","transparent_arrows":false,"dots_color_scheme":"inverse","desktop_full_page":false,"desktop_border_radius":0,"slides_desktop":3,"per_move_desktop":1,"desktop_spacing":28,"desktop_side_padding":0,"desktop_padding_calc":true,"desktop_adaptive_height":false,"desktop_dots_position":"under","desktop_arrows_position":"sides","mobile_full_page":false,"mobile_border_radius":0,"slides_mobile":2,"per_move_mobile":1,"mobile_spacing":12,"mobile_side_padding":0,"mobile_padding_calc":true,"mobile_adaptive_height":false,"mobile_dots_position":"under","mobile_arrows_position":"sides","padding_top":36,"padding_bottom":36}},"horizontal_ticker_97KYct":{"type":"horizontal-ticker","blocks":{"text_tUqz8F":{"type":"text","settings":{"title":"fibre de cuivre"}},"text_VpGfby":{"type":"text","settings":{"title":"fibre d'argent"}},"text_HCntEU":{"type":"text","settings":{"title":"fibre premium"}}},"block_order":["text_tUqz8F","text_VpGfby","text_HCntEU"],"settings":{"visibility":"always-display","speed":3,"mobile_spacing":60,"desktop_spacing":100,"color_scheme":"accent-1","mobile_text_size":16,"desktop_text_size":18,"italic_text":true,"uppercase_text":true,"bold_text":true,"mobile_image_height":26,"desktop_image_height":40,"hidden_products":"","enable_specific_display":false,"displayed_products":"","mobile_padding_top":12,"mobile_padding_bottom":12,"desktop_padding_top":16,"desktop_padding_bottom":16}},"image_with_text_da7G9F":{"type":"image-with-text","blocks":{"heading_jJmx4w":{"type":"heading","settings":{"heading":"Confort et respirabilité","heading_size":"h1"}},"text_4EzeLf":{"type":"text","settings":{"text":"<p>Un tissu ultra-fin et respirant qui évite la transpiration pour un jeu fluide<\/p>","text_style":"body"}},"button_WpnffK":{"type":"button","settings":{"button_label":"ACHETER","button_link":"shopify:\/\/collections\/all"}}},"block_order":["heading_jJmx4w","text_4EzeLf","button_WpnffK"],"settings":{"display_id":false,"visibility":"always-display","image":"shopify:\/\/shop_images\/rn-image_picker_lib_temp_74f1702b-ad10-4c3e-8ec8-c588c90013dc.jpg","height":"adapt","content_layout":"no-overlap","color_scheme":"background-1","section_color_scheme":"background-1","desktop_image_width":"medium","layout":"image_first","desktop_content_position":"top","desktop_content_alignment":"left","mobile_full_media_width":false,"mobile_direction":"normal","mobile_content_alignment":"left","padding_top":36,"padding_bottom":36}},"image_with_text_qbCDbf":{"type":"image-with-text","blocks":{"heading_V64ePb":{"type":"heading","settings":{"heading":"Sensibilité tactile améliorée","heading_size":"h1"}},"text_DeEnwN":{"type":"text","settings":{"text":"<p>Une surface conductrice qui optimise la précision et la réactivité.<\/p>","text_style":"body"}},"button_997qNF":{"type":"button","settings":{"button_label":"ACHETER","button_link":"shopify:\/\/collections\/all"}}},"block_order":["heading_V64ePb","text_DeEnwN","button_997qNF"],"settings":{"display_id":false,"visibility":"always-display","image":"shopify:\/\/shop_images\/rn-image_picker_lib_temp_1e2c4a1b-b996-4189-9cf8-a37ae78a9ecd.jpg","height":"adapt","content_layout":"no-overlap","color_scheme":"accent-1","section_color_scheme":"background-1","desktop_image_width":"medium","layout":"text_first","desktop_content_position":"top","desktop_content_alignment":"left","mobile_full_media_width":false,"mobile_direction":"normal","mobile_content_alignment":"left","padding_top":36,"padding_bottom":36}},"collapsible_content_HeJRWV":{"type":"collapsible-content","blocks":{"collapsible_row_gcQ7tm":{"type":"collapsible_row","settings":{"heading":"Sont-ils compatibles avec tous les écrans tactiles ?","icon":"check_box","filled_icon":false,"row_content":"<p>Oui, ils fonctionnent sur tous les smartphones et tablettes.<\/p>","page":""}},"collapsible_row_bDVKCY":{"type":"collapsible_row","settings":{"heading":"Peuvent-ils être lavés ?","icon":"check_box","filled_icon":false,"row_content":"<p>Oui, lavage à la main avec de l’eau tiède.<\/p>","page":""}},"collapsible_row_fyiUyy":{"type":"collapsible_row","settings":{"heading":"Sont-ils adaptés à toutes les tailles de doigts ?","icon":"check_box","filled_icon":false,"row_content":"<p>Oui, leur matière extensible s’adapte à tous.<\/p>","page":""}},"collapsible_row_WKzY4M":{"type":"collapsible_row","settings":{"heading":"Améliorent-ils vraiment la précision en jeu ?","icon":"check_box","filled_icon":false,"row_content":"<p>Oui, ils réduisent la friction et optimisent les commandes tactiles.ers.<\/p>","page":""}}},"block_order":["collapsible_row_gcQ7tm","collapsible_row_bDVKCY","collapsible_row_fyiUyy","collapsible_row_WKzY4M"],"settings":{"display_id":false,"visibility":"always-display","caption":"","heading":"FAQs","heading_size":"h1","heading_alignment":"center","layout":"none","color_scheme":"background-1","container_color_scheme":"background-2","open_first_collapsible_row":false,"image_ratio":"adapt","desktop_layout":"image_second","row_heading_size":"medium","collapse_icon":"carret","display_top_border":true,"padding_top":36,"padding_bottom":36}},"ee8d9ca6-4a41-401f-83a3-37e138a112b9":{"type":"contact-form","disabled":true,"settings":{"display_id":false,"visibility":"always-display","heading":"Contact form","heading_size":"h1","button_full_width":true,"color_scheme":"background-1","padding_top":36,"padding_bottom":36}},"testimonials_EKJAeq":{"type":"testimonials","blocks":{"column_tAh8Aa":{"type":"column","settings":{"title":"trés bonne qualité","text":"<p>Super utile pour PUBG Mobile, plus de glissements involontaires<\/p>","author":"<em><strong>modou gamer<\/strong><\/em>"}},"column_g9RJPA":{"type":"column","settings":{"title":"Respirants et agréables","text":"<p>j’aurais juste aimé qu’ils soient plus long<\/p>","author":"<em><strong>sougou gaming<\/strong><\/em>"}},"column_Knb9bi":{"type":"column","settings":{"title":"j'aime bien","text":"<p>Excellente précision pour Call of Duty Mobile, un must-have !<\/p>","author":"<em><strong>whisper<\/strong><\/em>"}}},"block_order":["column_tAh8Aa","column_g9RJPA","column_Knb9bi"],"settings":{"display_id":false,"visibility":"always-display","title":"Reviews","heading_size":"h1","text":"","color_scheme":"background-1","style":"cards","image_width":"full","image_ratio":"square","column_alignment":"center","show_stars":true,"stars_color":"#ffd700","show_quotes":true,"quotes_color_scheme":"accent-2","cards_color_scheme":"bg-overlay","type":"slide","autoplay":false,"autoplay_speed":5,"arrows_color_scheme":"inverse","transparent_arrows":true,"dots_color_scheme":"inverse","desktop_full_page":false,"columns_desktop":3,"slider_desktop":false,"per_move_desktop":1,"desktop_spacing":40,"desktop_side_padding":0,"desktop_padding_calc":true,"desktop_adaptive_height":false,"desktop_dots_position":"under","desktop_arrows_position":"sides","slider_mobile":true,"enable_mobile_preview":false,"mobile_adaptive_height":false,"mobile_dots_position":"under","mobile_arrows_position":"under","padding_top":36,"padding_bottom":36}},"section_divider_aqBtdz":{"type":"section-divider","settings":{"shape":"waves_3","flip_horizontal":false,"flip_vertical":false,"shape_color":"accent-1","background_color":"background-1","padding_top":0,"padding_bottom":0}}},"order":["cfca4268-6358-426c-98ab-d292aeef11e5","section_divider_gMmFqj","section_divider_7pHfKf","image_slider_pVattx","horizontal_ticker_97KYct","image_with_text_da7G9F","image_with_text_qbCDbf","collapsible_content_HeJRWV","ee8d9ca6-4a41-401f-83a3-37e138a112b9","testimonials_EKJAeq","section_divider_aqBtdz"]}
+{
+  "sections": {
+    "ng-hero": {
+      "type": "ng-hero",
+      "settings": {
+        "title": "Performance <em>Next Level</em>",
+        "eyebrow": "Nouvelle collection",
+        "text": "Des produits conçus pour dépasser vos limites.",
+        "btn1_label": "Découvrir",
+        "btn1_url": "/collections/all",
+        "btn1_style": "primary",
+        "btn2_label": "Notre histoire",
+        "btn2_url": "/pages/about",
+        "height_desktop": 760,
+        "height_mobile": 560,
+        "overlay": 45,
+        "content_align": "left"
+      }
+    },
+    "ng-collection-1": {
+      "type": "ng-collection-grid",
+      "settings": {
+        "eyebrow": "Bestsellers",
+        "title": "Nos produits phares",
+        "link_label": "Voir tout",
+        "columns": 4,
+        "products_count": 8,
+        "padding_top": 96,
+        "padding_bottom": 80,
+        "padding_top_mobile": 56,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "ng-split-1": {
+      "type": "ng-image-text",
+      "settings": {
+        "layout": "image_left",
+        "eyebrow": "Notre ADN",
+        "title": "Conçu pour la performance",
+        "text": "<p>Chaque produit est conçu avec une attention méticuleuse aux détails pour vous offrir le meilleur de la performance.</p>",
+        "btn_label": "En savoir plus",
+        "btn_url": "/pages/about",
+        "content_dark": false,
+        "bg_color": "#F5F4F0"
+      }
+    },
+    "ng-testimonials": {
+      "type": "ng-testimonials",
+      "settings": {
+        "eyebrow": "Avis clients",
+        "title": "Ils nous font confiance",
+        "bg_color": "#FFFFFF"
+      },
+      "blocks": {
+        "t1": { "type": "testimonial", "settings": { "rating": 5, "text": "Qualité exceptionnelle, je suis conquis dès la première utilisation.", "name": "Thomas R.", "role": "Client vérifié" } },
+        "t2": { "type": "testimonial", "settings": { "rating": 5, "text": "Livraison ultra-rapide et produit parfait. Je recommande à 100%.", "name": "Camille L.", "role": "Cliente vérifiée" } },
+        "t3": { "type": "testimonial", "settings": { "rating": 5, "text": "Le rapport qualité-prix est imbattable. Devenus mes préférés.", "name": "Alex M.", "role": "Client vérifié" } }
+      },
+      "block_order": ["t1", "t2", "t3"]
+    },
+    "ng-collection-2": {
+      "type": "ng-collection-grid",
+      "settings": {
+        "eyebrow": "Découvrir",
+        "title": "Nouvelles arrivées",
+        "link_label": "Voir la collection →",
+        "columns": 3,
+        "products_count": 6,
+        "bg_color": "#F5F4F0",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "padding_top_mobile": 56,
+        "padding_bottom_mobile": 56
+      }
+    },
+    "ng-newsletter": {
+      "type": "ng-newsletter",
+      "settings": {
+        "eyebrow": "Communauté",
+        "title": "Rejoignez la communauté",
+        "text": "Soyez les premiers informés de nos offres et nouveautés exclusives.",
+        "btn_label": "S'inscrire",
+        "bg_color": "#003049"
+      }
+    }
+  },
+  "order": ["ng-hero", "ng-collection-1", "ng-split-1", "ng-testimonials", "ng-collection-2", "ng-newsletter"]
+}
