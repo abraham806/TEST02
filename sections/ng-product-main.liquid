@@ -7,7 +7,27 @@
   endif
 -%}
 
-<div class="ng-product" data-ng-product>
+{%- style -%}
+  .ng-product-{{ section.id }} {
+    padding-top:    {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    background:     {{ section.settings.bg_color }};
+  }
+  @media (min-width: 990px) {
+    .ng-product-{{ section.id }} {
+      padding-top:    {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+    .ng-product-{{ section.id }} .ng-product__layout {
+      gap: {{ section.settings.gallery_info_gap }}rem;
+    }
+    .ng-product-{{ section.id }} .ng-product-gallery__main {
+      aspect-ratio: {{ section.settings.gallery_ratio }};
+    }
+  }
+{%- endstyle -%}
+
+<div class="ng-product ng-product-{{ section.id }}" data-ng-product>
   <div class="ng-container">
     <div class="ng-product__layout">
 
@@ -199,6 +219,57 @@
   "name": "Page produit",
   "tag": "section",
   "settings": [
+    { "type": "header", "content": "Espacements — Bureau" },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 32, "max": 160, "step": 8, "default": 80,
+      "unit": "px", "label": "Padding supérieur (bureau)"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 32, "max": 160, "step": 8, "default": 80,
+      "unit": "px", "label": "Padding inférieur (bureau)"
+    },
+    {
+      "type": "range",
+      "id": "gallery_info_gap",
+      "min": 3, "max": 16, "step": 1, "default": 10,
+      "unit": "rem", "label": "Écart galerie ↔ infos (bureau)"
+    },
+    {
+      "type": "select",
+      "id": "gallery_ratio",
+      "label": "Ratio image principale (bureau)",
+      "options": [
+        { "value": "1 / 1",  "label": "Carré (1:1)" },
+        { "value": "4 / 5",  "label": "Portrait (4:5)" },
+        { "value": "3 / 4",  "label": "Portrait (3:4)" },
+        { "value": "16 / 9", "label": "Paysage (16:9)" }
+      ],
+      "default": "1 / 1"
+    },
+    { "type": "header", "content": "Espacements — Mobile" },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 24, "max": 100, "step": 8, "default": 40,
+      "unit": "px", "label": "Padding supérieur (mobile)"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 24, "max": 100, "step": 8, "default": 48,
+      "unit": "px", "label": "Padding inférieur (mobile)"
+    },
+    { "type": "header", "content": "Apparence" },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Couleur de fond de la page produit",
+      "default": "#FFFFFF"
+    },
     { "type": "header", "content": "Formulaire" },
     { "type": "checkbox", "id": "show_quantity", "label": "Afficher le sélecteur de quantité", "default": true },
     { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Afficher les boutons paiement direct (Apple Pay, etc.)", "default": true },

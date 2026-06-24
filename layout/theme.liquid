@@ -37,9 +37,11 @@
     {{ settings.type_heading_font | font_face: font_display: 'swap' }}
 
     :root {
-      --ng-font-body:    {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
-      --ng-font-head:    {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+      /* ── Polices ── */
+      --ng-font-body: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+      --ng-font-head: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
 
+      /* ── Couleurs issues des réglages du thème ── */
       --ng-primary:      {{ settings.color_primary }};
       --ng-accent:       {{ settings.color_accent }};
       --ng-accent-2:     {{ settings.color_accent_2 }};
@@ -49,12 +51,24 @@
       --ng-text-muted:   {{ settings.color_text_muted }};
       --ng-border:       {{ settings.color_border }};
 
+      /* ── Canaux RGB (pour rgba() sans valeur hex codée en dur) ── */
+      --ng-primary-rgb: {{ settings.color_primary.red }}, {{ settings.color_primary.green }}, {{ settings.color_primary.blue }};
+      --ng-accent-rgb:  {{ settings.color_accent.red }}, {{ settings.color_accent.green }}, {{ settings.color_accent.blue }};
+      --ng-accent-2-rgb:{{ settings.color_accent_2.red }}, {{ settings.color_accent_2.green }}, {{ settings.color_accent_2.blue }};
+      --ng-bg-rgb:      {{ settings.color_bg.red }}, {{ settings.color_bg.green }}, {{ settings.color_bg.blue }};
+      --ng-bg-2-rgb:    {{ settings.color_bg_2.red }}, {{ settings.color_bg_2.green }}, {{ settings.color_bg_2.blue }};
+      --ng-text-rgb:    {{ settings.color_text.red }}, {{ settings.color_text.green }}, {{ settings.color_text.blue }};
+      --ng-border-rgb:  {{ settings.color_border.red }}, {{ settings.color_border.green }}, {{ settings.color_border.blue }};
+
+      /* ── Rayon des composants ── */
       --ng-r-btn:   {{ settings.button_radius }}px;
       --ng-r-card:  {{ settings.card_radius }}px;
       --ng-r-input: {{ settings.input_radius }}px;
 
-      --ng-page-width:   {{ settings.page_width }}rem;
-      --ng-section-gap:  {{ settings.section_spacing }}rem;
+      /* ── Mise en page ── */
+      --ng-page-width:  {{ settings.page_width }}rem;
+      --ng-section-gap: {{ settings.section_spacing }}rem;
+      --ng-section-gap-sm: calc({{ settings.section_spacing }}rem * 0.55);
     }
   {% endstyle %}
 
@@ -133,7 +147,7 @@
       </form>
       <div id="ng-search-results" class="ng-search-results"></div>
     </div>
-    <button class="ng-search-close ng-icon-btn" aria-label="Fermer la recherche" style="position:fixed;top:2rem;right:2rem;color:#fff;width:4.8rem;height:4.8rem;">
+    <button class="ng-search-close ng-icon-btn" aria-label="Fermer la recherche" style="position:fixed;top:2rem;right:2rem;color:var(--ng-bg);width:4.8rem;height:4.8rem;">
       {%- render 'ng-icon', icon: 'close' -%}
     </button>
   </div>

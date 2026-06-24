@@ -1,98 +1,76 @@
 /* ================================================================
-   NEW GEN — Premium Minimalist Shopify Theme
-   v1.0 | Mobile-First | E-Commerce
+   NEW GEN — Feuille de style principale
+   RÈGLE ABSOLUE : Aucune valeur hexadécimale dans ce fichier.
+   Toutes les couleurs → var(--ng-*) injectées par theme.liquid
+   depuis les réglages du Thème Editor.
    ================================================================ */
 
-/* ── 01. DESIGN TOKENS ─────────────────────────────────────────── */
+/* ── 01. TOKENS NON-COULEUR (espacement, rayon, transitions) ── */
 :root {
-  /* Colors — overridden by settings via theme.liquid */
-  --ng-primary:       #003049;
-  --ng-accent:        #D62828;
-  --ng-accent-2:      #F77F00;
-  --ng-bg:            #FFFFFF;
-  --ng-bg-2:          #F5F4F0;
-  --ng-text:          #111111;
-  --ng-text-muted:    #6B6B6B;
-  --ng-border:        #E8E8E8;
-  --ng-white:         #FFFFFF;
-  --ng-black:         #0A0A0A;
+  /* Espacements */
+  --ng-s1:  0.4rem;
+  --ng-s2:  0.8rem;
+  --ng-s3:  1.2rem;
+  --ng-s4:  1.6rem;
+  --ng-s5:  2rem;
+  --ng-s6:  2.4rem;
+  --ng-s8:  3.2rem;
+  --ng-s10: 4rem;
+  --ng-s12: 4.8rem;
+  --ng-s16: 6.4rem;
+  --ng-s20: 8rem;
+  --ng-s24: 9.6rem;
 
-  /* Typography */
-  --ng-font-body:    system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --ng-font-head:    system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --ng-size-xs:      1.1rem;
-  --ng-size-sm:      1.3rem;
-  --ng-size-base:    1.5rem;
-  --ng-size-lg:      1.8rem;
-  --ng-size-xl:      2.2rem;
-  --ng-size-2xl:     2.8rem;
-  --ng-size-3xl:     3.6rem;
-  --ng-size-4xl:     4.8rem;
-  --ng-size-5xl:     6.4rem;
-
-  /* Spacing */
-  --ng-s1:   0.4rem;
-  --ng-s2:   0.8rem;
-  --ng-s3:   1.2rem;
-  --ng-s4:   1.6rem;
-  --ng-s5:   2rem;
-  --ng-s6:   2.4rem;
-  --ng-s8:   3.2rem;
-  --ng-s10:  4rem;
-  --ng-s12:  4.8rem;
-  --ng-s16:  6.4rem;
-  --ng-s20:  8rem;
-  --ng-s24:  9.6rem;
-
-  /* Border radius */
-  --ng-r0:    0px;
-  --ng-r-sm:  4px;
-  --ng-r-md:  8px;
-  --ng-r-lg:  16px;
-  --ng-r-xl:  24px;
+  /* Rayon de base (overridés par theme.liquid) */
+  --ng-r-sm:   4px;
+  --ng-r-md:   8px;
+  --ng-r-lg:   16px;
+  --ng-r-xl:   24px;
   --ng-r-full: 9999px;
-  --ng-r-btn:  4px;
-  --ng-r-card: 8px;
-  --ng-r-input: 4px;
 
-  /* Shadows */
-  --ng-shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
-  --ng-shadow-sm: 0 2px 8px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
-  --ng-shadow-md: 0 8px 24px rgba(0,0,0,0.08), 0 3px 8px rgba(0,0,0,0.04);
-  --ng-shadow-lg: 0 20px 48px rgba(0,0,0,0.1), 0 8px 20px rgba(0,0,0,0.05);
-  --ng-shadow-xl: 0 40px 80px rgba(0,0,0,0.12);
-  --ng-shadow-card-hover: 0 24px 56px rgba(0,0,0,0.1), 0 8px 20px rgba(0,0,0,0.05);
+  /* Ombres — toutes via canaux RGB du thème */
+  --ng-shadow-xs:   0 1px 2px rgba(var(--ng-text-rgb), 0.05);
+  --ng-shadow-sm:   0 2px 8px rgba(var(--ng-text-rgb), 0.06),
+                    0 1px 3px rgba(var(--ng-text-rgb), 0.04);
+  --ng-shadow-md:   0 8px 24px rgba(var(--ng-text-rgb), 0.08),
+                    0 3px 8px  rgba(var(--ng-text-rgb), 0.04);
+  --ng-shadow-lg:   0 20px 48px rgba(var(--ng-text-rgb), 0.10),
+                    0 8px  20px rgba(var(--ng-text-rgb), 0.05);
+  --ng-shadow-xl:   0 40px 80px rgba(var(--ng-text-rgb), 0.12);
+  --ng-shadow-card-hover:
+                    0 24px 56px rgba(var(--ng-text-rgb), 0.10),
+                    0 8px  20px rgba(var(--ng-text-rgb), 0.05);
 
   /* Transitions */
-  --ng-ease:      cubic-bezier(0.4, 0, 0.2, 1);
-  --ng-bounce:    cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ng-ease:   cubic-bezier(0.4, 0, 0.2, 1);
+  --ng-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ng-t1: 0.14s var(--ng-ease);
   --ng-t2: 0.24s var(--ng-ease);
   --ng-t3: 0.38s var(--ng-ease);
   --ng-t4: 0.55s var(--ng-ease);
 
-  /* Layout */
-  --ng-page-width: 144rem;
-  --ng-gutter:     clamp(1.6rem, 4vw, 4.8rem);
-  --ng-section-gap: clamp(6rem, 10vw, 12rem);
-  --ng-section-gap-sm: clamp(3.2rem, 5vw, 6.4rem);
-
   /* Z-index */
-  --ng-z-base:    1;
-  --ng-z-sticky:  10;
-  --ng-z-header:  100;
-  --ng-z-drawer:  200;
-  --ng-z-modal:   300;
-  --ng-z-toast:   400;
-  --ng-z-cursor:  9999;
+  --ng-z-header: 100;
+  --ng-z-drawer: 200;
+  --ng-z-modal:  300;
+  --ng-z-toast:  400;
+
+  /* Gouttière */
+  --ng-gutter: clamp(1.6rem, 4vw, 4.8rem);
 }
 
-/* ── 02. RESET ─────────────────────────────────────────────────── */
+/* ── 02. RESET ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 62.5%; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  font-family: var(--ng-font-body);
-  font-size: var(--ng-size-base);
+  font-family: var(--ng-font-body, system-ui, sans-serif);
+  font-size: 1.5rem;
   line-height: 1.75;
   color: var(--ng-text);
   background: var(--ng-bg);
@@ -100,121 +78,119 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 img, video, svg { display: block; max-width: 100%; }
 img { height: auto; }
 a { color: inherit; text-decoration: none; }
 ul, ol { list-style: none; }
 button, input, select, textarea { font: inherit; }
 button { cursor: pointer; background: none; border: none; }
-::selection { background: rgba(214,40,40,0.15); }
-:focus-visible { outline: 2px solid var(--ng-accent); outline-offset: 3px; border-radius: 2px; }
 
-/* ── 03. TYPOGRAPHY ───────────────────────────────────────────── */
-h1, h2, h3, h4, h5, h6,
-.ng-h1, .ng-h2, .ng-h3, .ng-h4 {
-  font-family: var(--ng-font-head);
+::selection { background: rgba(var(--ng-accent-rgb), 0.18); }
+
+:focus-visible {
+  outline: 2px solid var(--ng-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── 03. TYPOGRAPHIE ────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--ng-font-head, system-ui, sans-serif);
   font-weight: 800;
   line-height: 1.08;
   letter-spacing: -0.025em;
   color: var(--ng-primary);
 }
-h1, .ng-h1 { font-size: clamp(3.6rem, 7vw, 7.2rem); }
-h2, .ng-h2 { font-size: clamp(2.8rem, 5vw, 5.2rem); }
-h3, .ng-h3 { font-size: clamp(2rem, 3.5vw, 3.2rem); }
-h4, .ng-h4 { font-size: clamp(1.6rem, 2.5vw, 2rem); }
+h1 { font-size: clamp(3.6rem, 7vw, 7.2rem); }
+h2 { font-size: clamp(2.8rem, 5vw, 5.2rem); }
+h3 { font-size: clamp(2rem, 3.5vw, 3.2rem); }
+h4 { font-size: clamp(1.6rem, 2.5vw, 2rem); }
+
 p { margin-bottom: 1.2em; }
 p:last-child { margin-bottom: 0; }
 strong { font-weight: 700; }
+
 .ng-label {
-  font-size: var(--ng-size-xs);
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
-.ng-caption {
-  font-size: var(--ng-size-sm);
-  color: var(--ng-text-muted);
-}
 
-/* ── 04. LAYOUT ───────────────────────────────────────────────── */
+/* ── 04. MISE EN PAGE ───────────────────────────────────────── */
 .ng-container {
   width: 100%;
-  max-width: var(--ng-page-width);
+  max-width: var(--ng-page-width, 144rem);
   margin-inline: auto;
   padding-inline: var(--ng-gutter);
 }
-.ng-section { padding-block: var(--ng-section-gap); }
-.ng-section--sm { padding-block: var(--ng-section-gap-sm); }
 
-/* Grid système */
-.ng-grid {
-  display: grid;
-  gap: var(--ng-s6);
-  grid-template-columns: repeat(var(--cols, 1), 1fr);
-}
-.ng-grid--2 { --cols: 2; }
-.ng-grid--3 { --cols: 3; }
-.ng-grid--4 { --cols: 4; }
+.ng-section    { padding-block: var(--ng-section-gap, 9rem); }
+.ng-section--sm{ padding-block: var(--ng-section-gap-sm, 5rem); }
 
-/* Flex utilities */
+.ng-grid { display: grid; gap: var(--ng-s6); }
 .ng-flex { display: flex; }
-.ng-flex--center { align-items: center; justify-content: center; }
+.ng-flex--center  { align-items: center; justify-content: center; }
 .ng-flex--between { align-items: center; justify-content: space-between; }
-.ng-flex--col { flex-direction: column; }
-.ng-gap-2 { gap: var(--ng-s2); }
-.ng-gap-4 { gap: var(--ng-s4); }
-.ng-gap-6 { gap: var(--ng-s6); }
-.ng-gap-8 { gap: var(--ng-s8); }
 
-/* ── 05. ANNOUNCEMENT BAR ─────────────────────────────────────── */
+/* ── 05. BARRE D'ANNONCE ────────────────────────────────────── */
 .ng-announce {
-  background: var(--ng-primary);
-  color: var(--ng-white);
-  font-size: var(--ng-size-xs);
+  /* Couleur de fond injectée inline via ng-header.liquid schema */
+  font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-align: center;
   padding-block: var(--ng-s2);
   overflow: hidden;
 }
-.ng-announce a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.ng-announce a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 
-/* ── 06. HEADER ───────────────────────────────────────────────── */
+/* ── 06. HEADER ─────────────────────────────────────────────── */
 .ng-header-wrap {
   position: sticky;
   top: 0;
   z-index: var(--ng-z-header);
-  background: rgba(255,255,255,0.92);
+  background: rgba(var(--ng-bg-rgb), 0.92);
   backdrop-filter: blur(16px) saturate(160%);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
   border-bottom: 1px solid var(--ng-border);
-  transition: transform var(--ng-t3), box-shadow var(--ng-t2), background var(--ng-t2);
+  transition:
+    transform var(--ng-t3),
+    box-shadow var(--ng-t2),
+    background var(--ng-t2);
   will-change: transform;
 }
-.ng-header-wrap.is-hidden { transform: translateY(-100%); }
-.ng-header-wrap.is-scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.07); border-color: transparent; }
+.ng-header-wrap.is-hidden  { transform: translateY(-100%); }
+.ng-header-wrap.is-scrolled {
+  box-shadow: 0 4px 24px rgba(var(--ng-text-rgb), 0.07);
+  border-color: transparent;
+}
 
 .ng-header {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  height: 6.4rem;
   gap: var(--ng-s4);
 }
 .ng-header__logo { justify-self: start; display: flex; align-items: center; }
 .ng-header__logo img { height: 3.2rem; width: auto; object-fit: contain; }
 .ng-header__logo-text {
-  font-family: var(--ng-font-head);
+  font-family: var(--ng-font-head, system-ui, sans-serif);
   font-size: 2rem;
   font-weight: 900;
   letter-spacing: -0.04em;
   color: var(--ng-primary);
   white-space: nowrap;
 }
-.ng-header__nav { display: none; justify-self: center; }
+.ng-header__nav     { display: none; justify-self: center; }
 .ng-header__actions { justify-self: end; display: flex; align-items: center; gap: var(--ng-s2); }
 
-/* Desktop nav */
+/* Nav desktop */
 .ng-nav__list { display: flex; align-items: center; gap: var(--ng-s6); }
 .ng-nav__link {
   font-size: 1.35rem;
@@ -246,7 +222,7 @@ strong { font-weight: 700; }
   left: 50%;
   transform: translateX(-50%) translateY(8px);
   min-width: 20rem;
-  background: var(--ng-white);
+  background: var(--ng-bg);
   border-radius: var(--ng-r-md);
   box-shadow: var(--ng-shadow-lg);
   padding: var(--ng-s3);
@@ -264,7 +240,7 @@ strong { font-weight: 700; }
 .ng-nav__dropdown-link {
   display: block;
   padding: var(--ng-s2) var(--ng-s3);
-  font-size: var(--ng-size-sm);
+  font-size: 1.3rem;
   font-weight: 500;
   color: var(--ng-primary);
   border-radius: var(--ng-r-sm);
@@ -272,7 +248,7 @@ strong { font-weight: 700; }
 }
 .ng-nav__dropdown-link:hover { background: var(--ng-bg-2); color: var(--ng-accent); }
 
-/* Header icon buttons */
+/* Icônes header */
 .ng-icon-btn {
   display: flex;
   align-items: center;
@@ -285,15 +261,15 @@ strong { font-weight: 700; }
 }
 .ng-icon-btn:hover { background: var(--ng-bg-2); color: var(--ng-accent); }
 .ng-icon-btn:active { transform: scale(0.94); }
-.ng-icon-btn svg { width: 2rem; height: 2rem; stroke-width: 1.8; }
+.ng-icon-btn svg { width: 2rem; height: 2rem; }
 
-/* Cart count badge */
+/* Badge panier */
 .ng-cart-badge {
   position: absolute;
   top: 4px; right: 4px;
   min-width: 1.6rem; height: 1.6rem;
   background: var(--ng-accent);
-  color: var(--ng-white);
+  color: var(--ng-bg);
   font-size: 0.9rem;
   font-weight: 800;
   border-radius: var(--ng-r-full);
@@ -304,7 +280,9 @@ strong { font-weight: 700; }
 }
 @keyframes ng-pop { from { transform: scale(0.4); } to { transform: scale(1); } }
 
-/* Mobile hamburger */
+.ng-hidden { display: none !important; }
+
+/* Burger */
 .ng-burger {
   display: flex;
   flex-direction: column;
@@ -328,7 +306,7 @@ strong { font-weight: 700; }
 .ng-burger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .ng-burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* ── 07. MOBILE NAV ───────────────────────────────────────────── */
+/* ── 07. MENU MOBILE ────────────────────────────────────────── */
 .ng-mobile-nav {
   position: fixed;
   inset: 0;
@@ -338,7 +316,7 @@ strong { font-weight: 700; }
 .ng-mobile-nav__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(var(--ng-text-rgb), 0.5);
   opacity: 0;
   transition: opacity var(--ng-t3);
   backdrop-filter: blur(4px);
@@ -348,7 +326,7 @@ strong { font-weight: 700; }
   top: 0; left: 0;
   width: min(36rem, 100%);
   height: 100%;
-  background: var(--ng-white);
+  background: var(--ng-bg);
   transform: translateX(-100%);
   transition: transform var(--ng-t3);
   display: flex;
@@ -372,7 +350,7 @@ strong { font-weight: 700; }
   align-items: center;
   justify-content: space-between;
   padding: var(--ng-s4) var(--ng-s3);
-  font-size: var(--ng-size-lg);
+  font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--ng-primary);
@@ -384,7 +362,7 @@ strong { font-weight: 700; }
 .ng-mobile-nav__sub-link {
   display: block;
   padding: var(--ng-s2) var(--ng-s6);
-  font-size: var(--ng-size-base);
+  font-size: 1.5rem;
   color: var(--ng-text-muted);
   transition: color var(--ng-t1);
 }
@@ -394,7 +372,7 @@ strong { font-weight: 700; }
   border-top: 1px solid var(--ng-border);
 }
 
-/* ── 08. HERO ─────────────────────────────────────────────────── */
+/* ── 08. HERO ───────────────────────────────────────────────── */
 .ng-hero {
   position: relative;
   min-height: clamp(52rem, 80vh, 90vh);
@@ -416,29 +394,25 @@ strong { font-weight: 700; }
   transition: transform 8s linear;
 }
 .ng-hero:hover .ng-hero__media img { transform: scale(1.04); }
+
 .ng-hero__overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    to right,
-    rgba(0,0,0,0.65) 0%,
-    rgba(0,0,0,0.3) 60%,
-    rgba(0,0,0,0.1) 100%
-  );
+  /* Couleur et opacité injectées inline via section.settings (schema) */
 }
+
 .ng-hero__content {
   position: relative;
   z-index: 2;
-  color: var(--ng-white);
+  color: var(--ng-bg);
   padding-block: var(--ng-s24);
-  max-width: 72rem;
 }
 .ng-hero__eyebrow {
   display: inline-flex;
   align-items: center;
   gap: var(--ng-s2);
-  font-size: var(--ng-size-xs);
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -453,29 +427,25 @@ strong { font-weight: 700; }
   border-radius: 1px;
 }
 .ng-hero__title {
-  font-family: var(--ng-font-head);
+  font-family: var(--ng-font-head, system-ui, sans-serif);
   font-size: clamp(4rem, 8vw, 8.8rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.04em;
-  color: var(--ng-white);
+  color: var(--ng-bg);
   margin-bottom: var(--ng-s6);
   text-wrap: balance;
 }
-.ng-hero__title em {
-  font-style: normal;
-  color: var(--ng-accent);
-}
+.ng-hero__title em { font-style: normal; color: var(--ng-accent); }
 .ng-hero__text {
   font-size: clamp(1.5rem, 2.5vw, 1.8rem);
   line-height: 1.7;
-  color: rgba(255,255,255,0.82);
+  color: rgba(var(--ng-bg-rgb), 0.82);
   margin-bottom: var(--ng-s8);
   max-width: 52rem;
 }
 .ng-hero__actions { display: flex; flex-wrap: wrap; gap: var(--ng-s3); }
 
-/* Indicateur scroll */
 .ng-hero__scroll {
   position: absolute;
   bottom: var(--ng-s8);
@@ -486,34 +456,34 @@ strong { font-weight: 700; }
   flex-direction: column;
   align-items: center;
   gap: var(--ng-s2);
-  color: rgba(255,255,255,0.5);
-  font-size: var(--ng-size-xs);
+  color: rgba(var(--ng-bg-rgb), 0.5);
+  font-size: 1.1rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 .ng-hero__scroll-line {
   width: 1px; height: 4rem;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+  background: linear-gradient(to bottom, rgba(var(--ng-bg-rgb), 0.5), rgba(var(--ng-bg-rgb), 0));
   animation: ng-scroll-line 2s ease-in-out infinite;
 }
 @keyframes ng-scroll-line {
   0%, 100% { transform: scaleY(1); opacity: 1; }
-  50% { transform: scaleY(0.6); opacity: 0.3; }
+  50%       { transform: scaleY(0.6); opacity: 0.3; }
 }
 
-/* ── 09. BOUTONS ──────────────────────────────────────────────── */
+/* ── 09. BOUTONS ────────────────────────────────────────────── */
 .ng-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--ng-s2);
-  font-size: var(--ng-size-sm);
+  font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 1.4rem 2.8rem;
   min-height: 4.8rem;
-  border-radius: var(--ng-r-btn);
+  border-radius: var(--ng-r-btn, 4px);
   border: 2px solid transparent;
   position: relative;
   overflow: hidden;
@@ -534,17 +504,16 @@ strong { font-weight: 700; }
 /* Primary */
 .ng-btn--primary {
   background: var(--ng-accent);
-  color: var(--ng-white);
+  color: var(--ng-bg);
   border-color: var(--ng-accent);
 }
 .ng-btn--primary:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--ng-accent) 85%, black);
-  border-color: color-mix(in srgb, var(--ng-accent) 85%, black);
+  filter: brightness(0.88);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(214,40,40,0.3);
+  box-shadow: 0 8px 24px rgba(var(--ng-accent-rgb), 0.32);
 }
 
-/* Secondary / outline */
+/* Secondary / contour */
 .ng-btn--secondary {
   background: transparent;
   color: var(--ng-primary);
@@ -552,49 +521,46 @@ strong { font-weight: 700; }
 }
 .ng-btn--secondary:hover:not(:disabled) {
   background: var(--ng-primary);
-  color: var(--ng-white);
+  color: var(--ng-bg);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,48,73,0.2);
+  box-shadow: 0 8px 24px rgba(var(--ng-primary-rgb), 0.2);
 }
 
-/* Ghost */
+/* Ghost (sur fond sombre) */
 .ng-btn--ghost {
   background: transparent;
-  color: var(--ng-white);
-  border-color: rgba(255,255,255,0.4);
+  color: var(--ng-bg);
+  border-color: rgba(var(--ng-bg-rgb), 0.4);
 }
 .ng-btn--ghost:hover:not(:disabled) {
-  background: rgba(255,255,255,0.15);
-  border-color: var(--ng-white);
+  background: rgba(var(--ng-bg-rgb), 0.15);
+  border-color: var(--ng-bg);
 }
 
 /* Dark */
 .ng-btn--dark {
   background: var(--ng-primary);
-  color: var(--ng-white);
+  color: var(--ng-bg);
   border-color: var(--ng-primary);
 }
 .ng-btn--dark:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--ng-primary) 80%, black);
+  filter: brightness(0.85);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,48,73,0.3);
+  box-shadow: 0 8px 24px rgba(var(--ng-primary-rgb), 0.3);
 }
 
-/* Full width */
 .ng-btn--full { width: 100%; }
+.ng-btn--sm   { padding: 0.9rem 2rem; min-height: 3.8rem; font-size: 1.1rem; }
+.ng-btn--lg   { padding: 1.8rem 3.6rem; min-height: 5.6rem; font-size: 1.5rem; }
 
-/* Sizes */
-.ng-btn--sm { padding: 0.9rem 2rem; min-height: 3.8rem; font-size: var(--ng-size-xs); }
-.ng-btn--lg { padding: 1.8rem 3.6rem; min-height: 5.6rem; font-size: var(--ng-size-base); }
-
-/* Loading state */
+/* Loading */
 .ng-btn.is-loading { pointer-events: none; color: transparent; }
 .ng-btn.is-loading::after {
   content: '';
   position: absolute;
   width: 1.8rem; height: 1.8rem;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: var(--ng-white);
+  border: 2px solid rgba(var(--ng-bg-rgb), 0.3);
+  border-top-color: var(--ng-bg);
   border-radius: 50%;
   animation: ng-spin 0.7s linear infinite;
 }
@@ -606,17 +572,17 @@ strong { font-weight: 700; }
   width: 10rem; height: 10rem;
   margin: -5rem;
   border-radius: 50%;
-  background: rgba(255,255,255,0.25);
+  background: rgba(var(--ng-bg-rgb), 0.25);
   pointer-events: none;
   animation: ng-ripple 0.55s ease-out forwards;
 }
 @keyframes ng-ripple { from { transform: scale(0); opacity: 1; } to { transform: scale(3); opacity: 0; } }
 
-/* ── 10. CARTES PRODUIT ───────────────────────────────────────── */
+/* ── 10. CARTES PRODUIT ─────────────────────────────────────── */
 .ng-product-card {
   display: flex;
   flex-direction: column;
-  border-radius: var(--ng-r-card);
+  border-radius: var(--ng-r-card, 8px);
   overflow: hidden;
   background: var(--ng-bg);
   transition: transform var(--ng-t3), box-shadow var(--ng-t3);
@@ -628,7 +594,6 @@ strong { font-weight: 700; }
   box-shadow: var(--ng-shadow-card-hover);
 }
 
-/* Image */
 .ng-product-card__img {
   position: relative;
   aspect-ratio: 4 / 5;
@@ -643,7 +608,6 @@ strong { font-weight: 700; }
 }
 .ng-product-card:hover .ng-product-card__img img { transform: scale(1.06); }
 
-/* Image secondaire */
 .ng-product-card__img-alt {
   position: absolute;
   inset: 0;
@@ -652,7 +616,6 @@ strong { font-weight: 700; }
 }
 .ng-product-card:hover .ng-product-card__img-alt { opacity: 1; }
 
-/* Badges */
 .ng-product-card__badges {
   position: absolute;
   top: var(--ng-s3);
@@ -662,6 +625,7 @@ strong { font-weight: 700; }
   gap: var(--ng-s1);
   z-index: 1;
 }
+
 .ng-badge {
   display: inline-block;
   padding: 0.3rem 0.9rem;
@@ -671,11 +635,10 @@ strong { font-weight: 700; }
   text-transform: uppercase;
   border-radius: var(--ng-r-sm);
 }
-.ng-badge--sale    { background: var(--ng-accent); color: var(--ng-white); }
-.ng-badge--new     { background: var(--ng-primary); color: var(--ng-white); }
-.ng-badge--soldout { background: #6b6b6b; color: var(--ng-white); }
+.ng-badge--sale    { background: var(--ng-accent);    color: var(--ng-bg); }
+.ng-badge--new     { background: var(--ng-primary);   color: var(--ng-bg); }
+.ng-badge--soldout { background: var(--ng-text-muted); color: var(--ng-bg); }
 
-/* Quick add overlay */
 .ng-product-card__quick-add {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -686,7 +649,6 @@ strong { font-weight: 700; }
 .ng-product-card:hover .ng-product-card__quick-add { transform: translateY(0); }
 .ng-product-card__quick-add .ng-btn { width: 100%; }
 
-/* Info */
 .ng-product-card__info {
   padding: var(--ng-s4) var(--ng-s4) var(--ng-s5);
   flex: 1;
@@ -694,7 +656,7 @@ strong { font-weight: 700; }
   flex-direction: column;
 }
 .ng-product-card__vendor {
-  font-size: var(--ng-size-xs);
+  font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -702,7 +664,7 @@ strong { font-weight: 700; }
   margin-bottom: var(--ng-s1);
 }
 .ng-product-card__title {
-  font-size: var(--ng-size-base);
+  font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.3;
@@ -719,21 +681,12 @@ strong { font-weight: 700; }
   gap: var(--ng-s2);
   margin-top: auto;
 }
-.ng-price {
-  font-size: var(--ng-size-lg);
-  font-weight: 800;
-  color: var(--ng-primary);
-}
-.ng-price--sale { color: var(--ng-accent); }
-.ng-price--compare {
-  font-size: var(--ng-size-sm);
-  font-weight: 500;
-  color: var(--ng-text-muted);
-  text-decoration: line-through;
-}
 
-/* ── 11. PRODUCT GRID ─────────────────────────────────────────── */
-.ng-products-section { background: var(--ng-bg); }
+.ng-price          { font-size: 1.8rem; font-weight: 800; color: var(--ng-primary); }
+.ng-price--sale    { color: var(--ng-accent); }
+.ng-price--compare { font-size: 1.3rem; font-weight: 500; color: var(--ng-text-muted); text-decoration: line-through; }
+
+/* ── 11. GRILLE DE PRODUITS ─────────────────────────────────── */
 .ng-section-header {
   display: flex;
   align-items: flex-end;
@@ -743,7 +696,7 @@ strong { font-weight: 700; }
   flex-wrap: wrap;
 }
 .ng-section-header__eyebrow {
-  font-size: var(--ng-size-xs);
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -760,18 +713,17 @@ strong { font-weight: 700; }
   background: var(--ng-accent);
   border-radius: 1px;
 }
-.ng-section-header__title { margin-bottom: 0; }
+
 .ng-product-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--ng-s4);
 }
 
-/* ── 12. IMAGE + TEXTE ────────────────────────────────────────── */
+/* ── 12. IMAGE + TEXTE ──────────────────────────────────────── */
 .ng-split {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0;
   overflow: hidden;
 }
 .ng-split__media {
@@ -790,23 +742,16 @@ strong { font-weight: 700; }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: var(--ng-bg);
+  /* Fond injecté inline via section.settings.bg_color (schema) */
 }
-.ng-split__content--dark {
-  background: var(--ng-primary);
-  color: var(--ng-white);
-}
-.ng-split__content--dark h2 { color: var(--ng-white); }
-.ng-split__content--dark p  { color: rgba(255,255,255,0.78); }
 .ng-split__text {
-  font-size: var(--ng-size-lg);
+  font-size: 1.8rem;
   line-height: 1.75;
   color: var(--ng-text-muted);
   margin-bottom: var(--ng-s8);
 }
 
-/* ── 13. TESTIMONIALS ─────────────────────────────────────────── */
-.ng-testimonials { background: var(--ng-bg-2); }
+/* ── 13. TÉMOIGNAGES ────────────────────────────────────────── */
 .ng-testimonial-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -814,11 +759,10 @@ strong { font-weight: 700; }
   margin-top: var(--ng-s10);
 }
 .ng-testimonial {
-  background: var(--ng-white);
+  background: var(--ng-bg);
   border-radius: var(--ng-r-lg);
   padding: var(--ng-s8) var(--ng-s6);
   box-shadow: var(--ng-shadow-sm);
-  position: relative;
   transition: transform var(--ng-t3), box-shadow var(--ng-t3);
 }
 .ng-testimonial:hover { transform: translateY(-4px); box-shadow: var(--ng-shadow-md); }
@@ -826,10 +770,10 @@ strong { font-weight: 700; }
   display: flex;
   gap: 3px;
   margin-bottom: var(--ng-s4);
-  color: #F59E0B;
+  color: var(--ng-accent-2);
 }
 .ng-testimonial__text {
-  font-size: var(--ng-size-lg);
+  font-size: 1.8rem;
   line-height: 1.65;
   color: var(--ng-primary);
   font-style: italic;
@@ -845,57 +789,55 @@ strong { font-weight: 700; }
   flex-shrink: 0;
 }
 .ng-testimonial__avatar img { width: 100%; height: 100%; object-fit: cover; }
-.ng-testimonial__name { font-weight: 700; font-size: var(--ng-size-sm); color: var(--ng-primary); }
-.ng-testimonial__role { font-size: var(--ng-size-xs); color: var(--ng-text-muted); }
+.ng-testimonial__name { font-weight: 700; font-size: 1.3rem; color: var(--ng-primary); }
+.ng-testimonial__role { font-size: 1.1rem; color: var(--ng-text-muted); }
 
-/* ── 14. NEWSLETTER ───────────────────────────────────────────── */
-.ng-newsletter {
-  background: var(--ng-primary);
-  color: var(--ng-white);
-  text-align: center;
-}
-.ng-newsletter h2 { color: var(--ng-white); }
-.ng-newsletter p { color: rgba(255,255,255,0.75); font-size: var(--ng-size-lg); margin: var(--ng-s4) 0 var(--ng-s8); }
+/* ── 14. NEWSLETTER ─────────────────────────────────────────── */
+.ng-newsletter { text-align: center; }
 .ng-newsletter-form {
   display: flex;
   max-width: 48rem;
   margin-inline: auto;
-  gap: 0;
-  border-radius: var(--ng-r-btn);
+  border-radius: var(--ng-r-btn, 4px);
   overflow: hidden;
   box-shadow: var(--ng-shadow-lg);
 }
 .ng-newsletter-form input[type="email"] {
   flex: 1;
   padding: 1.4rem 2rem;
-  font-size: var(--ng-size-base);
+  font-size: 1.5rem;
   border: none;
-  background: var(--ng-white);
+  background: var(--ng-bg);
   color: var(--ng-primary);
   border-radius: 0;
 }
-.ng-newsletter-form input[type="email"]::placeholder { color: var(--ng-text-muted); }
+.ng-newsletter-form input[type="email"]::placeholder { color: var(--ng-border); }
 .ng-newsletter-form input[type="email"]:focus { outline: none; }
 .ng-newsletter-form .ng-btn { border-radius: 0; flex-shrink: 0; }
-.ng-newsletter__success { color: var(--ng-accent-2); font-weight: 600; margin-top: var(--ng-s4); }
 
-/* ── 15. RICH TEXT ────────────────────────────────────────────── */
-.ng-rich-text { text-align: center; }
-.ng-rich-text__inner { max-width: 72rem; margin-inline: auto; }
-.ng-rte { line-height: 1.8; font-size: var(--ng-size-base); }
-.ng-rte > * + * { margin-top: 1em; }
-.ng-rte h2, .ng-rte h3 { margin-top: 1.5em; }
-.ng-rte a { color: var(--ng-accent); text-decoration: underline; text-underline-offset: 3px; }
-.ng-rte ul, .ng-rte ol { padding-left: 2rem; }
-.ng-rte li { margin-bottom: 0.5em; }
-.ng-rte blockquote {
-  border-left: 4px solid var(--ng-accent);
-  padding-left: var(--ng-s6);
-  font-style: italic;
-  color: var(--ng-text-muted);
+/* ── 15. FORMULAIRES ────────────────────────────────────────── */
+.ng-input, .ng-select, .ng-textarea {
+  width: 100%;
+  padding: 1.2rem 1.6rem;
+  font-size: 1.5rem;
+  color: var(--ng-primary);
+  background: var(--ng-bg);
+  border: 1.5px solid var(--ng-border);
+  border-radius: var(--ng-r-input, 4px);
+  transition: border-color var(--ng-t1), box-shadow var(--ng-t1);
+  appearance: none;
+  -webkit-appearance: none;
 }
+.ng-input:focus, .ng-select:focus, .ng-textarea:focus {
+  outline: none;
+  border-color: var(--ng-primary);
+  box-shadow: 0 0 0 3px rgba(var(--ng-primary-rgb), 0.1);
+}
+.ng-input::placeholder { color: var(--ng-border); }
+.ng-textarea { resize: vertical; min-height: 12rem; }
+.ng-label { font-size: 1.3rem; font-weight: 700; color: var(--ng-primary); }
 
-/* ── 16. PAGE PRODUIT ─────────────────────────────────────────── */
+/* ── 16. PAGE PRODUIT ───────────────────────────────────────── */
 .ng-product { padding-block: var(--ng-s16); }
 .ng-product__layout {
   display: grid;
@@ -903,7 +845,6 @@ strong { font-weight: 700; }
   gap: var(--ng-s8);
 }
 
-/* Gallery */
 .ng-product-gallery { display: flex; flex-direction: column-reverse; gap: var(--ng-s3); }
 .ng-product-gallery__main {
   aspect-ratio: 1;
@@ -923,7 +864,6 @@ strong { font-weight: 700; }
   gap: var(--ng-s2);
   overflow-x: auto;
   scrollbar-width: none;
-  padding-bottom: var(--ng-s1);
 }
 .ng-product-gallery__thumbs::-webkit-scrollbar { display: none; }
 .ng-product-gallery__thumb {
@@ -936,13 +876,12 @@ strong { font-weight: 700; }
   transition: border-color var(--ng-t1), transform var(--ng-t1);
 }
 .ng-product-gallery__thumb.is-active { border-color: var(--ng-accent); }
-.ng-product-gallery__thumb:hover { transform: scale(1.04); }
+.ng-product-gallery__thumb:hover     { transform: scale(1.04); }
 .ng-product-gallery__thumb img { width: 100%; height: 100%; object-fit: cover; }
 
-/* Product info */
 .ng-product-info { display: flex; flex-direction: column; gap: var(--ng-s5); }
 .ng-product-info__vendor {
-  font-size: var(--ng-size-xs);
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -963,12 +902,12 @@ strong { font-weight: 700; }
   border-top: 1px solid var(--ng-border);
   border-bottom: 1px solid var(--ng-border);
 }
-.ng-product-info__price .ng-price { font-size: var(--ng-size-3xl); }
+.ng-product-info__price .ng-price { font-size: 3.6rem; }
 
-/* Variants */
+/* Variantes */
 .ng-variant-group { display: flex; flex-direction: column; gap: var(--ng-s2); }
 .ng-variant-group__label {
-  font-size: var(--ng-size-sm);
+  font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -978,13 +917,13 @@ strong { font-weight: 700; }
 .ng-variant-pills { display: flex; flex-wrap: wrap; gap: var(--ng-s2); }
 .ng-variant-pill {
   padding: var(--ng-s2) var(--ng-s4);
-  font-size: var(--ng-size-sm);
+  font-size: 1.3rem;
   font-weight: 600;
   border: 1.5px solid var(--ng-border);
   border-radius: var(--ng-r-sm);
   cursor: pointer;
   transition: all var(--ng-t1);
-  background: var(--ng-white);
+  background: var(--ng-bg);
   color: var(--ng-primary);
   min-height: 4rem;
   min-width: 4rem;
@@ -992,11 +931,11 @@ strong { font-weight: 700; }
   align-items: center;
   justify-content: center;
 }
-.ng-variant-pill:hover { border-color: var(--ng-primary); }
-.ng-variant-pill.is-selected { background: var(--ng-primary); color: var(--ng-white); border-color: var(--ng-primary); }
+.ng-variant-pill:hover       { border-color: var(--ng-primary); }
+.ng-variant-pill.is-selected { background: var(--ng-primary); color: var(--ng-bg); border-color: var(--ng-primary); }
 .ng-variant-pill.is-unavailable { opacity: 0.4; cursor: not-allowed; text-decoration: line-through; }
 
-/* Quantity */
+/* Quantité */
 .ng-qty {
   display: flex;
   align-items: center;
@@ -1010,7 +949,7 @@ strong { font-weight: 700; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--ng-size-xl);
+  font-size: 2.2rem;
   color: var(--ng-primary);
   transition: background var(--ng-t1);
   flex-shrink: 0;
@@ -1020,20 +959,20 @@ strong { font-weight: 700; }
   width: 5.6rem;
   height: 4.4rem;
   text-align: center;
-  font-size: var(--ng-size-base);
+  font-size: 1.5rem;
   font-weight: 700;
   border: none;
   border-inline: 1.5px solid var(--ng-border);
   color: var(--ng-primary);
-  background: var(--ng-white);
+  background: var(--ng-bg);
 }
 .ng-qty__input:focus { outline: none; }
 
-/* ATC area */
+/* Zone ATC */
 .ng-atc-area { display: flex; flex-direction: column; gap: var(--ng-s3); }
-.ng-atc-area .ng-btn--primary { min-height: 5.6rem; font-size: var(--ng-size-base); }
+.ng-atc-area .ng-btn--primary { min-height: 5.6rem; font-size: 1.5rem; }
 
-/* Trust badges */
+/* Badges de confiance */
 .ng-trust-badges {
   display: flex;
   flex-wrap: wrap;
@@ -1045,81 +984,70 @@ strong { font-weight: 700; }
   display: flex;
   align-items: center;
   gap: var(--ng-s2);
-  font-size: var(--ng-size-xs);
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--ng-text-muted);
 }
 .ng-trust-badge svg { width: 1.8rem; height: 1.8rem; color: var(--ng-accent); flex-shrink: 0; }
 
-/* Product tabs */
+/* Accordéons produit */
 .ng-product-tabs { border-top: 1px solid var(--ng-border); }
-.ng-tab {
-  border-bottom: 1px solid var(--ng-border);
-  overflow: hidden;
-}
+.ng-tab { border-bottom: 1px solid var(--ng-border); overflow: hidden; }
 .ng-tab__trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   padding: var(--ng-s5) 0;
-  font-size: var(--ng-size-base);
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--ng-primary);
   transition: color var(--ng-t1);
   cursor: pointer;
 }
 .ng-tab__trigger:hover { color: var(--ng-accent); }
-.ng-tab__icon {
-  width: 2rem; height: 2rem;
-  flex-shrink: 0;
-  transition: transform var(--ng-t2);
-}
+.ng-tab__icon { width: 2rem; height: 2rem; flex-shrink: 0; transition: transform var(--ng-t2); }
 .ng-tab.is-open .ng-tab__icon { transform: rotate(45deg); }
-.ng-tab__body {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height var(--ng-t3);
-}
+.ng-tab__body { overflow: hidden; max-height: 0; transition: max-height var(--ng-t3); }
 .ng-tab.is-open .ng-tab__body { max-height: 80rem; }
-.ng-tab__content { padding-bottom: var(--ng-s6); font-size: var(--ng-size-base); line-height: 1.8; color: var(--ng-text-muted); }
+.ng-tab__content { padding-bottom: var(--ng-s6); font-size: 1.5rem; line-height: 1.8; color: var(--ng-text-muted); }
 
 /* Sticky ATC mobile */
 .ng-sticky-atc {
   display: none;
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  z-index: var(--ng-z-sticky);
-  background: var(--ng-white);
+  z-index: var(--ng-z-header);
+  background: var(--ng-bg);
   border-top: 1px solid var(--ng-border);
   padding: var(--ng-s3) var(--ng-s4);
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 -4px 20px rgba(var(--ng-text-rgb), 0.08);
   gap: var(--ng-s3);
   align-items: center;
 }
 .ng-sticky-atc.is-visible { display: flex; }
 .ng-sticky-atc__info { flex: 1; min-width: 0; }
 .ng-sticky-atc__title {
-  font-size: var(--ng-size-sm);
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--ng-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.ng-sticky-atc__price { font-size: var(--ng-size-sm); color: var(--ng-text-muted); }
+.ng-sticky-atc__price { font-size: 1.3rem; color: var(--ng-text-muted); }
 
-/* ── 17. COLLECTION PAGE ──────────────────────────────────────── */
+/* ── 17. PAGE COLLECTION ────────────────────────────────────── */
 .ng-collection-header {
-  background: var(--ng-primary);
-  color: var(--ng-white);
+  color: var(--ng-bg);
   padding-block: var(--ng-s16);
   text-align: center;
+  /* Fond via section schema ng-collection-main */
+  background: var(--ng-primary);
 }
-.ng-collection-header h1 { color: var(--ng-white); }
-.ng-collection-header p { color: rgba(255,255,255,0.7); margin-top: var(--ng-s4); font-size: var(--ng-size-lg); }
+.ng-collection-header h1 { color: var(--ng-bg); }
+.ng-collection-header p { color: rgba(var(--ng-bg-rgb), 0.7); margin-top: var(--ng-s4); font-size: 1.8rem; }
 
-/* Filter bar */
 .ng-filter-bar {
   display: flex;
   align-items: center;
@@ -1129,25 +1057,25 @@ strong { font-weight: 700; }
   gap: var(--ng-s4);
   flex-wrap: wrap;
 }
-.ng-filter-count { font-size: var(--ng-size-sm); color: var(--ng-text-muted); }
+.ng-filter-count { font-size: 1.3rem; color: var(--ng-text-muted); }
 .ng-sort-select {
   padding: 0.8rem 3.6rem 0.8rem 1.2rem;
-  font-size: var(--ng-size-sm);
+  font-size: 1.3rem;
   font-weight: 600;
   border: 1.5px solid var(--ng-border);
   border-radius: var(--ng-r-sm);
-  background: var(--ng-white);
+  background: var(--ng-bg);
   color: var(--ng-primary);
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23003049' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23111111' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1.2rem center;
   transition: border-color var(--ng-t1);
 }
 .ng-sort-select:focus { outline: none; border-color: var(--ng-primary); }
 
-/* ── 18. CART DRAWER ──────────────────────────────────────────── */
+/* ── 18. PANIER DRAWER ──────────────────────────────────────── */
 .ng-cart-drawer {
   position: fixed;
   inset: 0;
@@ -1157,7 +1085,7 @@ strong { font-weight: 700; }
 .ng-cart-drawer__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(var(--ng-text-rgb), 0.5);
   opacity: 0;
   transition: opacity var(--ng-t3);
   backdrop-filter: blur(4px);
@@ -1167,16 +1095,16 @@ strong { font-weight: 700; }
   top: 0; right: 0;
   width: min(44rem, 100%);
   height: 100%;
-  background: var(--ng-white);
+  background: var(--ng-bg);
   transform: translateX(100%);
   transition: transform var(--ng-t3);
   display: flex;
   flex-direction: column;
-  box-shadow: -8px 0 48px rgba(0,0,0,0.12);
+  box-shadow: -8px 0 48px rgba(var(--ng-text-rgb), 0.12);
 }
 .ng-cart-drawer.is-open { pointer-events: auto; }
 .ng-cart-drawer.is-open .ng-cart-drawer__overlay { opacity: 1; }
-.ng-cart-drawer.is-open .ng-cart-drawer__panel { transform: translateX(0); }
+.ng-cart-drawer.is-open .ng-cart-drawer__panel   { transform: translateX(0); }
 
 .ng-cart-drawer__header {
   display: flex;
@@ -1185,34 +1113,19 @@ strong { font-weight: 700; }
   padding: var(--ng-s5) var(--ng-s6);
   border-bottom: 1px solid var(--ng-border);
 }
-.ng-cart-drawer__title {
-  font-size: var(--ng-size-xl);
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  color: var(--ng-primary);
-}
-.ng-cart-drawer__body {
-  flex: 1;
-  overflow-y: auto;
-  padding: var(--ng-s5) var(--ng-s6);
-  scrollbar-width: thin;
-  scrollbar-color: var(--ng-border) transparent;
-}
-.ng-cart-drawer__footer {
-  border-top: 1px solid var(--ng-border);
-  padding: var(--ng-s5) var(--ng-s6);
-}
+.ng-cart-drawer__title { font-size: 2.2rem; font-weight: 900; letter-spacing: -0.02em; color: var(--ng-primary); }
+.ng-cart-drawer__body { flex: 1; overflow-y: auto; padding: var(--ng-s5) var(--ng-s6); scrollbar-width: thin; scrollbar-color: var(--ng-border) transparent; }
+.ng-cart-drawer__footer { border-top: 1px solid var(--ng-border); padding: var(--ng-s5) var(--ng-s6); }
 .ng-cart-drawer__subtotal {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: var(--ng-s4);
-  font-size: var(--ng-size-lg);
+  font-size: 1.8rem;
   font-weight: 700;
   color: var(--ng-primary);
 }
 
-/* Cart items */
 .ng-cart-item {
   display: grid;
   grid-template-columns: 8rem 1fr;
@@ -1229,12 +1142,12 @@ strong { font-weight: 700; }
 }
 .ng-cart-item__img img { width: 100%; height: 100%; object-fit: cover; }
 .ng-cart-item__info { display: flex; flex-direction: column; gap: var(--ng-s1); }
-.ng-cart-item__title { font-size: var(--ng-size-sm); font-weight: 700; color: var(--ng-primary); line-height: 1.3; }
-.ng-cart-item__variant { font-size: var(--ng-size-xs); color: var(--ng-text-muted); }
-.ng-cart-item__price { font-size: var(--ng-size-base); font-weight: 800; color: var(--ng-primary); margin-top: auto; }
+.ng-cart-item__title   { font-size: 1.3rem; font-weight: 700; color: var(--ng-primary); line-height: 1.3; }
+.ng-cart-item__variant { font-size: 1.1rem; color: var(--ng-text-muted); }
+.ng-cart-item__price   { font-size: 1.5rem; font-weight: 800; color: var(--ng-primary); margin-top: auto; }
 .ng-cart-item__actions { display: flex; align-items: center; justify-content: space-between; margin-top: var(--ng-s2); }
-.ng-cart-item__remove {
-  font-size: var(--ng-size-xs);
+.ng-cart-item__remove  {
+  font-size: 1.1rem;
   color: var(--ng-text-muted);
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -1242,7 +1155,6 @@ strong { font-weight: 700; }
 }
 .ng-cart-item__remove:hover { color: var(--ng-accent); }
 
-/* Cart empty */
 .ng-cart-empty {
   display: flex;
   flex-direction: column;
@@ -1254,14 +1166,14 @@ strong { font-weight: 700; }
   color: var(--ng-text-muted);
 }
 .ng-cart-empty svg { width: 6.4rem; height: 6.4rem; opacity: 0.3; }
-.ng-cart-empty h3 { color: var(--ng-primary); font-size: var(--ng-size-xl); }
+.ng-cart-empty h3   { color: var(--ng-primary); font-size: 2.2rem; }
 
-/* ── 19. SEARCH OVERLAY ───────────────────────────────────────── */
+/* ── 19. OVERLAY RECHERCHE ──────────────────────────────────── */
 .ng-search-overlay {
   position: fixed;
   inset: 0;
   z-index: var(--ng-z-modal);
-  background: rgba(0,0,0,0.6);
+  background: rgba(var(--ng-text-rgb), 0.6);
   backdrop-filter: blur(8px);
   display: flex;
   align-items: flex-start;
@@ -1280,7 +1192,7 @@ strong { font-weight: 700; }
 .ng-search-overlay.is-open .ng-search-overlay__inner { transform: translateY(0); }
 .ng-search-form {
   display: flex;
-  background: var(--ng-white);
+  background: var(--ng-bg);
   border-radius: var(--ng-r-lg);
   overflow: hidden;
   box-shadow: var(--ng-shadow-xl);
@@ -1288,28 +1200,17 @@ strong { font-weight: 700; }
 .ng-search-input {
   flex: 1;
   padding: var(--ng-s5) var(--ng-s6);
-  font-size: var(--ng-size-xl);
+  font-size: 2.2rem;
   border: none;
   color: var(--ng-primary);
   background: transparent;
 }
 .ng-search-input:focus { outline: none; }
 .ng-search-input::placeholder { color: var(--ng-border); }
-.ng-search-submit {
-  padding: 0 var(--ng-s6);
-  color: var(--ng-text-muted);
-  transition: color var(--ng-t1);
-}
+.ng-search-submit { padding: 0 var(--ng-s6); color: var(--ng-text-muted); transition: color var(--ng-t1); }
 .ng-search-submit:hover { color: var(--ng-accent); }
-.ng-search-close {
-  position: absolute;
-  top: var(--ng-s6);
-  right: var(--ng-s6);
-  color: var(--ng-white);
-  width: 4.8rem; height: 4.8rem;
-}
 .ng-search-results {
-  background: var(--ng-white);
+  background: var(--ng-bg);
   border-radius: 0 0 var(--ng-r-lg) var(--ng-r-lg);
   overflow: hidden;
   max-height: 50vh;
@@ -1325,15 +1226,15 @@ strong { font-weight: 700; }
   transition: background var(--ng-t1);
 }
 .ng-search-result-item:hover { background: var(--ng-bg-2); }
-.ng-search-result-item__img { width: 5.6rem; height: 5.6rem; border-radius: var(--ng-r-sm); overflow: hidden; background: var(--ng-bg-2); flex-shrink: 0; }
+.ng-search-result-item__img  { width: 5.6rem; height: 5.6rem; border-radius: var(--ng-r-sm); overflow: hidden; background: var(--ng-bg-2); flex-shrink: 0; }
 .ng-search-result-item__img img { width: 100%; height: 100%; object-fit: cover; }
-.ng-search-result-item__title { font-size: var(--ng-size-sm); font-weight: 600; color: var(--ng-primary); }
-.ng-search-result-item__price { font-size: var(--ng-size-sm); color: var(--ng-text-muted); }
+.ng-search-result-item__title { font-size: 1.3rem; font-weight: 600; color: var(--ng-primary); }
+.ng-search-result-item__price { font-size: 1.3rem; color: var(--ng-text-muted); }
 
-/* ── 20. FOOTER ───────────────────────────────────────────────── */
+/* ── 20. FOOTER ─────────────────────────────────────────────── */
 .ng-footer {
-  background: var(--ng-primary);
-  color: rgba(255,255,255,0.75);
+  /* Fond injecté via section ng-footer (settings.color_primary utilisé par défaut) */
+  position: relative;
   padding-top: var(--ng-s20);
   padding-bottom: var(--ng-s8);
 }
@@ -1343,102 +1244,59 @@ strong { font-weight: 700; }
   gap: var(--ng-s10);
   margin-bottom: var(--ng-s12);
 }
-.ng-footer__brand .ng-header__logo-text { color: var(--ng-white); }
-.ng-footer__brand p { color: rgba(255,255,255,0.6); font-size: var(--ng-size-sm); line-height: 1.7; margin-top: var(--ng-s4); }
 .ng-footer__heading {
-  font-size: var(--ng-size-xs);
+  font-size: 1.1rem;
   font-weight: 800;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--ng-white);
   margin-bottom: var(--ng-s5);
 }
 .ng-footer__links { display: flex; flex-direction: column; gap: var(--ng-s2); }
-.ng-footer__link {
-  font-size: var(--ng-size-sm);
-  color: rgba(255,255,255,0.65);
-  transition: color var(--ng-t1);
-  padding-block: var(--ng-s1);
-}
-.ng-footer__link:hover { color: var(--ng-white); }
+.ng-footer__link  { font-size: 1.3rem; transition: opacity var(--ng-t1); padding-block: var(--ng-s1); }
+.ng-footer__link:hover { opacity: 0.8; }
 .ng-footer__social { display: flex; gap: var(--ng-s3); }
 .ng-footer__social-icon {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 4rem; height: 4rem;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(var(--ng-border-rgb), 0.3);
   border-radius: var(--ng-r-sm);
-  color: rgba(255,255,255,0.65);
   transition: all var(--ng-t1);
 }
-.ng-footer__social-icon:hover {
-  background: rgba(255,255,255,0.1);
-  color: var(--ng-white);
-  border-color: rgba(255,255,255,0.4);
-}
+.ng-footer__social-icon:hover { opacity: 0.8; }
 .ng-footer__social-icon svg { width: 1.8rem; height: 1.8rem; }
 
-/* Footer newsletter */
 .ng-footer__newsletter-form {
   display: flex;
   gap: 0;
   border-radius: var(--ng-r-sm);
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(var(--ng-border-rgb), 0.25);
   margin-top: var(--ng-s4);
 }
 .ng-footer__newsletter-form input {
   flex: 1;
   padding: 1.2rem 1.6rem;
-  background: rgba(255,255,255,0.07);
+  background: rgba(var(--ng-bg-rgb), 0.08);
   border: none;
-  color: var(--ng-white);
-  font-size: var(--ng-size-sm);
+  font-size: 1.3rem;
 }
-.ng-footer__newsletter-form input::placeholder { color: rgba(255,255,255,0.4); }
-.ng-footer__newsletter-form input:focus { outline: none; background: rgba(255,255,255,0.1); }
+.ng-footer__newsletter-form input:focus { outline: none; background: rgba(var(--ng-bg-rgb), 0.12); }
 .ng-footer__newsletter-form .ng-btn { border-radius: 0; }
 
-/* Footer bottom */
 .ng-footer__bottom {
   display: flex;
   flex-direction: column;
   gap: var(--ng-s3);
   padding-top: var(--ng-s6);
-  border-top: 1px solid rgba(255,255,255,0.1);
-  font-size: var(--ng-size-xs);
-  color: rgba(255,255,255,0.4);
+  border-top: 1px solid rgba(var(--ng-border-rgb), 0.15);
+  font-size: 1.2rem;
   align-items: center;
   text-align: center;
 }
-.ng-footer__payments { display: flex; gap: var(--ng-s2); flex-wrap: wrap; justify-content: center; }
-.ng-footer__payment-icon { height: 2rem; opacity: 0.5; }
 
-/* ── 21. FORMS ────────────────────────────────────────────────── */
-.ng-form-group { display: flex; flex-direction: column; gap: var(--ng-s2); }
-.ng-label { font-size: var(--ng-size-sm); font-weight: 700; color: var(--ng-primary); }
-.ng-input, .ng-select, .ng-textarea {
-  width: 100%;
-  padding: 1.2rem 1.6rem;
-  font-size: var(--ng-size-base);
-  color: var(--ng-primary);
-  background: var(--ng-white);
-  border: 1.5px solid var(--ng-border);
-  border-radius: var(--ng-r-input);
-  transition: border-color var(--ng-t1), box-shadow var(--ng-t1);
-  appearance: none;
-  -webkit-appearance: none;
-}
-.ng-input:focus, .ng-select:focus, .ng-textarea:focus {
-  outline: none;
-  border-color: var(--ng-primary);
-  box-shadow: 0 0 0 3px rgba(0,48,73,0.1);
-}
-.ng-input::placeholder { color: var(--ng-border); }
-.ng-textarea { resize: vertical; min-height: 12rem; }
-
-/* ── 22. PAGINATION ───────────────────────────────────────────── */
+/* ── 21. PAGINATION ─────────────────────────────────────────── */
 .ng-pagination {
   display: flex;
   align-items: center;
@@ -1454,16 +1312,16 @@ strong { font-weight: 700; }
   min-width: 4rem; height: 4rem;
   border: 1.5px solid var(--ng-border);
   border-radius: var(--ng-r-sm);
-  font-size: var(--ng-size-sm);
+  font-size: 1.3rem;
   font-weight: 600;
   color: var(--ng-primary);
   transition: all var(--ng-t1);
   padding-inline: var(--ng-s2);
 }
 .ng-pagination__item a:hover { border-color: var(--ng-primary); background: var(--ng-bg-2); }
-.ng-pagination__item--current span { background: var(--ng-primary); color: var(--ng-white); border-color: var(--ng-primary); }
+.ng-pagination__item--current span { background: var(--ng-primary); color: var(--ng-bg); border-color: var(--ng-primary); }
 
-/* ── 23. TOAST NOTIFICATION ───────────────────────────────────── */
+/* ── 22. TOAST ──────────────────────────────────────────────── */
 .ng-toast {
   position: fixed;
   bottom: var(--ng-s6);
@@ -1471,10 +1329,10 @@ strong { font-weight: 700; }
   transform: translateX(-50%) translateY(120%);
   z-index: var(--ng-z-toast);
   background: var(--ng-primary);
-  color: var(--ng-white);
+  color: var(--ng-bg);
   padding: var(--ng-s4) var(--ng-s6);
   border-radius: var(--ng-r-lg);
-  font-size: var(--ng-size-sm);
+  font-size: 1.3rem;
   font-weight: 600;
   box-shadow: var(--ng-shadow-lg);
   transition: transform var(--ng-t2) var(--ng-bounce);
@@ -1483,11 +1341,11 @@ strong { font-weight: 700; }
   max-width: calc(100% - 3.2rem);
   text-align: center;
 }
-.ng-toast.is-visible { transform: translateX(-50%) translateY(0); }
-.ng-toast--success { background: #0F5132; }
-.ng-toast--error   { background: var(--ng-accent); }
+.ng-toast.is-visible    { transform: translateX(-50%) translateY(0); }
+.ng-toast--success      { background: var(--ng-accent-2); }
+.ng-toast--error        { background: var(--ng-accent); }
 
-/* ── 24. PAGE 404 ─────────────────────────────────────────────── */
+/* ── 23. PAGE 404 ───────────────────────────────────────────── */
 .ng-404 {
   min-height: 60vh;
   display: flex;
@@ -1504,73 +1362,67 @@ strong { font-weight: 700; }
   letter-spacing: -0.05em;
   margin-bottom: var(--ng-s4);
 }
-.ng-404 h1 { margin-bottom: var(--ng-s4); }
-.ng-404 p { color: var(--ng-text-muted); font-size: var(--ng-size-lg); margin-bottom: var(--ng-s8); }
 
-/* ── 25. UTILITIES ────────────────────────────────────────────── */
+/* ── 24. RTE / CONTENU RICHE ────────────────────────────────── */
+.ng-rte { line-height: 1.8; font-size: 1.5rem; }
+.ng-rte > * + * { margin-top: 1em; }
+.ng-rte h2, .ng-rte h3 { margin-top: 1.5em; }
+.ng-rte a { color: var(--ng-accent); text-decoration: underline; text-underline-offset: 3px; }
+.ng-rte ul, .ng-rte ol { padding-left: 2rem; }
+.ng-rte li { margin-bottom: 0.5em; }
+.ng-rte blockquote {
+  border-left: 4px solid var(--ng-accent);
+  padding-left: var(--ng-s6);
+  font-style: italic;
+  color: var(--ng-text-muted);
+}
+
+/* ── 25. UTILITAIRES ────────────────────────────────────────── */
 .ng-visually-hidden {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
 }
-.ng-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ng-text-center { text-align: center; }
-.ng-text-left { text-align: left; }
-.ng-text-muted { color: var(--ng-text-muted); }
-.ng-mt-auto { margin-top: auto; }
-.ng-w-full { width: 100%; }
+.ng-text-muted  { color: var(--ng-text-muted); }
+.ng-mt-auto     { margin-top: auto; }
+.ng-w-full      { width: 100%; }
 
-/* ── 26. ANIMATIONS ───────────────────────────────────────────── */
-@keyframes ng-fade-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes ng-fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
+/* ── 26. ANIMATIONS ─────────────────────────────────────────── */
 [data-ng-reveal] {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity var(--ng-t4), transform var(--ng-t4);
 }
-[data-ng-reveal].is-revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-[data-ng-reveal][data-ng-delay="1"] { transition-delay: 80ms; }
+[data-ng-reveal].is-revealed { opacity: 1; transform: translateY(0); }
+[data-ng-reveal][data-ng-delay="1"] { transition-delay:  80ms; }
 [data-ng-reveal][data-ng-delay="2"] { transition-delay: 160ms; }
 [data-ng-reveal][data-ng-delay="3"] { transition-delay: 240ms; }
 [data-ng-reveal][data-ng-delay="4"] { transition-delay: 320ms; }
 [data-ng-reveal][data-ng-delay="5"] { transition-delay: 400ms; }
 [data-ng-reveal][data-ng-delay="6"] { transition-delay: 480ms; }
 
-/* ── 27. SCROLLBAR ────────────────────────────────────────────── */
+/* ── 27. SCROLLBAR ──────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--ng-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb {
+  background: var(--ng-border);
+  border-radius: 3px;
+}
 ::-webkit-scrollbar-thumb:hover { background: var(--ng-text-muted); }
 
-/* ── 28. RESPONSIVE — TABLET ≥640px ──────────────────────────── */
+/* ── 28. RESPONSIVE ≥640px ──────────────────────────────────── */
 @media (min-width: 640px) {
   .ng-product-grid { grid-template-columns: repeat(2, 1fr); gap: var(--ng-s5); }
   .ng-testimonial-grid { grid-template-columns: repeat(2, 1fr); }
   .ng-newsletter-form { flex-direction: row; }
 }
 
-/* ── 29. RESPONSIVE — DESKTOP ≥990px ─────────────────────────── */
+/* ── 29. RESPONSIVE ≥990px ──────────────────────────────────── */
 @media (min-width: 990px) {
-  .ng-header { height: 7.2rem; }
   .ng-header__nav { display: flex; }
   .ng-burger { display: none; }
 
   .ng-product-grid { grid-template-columns: repeat(3, 1fr); gap: var(--ng-s6); }
-  .ng-grid--4 .ng-product-grid { grid-template-columns: repeat(4, 1fr); }
   .ng-testimonial-grid { grid-template-columns: repeat(3, 1fr); }
 
   .ng-split { grid-template-columns: 1fr 1fr; }
@@ -1581,8 +1433,8 @@ strong { font-weight: 700; }
   .ng-product__layout { grid-template-columns: 1fr 1fr; gap: var(--ng-s16); }
   .ng-product-gallery { flex-direction: row; }
   .ng-product-gallery__thumbs { flex-direction: column; overflow-y: auto; overflow-x: hidden; width: 8.8rem; }
-  .ng-product-gallery__thumb { width: 100%; height: 8.8rem; }
-  .ng-product-gallery__main { flex: 1; aspect-ratio: auto; }
+  .ng-product-gallery__thumb  { width: 100%; height: 8.8rem; }
+  .ng-product-gallery__main   { flex: 1; aspect-ratio: auto; }
 
   .ng-footer__grid { grid-template-columns: 2fr 1fr 1fr 1.5fr; }
   .ng-footer__bottom { flex-direction: row; justify-content: space-between; text-align: left; }
@@ -1590,7 +1442,7 @@ strong { font-weight: 700; }
   .ng-sticky-atc { display: none !important; }
 }
 
-/* ── 30. RESPONSIVE — WIDE ≥1280px ───────────────────────────── */
+/* ── 30. RESPONSIVE ≥1280px ─────────────────────────────────── */
 @media (min-width: 1280px) {
   .ng-product-grid { gap: var(--ng-s8); }
 }
