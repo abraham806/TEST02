@@ -1,0 +1,94 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+.phone{background:#fafaf8}
+.mesh{position:absolute;inset:0 0 auto 0;height:330px;pointer-events:none;background:radial-gradient(60% 55% at 85% 8%,rgb(255 196 0/.38),rgb(255 196 0/0) 70%),radial-gradient(45% 40% at 10% 0%,rgb(255 226 120/.35),rgb(255 226 120/0) 70%)}
+.scr{position:relative;z-index:1}
+.hd{display:flex;justify-content:space-between;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:5px 10px 5px 6px;font:600 12px Inter}
+.pill i{width:20px;height:20px;border-radius:50%;background:var(--fg);color:var(--y);display:grid;place-items:center;font:800 9px Geist;font-style:normal}
+.display{font:700 44px/.95 Geist;letter-spacing:-.06em}
+.display span{color:#b8b8b2}
+.bento{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.t{background:#fff;border:1px solid var(--line);border-radius:22px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;gap:10px;min-height:118px}
+.t small{font:500 11.5px Inter;color:var(--muted)}
+.t b{font:700 26px/1 Geist;letter-spacing:-.05em}
+.t.w{grid-column:span 2}
+.t.dark{background:var(--fg);color:#fff;border-color:var(--fg)}
+.t.dark small{color:#9a9aa0}
+.t.y{background:linear-gradient(160deg,#ffe066,#ffc400);border-color:transparent}
+.t.y small{color:#6b5200}
+.live{display:inline-flex;align-items:center;gap:6px;font:600 11px Inter;color:var(--y)}
+.live .dot{background:var(--y)}
+.arrow{width:32px;height:32px;border-radius:50%;background:var(--y);color:var(--fg);display:grid;place-items:center;font:700 15px Inter}
+.tiny-av{display:flex}.tiny-av span{width:32px;height:32px;border-radius:50%;background:#efefec;border:2px solid #fff;margin-left:-7px;font:600 8px Geist;display:grid;place-items:center}
+.tiny-av span:first-child{margin-left:0}
+.lrow{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-top:1px solid var(--line)}
+.lrow h4{margin:0;font:600 17px Geist;letter-spacing:-.03em}
+.lrow small{color:var(--muted);font-size:12px}
+.go{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;background:#fff}
+.dock{position:absolute;left:50%;transform:translateX(-50%);bottom:22px;display:flex;gap:8px;z-index:3}
+.dock span{width:56px;height:56px;border-radius:50%;background:#fff;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);box-shadow:0 10px 24px rgb(0 0 0/.08)}
+.dock span.on{background:var(--fg);color:var(--y);border-color:var(--fg)}
+/* tournoi */
+.chip{display:inline-flex;font:600 11.5px Inter;background:rgb(255 255 255/.8);border:1px solid var(--line);border-radius:99px;padding:4px 10px}
+.facts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.facts .t{min-height:84px;padding:12px;border-radius:18px}
+.facts .t b{font-size:19px}
+.prog{height:6px;border-radius:3px;background:rgb(0 0 0/.12)}.prog i{display:block;height:100%;width:31%;border-radius:3px;background:var(--fg)}
+.cta{background:var(--fg);color:#fff;border-radius:99px;padding:6px 6px 6px 20px;display:flex;justify-content:space-between;align-items:center;font:600 14.5px Inter}
+.cta .arrow{width:44px;height:44px}
+.acc{background:#fff;border:1px solid var(--line);border-radius:18px}
+.acc div{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-top:1px solid var(--line);font:500 14px Inter}
+.acc div:first-child{border-top:0}
+.acc span{font:500 12px "Geist Mono";color:var(--muted)}
+/* résultats */
+.winner{font:700 48px/.9 Geist;letter-spacing:-.065em}
+.podium{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:8px;align-items:end}
+.pd{border-radius:18px 18px 8px 8px;background:#fff;border:1px solid var(--line);padding:10px 8px;text-align:center}
+.pd b{display:block;font:700 22px/1 Geist;letter-spacing:-.05em}
+.pd small{font-size:11px;color:var(--muted)}
+.pd .r{font:600 11px "Geist Mono";color:var(--muted)}
+.pd.p1{background:linear-gradient(180deg,#ffd84d,#ffc400);border-color:transparent;padding-top:26px;padding-bottom:22px}
+.pd.p1 .r,.pd.p1 small{color:#5c4600}
+.statg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.statg .t{min-height:96px}
+.mini-rank div{display:grid;grid-template-columns:20px 1fr auto;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px}
+.mini-rank b{font:600 14px Geist}
+</style></head><body>
+<div class="board-head"><div><div class="k">Direction C</div><h1>Bento éditorial</h1><p>Grande typographie façon magazine, informations rangées en tuiles « bento » de tailles variées, halo jaune en dégradé doux en haut d'écran. Très épuré, beaucoup d'air, navigation par boutons ronds.</p></div>
+<div class="refs">Inspiré de <b>Linear</b>, <b>Vercel</b> et <b>Arc</b> : grilles bento, gros titres serrés, dégradés diffus.</div></div>
+<div class="phones">
+
+<div class="col"><div class="phone"><div class="mesh"></div><div class="sb" style="position:relative;z-index:1"><span>20:41</span><i>●●● ▮</i></div><div class="scr">
+ <div class="hd"><span class="pill"><i>AC</i>Arène CODM</span><span class="av" style="background:#fff;border:1px solid var(--line)">PK</span></div>
+ <div class="display">Ce soir,<br><span>scrim BR.</span></div>
+ <div class="bento">
+  <div class="t dark w" style="min-height:150px"><div class="row sp"><span class="live"><span class="dot"></span>En direct · Partie 2/3</span><span class="arrow">↗</span></div><div><div style="font:700 24px/1.05 Geist;letter-spacing:-.045em">Scrim BR Hebdo #13</div><small>En tête : Ghost Unit · 26 pts</small></div></div>
+  <div class="t y"><small>Prochain tournoi</small><div><b>J-14</b><div style="font:600 12.5px Inter;margin-top:4px">Clash Cup S2</div></div></div>
+  <div class="t"><small>Clans inscrits</small><div><b>5<span style="color:#c4c4be">/16</span></b><div class="tiny-av" style="margin-top:6px"><span>PWV</span><span>GHU</span><span>BMB</span><span>SHL</span></div></div></div>
+ </div>
+ <div><div style="font:600 13px Inter;color:var(--muted);margin-bottom:2px">Tous les tournois</div>
+ <div class="lrow"><div><h4>Clash Cup Saison 2</h4><small>8 nov. · 5v5 · Inscriptions ouvertes</small></div><span class="go">→</span></div>
+ <div class="lrow"><div><h4>Scrim BR Hebdo #14</h4><small>1er nov. · Battle Royale</small></div><span class="go">→</span></div></div>
+</div>
+<div class="dock"><span class="on"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4h10v5a5 5 0 0 1-10 0V4zM8 21h8M12 17v4"/></svg></span><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/></svg></span><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span></div>
+</div><div class="cap">Accueil · chef de clan</div></div>
+
+<div class="col"><div class="phone"><div class="mesh"></div><div class="sb" style="position:relative;z-index:1"><span>14:05</span><i>●●● ▮</i></div><div class="scr">
+ <div class="hd"><span class="go">←</span><span class="go">↗</span></div>
+ <div><span class="chip">Multijoueur 5v5 · BO5</span><div class="display" style="font-size:42px;margin-top:12px">Clash Cup<br><span>Saison 2</span></div></div>
+ <div class="facts"><div class="t"><small>Date</small><b>8 nov.</b></div><div class="t"><small>Heure</small><b>18:00</b></div><div class="t"><small>Équipe</small><b>5+1</b></div></div>
+ <div class="t y w"><div class="row sp"><small>Récompense</small><small>11 places restantes</small></div><b style="font-size:28px">50 000 FCFA</b><div class="prog"><i></i></div></div>
+ <div class="cta"><span>Inscrire Phantom Wolves</span><span class="arrow">→</span></div>
+ <div class="acc"><div>Clans inscrits<span>5 / 16</span></div><div>Règlement<span>7 art.</span></div><div>Live<span>Bientôt</span></div><div>Résultats<span>—</span></div></div>
+</div></div><div class="cap">Page tournoi</div></div>
+
+<div class="col"><div class="phone"><div class="mesh"></div><div class="sb" style="position:relative;z-index:1"><span>23:12</span><i>●●● ▮</i></div><div class="scr">
+ <div class="hd"><span class="go">←</span><span class="chip">Scrim BR Hebdo #12</span><span class="go">↗</span></div>
+ <div><div style="font:600 12.5px Inter;color:var(--muted)">Vainqueur · 72 pts</div><div class="winner" style="margin-top:6px">Phantom<br>Wolves</div></div>
+ <div class="podium"><div class="pd"><span class="r">2</span><b>59</b><small>Ghost Unit</small></div><div class="pd p1"><span class="r">1</span><b>72</b><small>Phantom W.</small></div><div class="pd"><span class="r">3</span><b>52</b><small>Black Mamba</small></div></div>
+ <div class="statg"><div class="t dark"><small>MVP</small><div><b style="font-size:20px">PWV Kaizen</b><div style="font:500 12px Inter;color:var(--y);margin-top:4px">14 kills</div></div></div><div class="t"><small>Kills totaux</small><div><b>142</b><div class="mut" style="font-size:12px;margin-top:4px">3 parties · 8 clans</div></div></div></div>
+ <div class="mini-rank"><div><span class="m mut">4</span><span>Shadow Legion</span><b>48</b></div><div><span class="m mut">5</span><span>Red Falcons</span><b>31</b></div><div><span class="m mut">6</span><span>Storm Squad</span><b>19</b></div></div>
+</div></div><div class="cap">Page résultats</div></div>
+
+</div></body></html>

@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
+:root{--fg:#0b0b0c;--muted:#6b6b70;--faint:#a1a1a6;--line:#ececea;--soft:#f6f6f4;--y:#ffc400;--ys:#fff5cc;--live:#e5372f;--ok:#138a4b}
+*{box-sizing:border-box}
+body{margin:0;background:#f1f1ee;font:14px/1.45 Inter,system-ui,sans-serif;color:var(--fg);padding:44px 48px 48px;width:1300px;-webkit-font-smoothing:antialiased}
+.board-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:30px}
+.board-head h1{font:700 36px/1.05 Geist,sans-serif;letter-spacing:-.035em;margin:0}
+.board-head .k{font:500 13px Inter;color:var(--muted);margin-bottom:8px}
+.board-head p{color:var(--muted);margin:10px 0 0;max-width:620px;font-size:15px}
+.refs{font-size:12.5px;color:var(--muted);text-align:right;max-width:330px}
+.refs b{color:var(--fg);font-weight:600}
+.phones{display:flex;gap:32px}
+.col{display:grid;gap:14px;justify-items:center}
+.cap{font:500 13px Inter;color:var(--muted)}
+.phone{width:375px;height:800px;background:#fff;border-radius:46px;border:1px solid #e3e3df;box-shadow:0 30px 60px -20px rgb(0 0 0/.18);overflow:hidden;position:relative;display:flex;flex-direction:column}
+.sb{height:46px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:6px 30px 0;font:600 14px Inter}
+.sb i{font-style:normal;letter-spacing:1px;font-size:11px}
+.scr{flex:1;overflow:hidden;padding:6px 20px 0;display:flex;flex-direction:column;gap:16px}
+.g{font-family:Geist,sans-serif;letter-spacing:-.03em}
+.m{font-family:"Geist Mono",monospace;letter-spacing:-.02em}
+.mut{color:var(--muted)}
+.row{display:flex;align-items:center;gap:10px}
+.sp{justify-content:space-between}
+.av{width:34px;height:34px;border-radius:50%;background:var(--y);display:grid;place-items:center;font:600 12px Geist}
+.tag{font:500 10.5px "Geist Mono";padding:2px 6px;border-radius:5px;background:var(--soft);color:var(--muted)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--live);display:inline-block}
+svg{display:block}

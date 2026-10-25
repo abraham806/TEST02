@@ -1,0 +1,122 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+.topb{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:8px;font:700 16px Geist;letter-spacing:-.03em}
+.logo i{width:24px;height:24px;border-radius:6px;background:var(--fg);color:var(--y);display:grid;place-items:center;font:800 11px Geist;font-style:normal}
+.ticker{margin:0 -20px;background:var(--fg);color:#fff;display:flex;align-items:center;gap:10px;padding:9px 20px;font:500 12px Inter;white-space:nowrap;overflow:hidden}
+.ticker b{background:var(--y);color:var(--fg);font:700 10.5px Geist;padding:3px 7px;border-radius:4px;letter-spacing:.04em}
+.ticker em{font-style:normal;color:var(--y);font-family:"Geist Mono"}
+.seg{display:flex;border-bottom:1px solid var(--line);gap:18px}
+.seg span{padding:0 0 10px;font:600 14px Inter;color:var(--faint)}
+.seg span.on{color:var(--fg);box-shadow:inset 0 -2px 0 var(--fg)}
+.sc{border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.sc-h{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:linear-gradient(90deg,var(--ys),#fff 80%)}
+.sc-h b{font:600 15px Geist;letter-spacing:-.02em}
+.sc-r{display:grid;grid-template-columns:22px 1fr 44px 52px;align-items:center;padding:10px 14px;border-top:1px solid var(--line);font-size:13.5px}
+.sc-r .rk{font:600 12px "Geist Mono";color:var(--faint)}
+.sc-r .k{font:500 12px "Geist Mono";color:var(--muted);text-align:right}
+.sc-r .pt{font:700 20px Geist;letter-spacing:-.04em;text-align:right}
+.sc-r.first .pt{color:var(--fg)}
+.sc-r.first{background:#fffbea}
+.sc-f{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-top:1px solid var(--line);font:500 12.5px Inter}
+.dh{font:600 11px Inter;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:-6px}
+.item{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.item .t{font:600 15px "Geist Mono";letter-spacing:-.03em}
+.item h4{margin:0;font:600 15px Geist;letter-spacing:-.02em}
+.st{font:600 11px Inter;padding:4px 8px;border-radius:6px}
+.st.ok{background:#e8f6ee;color:var(--ok)}.st.y{background:var(--ys);color:#8a6500}
+.nav{position:absolute;left:0;right:0;bottom:0;padding:10px 26px 26px;display:flex;justify-content:center;gap:10px;background:linear-gradient(to top,#fff 60%,rgb(255 255 255/0))}
+.nav span{width:60px;height:52px;border:1px solid var(--line);border-radius:14px;display:grid;place-items:center;color:var(--muted);background:#fff}
+.nav span.on{border-color:var(--fg);color:var(--fg);box-shadow:inset 0 -3px 0 var(--y)}
+/* tournoi */
+.back{display:flex;justify-content:space-between;align-items:center;font:500 13px Inter;color:var(--muted)}
+.mode{display:flex;gap:6px}.mode span{font:600 11px Inter;border:1px solid var(--line);border-radius:6px;padding:3px 7px}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.count div{background:var(--fg);color:#fff;border-radius:12px;padding:10px 0 8px;text-align:center}
+.count b{display:block;font:600 30px/1 "Geist Mono";letter-spacing:-.05em}
+.count span{font:500 10px Inter;color:#9a9aa0;text-transform:uppercase;letter-spacing:.08em}
+.count div:first-child b{color:var(--y)}
+.kv{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.kv div{padding:11px 14px}.kv div:nth-child(odd){border-right:1px solid var(--line)}.kv div:nth-child(n+3){border-top:1px solid var(--line)}
+.kv span{font-size:11px;color:var(--muted)}.kv b{display:block;font:600 15px Geist;letter-spacing:-.02em}
+.tabs{display:flex;gap:18px;border-bottom:1px solid var(--line)}
+.tabs span{padding-bottom:10px;font:600 13.5px Inter;color:var(--faint)}.tabs span.on{color:var(--fg);box-shadow:inset 0 -2px 0 var(--y)}
+.team{display:grid;grid-template-columns:24px 1fr auto;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.team .n{font:600 12px "Geist Mono";color:var(--faint)}
+.team small{display:block;color:var(--muted);font-size:11.5px}
+.cta{position:absolute;left:20px;right:20px;bottom:26px;display:flex;gap:8px}
+.cta .a{flex:1;background:var(--y);border-radius:14px;padding:15px;text-align:center;font:700 14.5px Geist;letter-spacing:-.01em}
+.cta .b{width:52px;border:1px solid var(--line);border-radius:14px;display:grid;place-items:center;background:#fff}
+/* résultats */
+.res-h{display:flex;justify-content:space-between;align-items:flex-end}
+.bars{display:grid;gap:9px}
+.br{display:grid;grid-template-columns:96px 1fr 34px;gap:10px;align-items:center;font-size:12.5px}
+.br .tr{height:22px;border-radius:6px;background:var(--soft);overflow:hidden}
+.br .tr i{display:block;height:100%;border-radius:6px;background:#d9d9d4}
+.br.f .tr i{background:linear-gradient(90deg,#ffd84d,#ffc400)}
+.br .v{font:600 13px "Geist Mono";text-align:right}
+.tbl{border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:12.5px}
+.tr2{display:grid;grid-template-columns:20px 1fr 46px 42px 34px;gap:4px;padding:9px 12px;border-top:1px solid var(--line);align-items:center}
+.tr2:first-child{border-top:0;background:var(--soft);font:500 10.5px Inter;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.tr2 .c{text-align:right;font-family:"Geist Mono"}
+.tr2 .c.b{font-weight:600}
+.games{display:flex;gap:6px}.games span{flex:1;text-align:center;border:1px solid var(--line);border-radius:10px;padding:7px 0;font:600 12px Inter;color:var(--muted)}
+.games span.on{background:var(--fg);color:#fff;border-color:var(--fg)}
+</style></head><body>
+<div class="board-head"><div><div class="k">Direction B</div><h1>Tableau de score</h1><p>Esprit retransmission sportive : bandeau « Live » défilant, classements en direct avec gros chiffres, compte à rebours, barres de points. Dense et précis, pensé pour suivre un scrim en temps réel.</p></div>
+<div class="refs">Inspiré de <b>Apple Sports</b>, <b>theScore</b> et <b>FotMob</b> : scores en direct, tableaux nets, chiffres très lisibles.</div></div>
+<div class="phones">
+
+<div class="col"><div class="phone"><div class="sb"><span>20:41</span><i>●●● ▮</i></div><div class="scr">
+ <div class="topb"><span class="logo"><i>AC</i>Arène CODM</span><span class="av">NO</span></div>
+ <div class="ticker"><b>LIVE</b><span>Scrim BR #13 · Partie 2 en cours</span><em>GHU 26 · SHL 21 · PWV 16</em></div>
+ <div class="seg"><span class="on">En direct</span><span>À venir</span><span>Terminés</span></div>
+ <div class="sc"><div class="sc-h"><div><b>Scrim BR Hebdo #13</b><div class="mut" style="font-size:11.5px">Partie 2 / 3 · Isolated</div></div><span class="row" style="font:600 11px Inter;color:var(--live)"><span class="dot"></span>Live</span></div>
+  <div class="sc-r first"><span class="rk">1</span><span>Ghost Unit <span class="tag">GHU</span></span><span class="k">11 K</span><span class="pt">26</span></div>
+  <div class="sc-r"><span class="rk">2</span><span>Shadow Legion <span class="tag">SHL</span></span><span class="k">9 K</span><span class="pt">21</span></div>
+  <div class="sc-r"><span class="rk">3</span><span>Phantom Wolves <span class="tag">PWV</span></span><span class="k">6 K</span><span class="pt">16</span></div>
+  <div class="sc-f"><span class="mut">+ 5 clans</span><span style="font-weight:600">Regarder le live ↗</span></div></div>
+ <div class="dh">Samedi 8 novembre</div>
+ <div><div class="item"><span class="t">18:00</span><div><h4>Clash Cup Saison 2</h4><div class="mut" style="font-size:12px">5v5 · BO5 · 5/16 clans</div></div><span class="st ok">Ouvert</span></div>
+ <div class="dh" style="margin:14px 0 4px">Samedi 1er novembre</div>
+ <div class="item"><span class="t">20:00</span><div><h4>Scrim BR Hebdo #14</h4><div class="mut" style="font-size:12px">Battle Royale · 2/16 clans</div></div><span class="st ok">Ouvert</span></div></div>
+</div>
+<div class="nav"><span class="on"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4h10v5a5 5 0 0 1-10 0V4zM8 21h8M12 17v4"/></svg></span><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span></div>
+</div><div class="cap">Accueil · joueur</div></div>
+
+<div class="col"><div class="phone"><div class="sb"><span>14:05</span><i>●●● ▮</i></div><div class="scr">
+ <div class="back"><span>← Tournois</span><span>Partager</span></div>
+ <div><div class="mode"><span>Multijoueur 5v5</span><span>BO5</span><span style="background:#e8f6ee;color:var(--ok);border-color:transparent">Inscriptions ouvertes</span></div>
+ <div class="g" style="font:700 30px/1.05 Geist;letter-spacing:-.045em;margin-top:10px">Clash Cup Saison 2</div></div>
+ <div><div class="mut" style="font-size:11.5px;margin-bottom:6px">Début dans</div><div class="count"><div><b>13</b><span>jours</span></div><div><b>21</b><span>heures</span></div><div><b>54</b><span>min</span></div><div><b>08</b><span>sec</span></div></div></div>
+ <div class="kv"><div><span>Date</span><b>Sam. 8 nov. · 18:00</b></div><div><span>Récompense</span><b>50 000 FCFA</b></div><div><span>Équipe</span><b>5 + 1 rempl.</b></div><div><span>Places</span><b>5 / 16</b></div></div>
+ <div class="tabs"><span class="on">Clans</span><span>Règles</span><span>Live</span><span>Résultats</span></div>
+ <div><div class="team"><span class="n">01</span><div><b style="font-weight:600">Black Mamba</b><small>Chef : BMB Venom · 6 joueurs</small></div><span class="tag">BMB</span></div>
+ <div class="team"><span class="n">02</span><div><b style="font-weight:600">Ghost Unit</b><small>Chef : GHU Spectre · 6 joueurs</small></div><span class="tag">GHU</span></div>
+ <div class="team"><span class="n">03</span><div><b style="font-weight:600">Shadow Legion</b><small>Chef : SHL Umbra · 5 joueurs</small></div><span class="tag">SHL</span></div></div>
+</div>
+<div class="cta"><span class="a">Inscrire mon clan</span><span class="b"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10 21h4"/></svg></span></div>
+</div><div class="cap">Page tournoi · chef de clan</div></div>
+
+<div class="col"><div class="phone"><div class="sb"><span>23:12</span><i>●●● ▮</i></div><div class="scr">
+ <div class="back"><span>← Scrim BR Hebdo #12</span><span>Partager</span></div>
+ <div class="res-h"><div><div class="mut" style="font-size:12px">Classement final · 18 oct.</div><div class="g" style="font:700 30px/1.05 Geist;letter-spacing:-.045em;margin-top:4px">Résultats</div></div><span class="st y">MVP · PWV Kaizen</span></div>
+ <div class="bars">
+  <div class="br f"><span style="font-weight:600">Phantom W.</span><span class="tr"><i style="width:100%"></i></span><span class="v">72</span></div>
+  <div class="br"><span>Ghost Unit</span><span class="tr"><i style="width:82%"></i></span><span class="v">59</span></div>
+  <div class="br"><span>Black Mamba</span><span class="tr"><i style="width:72%"></i></span><span class="v">52</span></div>
+  <div class="br"><span>Shadow Leg.</span><span class="tr"><i style="width:67%"></i></span><span class="v">48</span></div>
+  <div class="br"><span>Red Falcons</span><span class="tr"><i style="width:43%"></i></span><span class="v">31</span></div></div>
+ <div class="games"><span class="on">Général</span><span>Partie 1</span><span>Partie 2</span><span>Partie 3</span></div>
+ <div class="tbl">
+  <div class="tr2"><span>#</span><span>Clan</span><span class="c">Place</span><span class="c">Kills</span><span class="c">Pts</span></div>
+  <div class="tr2" style="background:#fffbea"><span class="m">1</span><span style="font-weight:600">Phantom Wolves</span><span class="c">42</span><span class="c">30</span><span class="c b">72</span></div>
+  <div class="tr2"><span class="m">2</span><span>Ghost Unit</span><span class="c">33</span><span class="c">26</span><span class="c b">59</span></div>
+  <div class="tr2"><span class="m">3</span><span>Black Mamba</span><span class="c">30</span><span class="c">22</span><span class="c b">52</span></div>
+  <div class="tr2"><span class="m">4</span><span>Shadow Legion</span><span class="c">28</span><span class="c">20</span><span class="c b">48</span></div>
+  <div class="tr2"><span class="m">5</span><span>Red Falcons</span><span class="c">18</span><span class="c">13</span><span class="c b">31</span></div>
+  <div class="tr2"><span class="m">6</span><span>Storm Squad</span><span class="c">7</span><span class="c">12</span><span class="c b">19</span></div>
+ </div>
+</div></div><div class="cap">Page résultats</div></div>
+
+</div></body></html>
