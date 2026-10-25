@@ -5,6 +5,8 @@ Ouvrir `index.html` dans un navigateur. Le rôle vient du compte : on choisit «
 
 Comptes de démonstration (page Connexion) : `NRD Owl` (joueur), `PWV Kaizen` (chef de clan), `Orga Arène` (organisateur), mot de passe `demo`.
 
+Design : thème clair minimaliste (fond blanc, noir, accent jaune, dégradés jaunes discrets), titres en Geist, textes en Inter.
+
 > Prototype : pas encore de vrais comptes ni de base de données. Les données sont des exemples, enregistrées dans le navigateur (localStorage).
 
 ## Rôles
