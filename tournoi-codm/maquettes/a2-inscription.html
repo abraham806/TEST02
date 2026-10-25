@@ -1,0 +1,86 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="a-theme.css">
+<style>
+.ttl{font:700 30px/1.02 Geist;letter-spacing:-.045em}
+.types{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.type{border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;gap:6px}
+.type b{font:600 15px Geist;letter-spacing:-.02em}
+.type span{font-size:11.5px;color:var(--muted);line-height:1.35}
+.type .ic{width:34px;height:34px;border-radius:11px;background:var(--soft);display:grid;place-items:center}
+.type.on{border-color:var(--fg);box-shadow:inset 0 0 0 1px var(--fg);background:linear-gradient(160deg,#fff7d1,#fff 70%)}
+.type.on .ic{background:var(--y)}
+.fld{display:grid;gap:5px}
+.fld label{font:500 12.5px Inter}
+.in{border:1px solid #dcdcd8;border-radius:14px;padding:12px 14px;font-size:14px;display:flex;justify-content:space-between}
+.in.ph{color:var(--faint)}
+.in.fx{border-color:var(--fg);box-shadow:0 0 0 4px rgb(255 196 0/.25)}
+.two{display:grid;grid-template-columns:1fr 92px;gap:8px}
+.note{text-align:center;font-size:12px;color:var(--muted)}
+.prow{display:grid;grid-template-columns:28px 1fr 1fr;gap:8px;align-items:center}
+.prow .n{width:26px;height:26px;border-radius:8px;background:var(--soft);display:grid;place-items:center;font:600 11px "Geist Mono"}
+.prow .n.c{background:var(--y)}
+.prow .in{padding:10px 12px;font-size:13px;border-radius:12px}
+.m.in{font-family:"Geist Mono";font-size:12.5px}
+.step{display:flex;gap:6px}.step i{flex:1;height:4px;border-radius:2px;background:var(--soft)}.step i.on{background:var(--fg)}
+.chk{display:flex;gap:10px;font-size:12.5px;align-items:flex-start}
+.chk i{width:18px;height:18px;border-radius:6px;background:var(--fg);color:var(--y);display:grid;place-items:center;font:700 11px Inter;font-style:normal;flex:none;margin-top:1px}
+.status{display:flex;align-items:center;gap:8px;font:600 12px Inter;color:#8a6500;background:var(--ys);padding:6px 10px;border-radius:99px}
+.status .dot{background:#e0a800}
+.tl{display:grid;gap:0;margin-top:2px}
+.tl div{display:grid;grid-template-columns:18px 1fr;gap:10px;padding-bottom:14px;position:relative;font-size:13px}
+.tl div::before{content:"";width:10px;height:10px;border-radius:50%;background:#dcdcd8;margin-top:5px;margin-left:4px}
+.tl div::after{content:"";position:absolute;left:8px;top:18px;bottom:0;width:2px;background:#ececea}
+.tl div:last-child::after{display:none}
+.tl div.d::before{background:var(--fg)}.tl div.n::before{background:var(--y);box-shadow:0 0 0 4px var(--ys)}
+.tl small{display:block;color:var(--muted);font-size:11.5px}
+.roster{display:grid;gap:0}
+.roster div{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+.roster span:last-child{font:500 12px "Geist Mono";color:var(--muted)}
+</style></head><body>
+<div class="board-head"><div><div class="k">Direction A · Billet de match · 2/3</div><h1>Compte et inscription d'équipe</h1><p>Le type de compte est choisi une seule fois, à la création. Le chef de clan inscrit ensuite son squad de 4 joueurs avec leur UID, puis suit la validation sur son billet.</p></div>
+<div class="refs">Le compte <b>organisateur</b> n'est pas proposé ici : il est créé par l'administration de la communauté.</div></div>
+<div class="phones">
+
+<div class="col"><div class="phone"><div class="sb"><span>18:02</span><i>●●● ▮</i></div><div class="scr" style="gap:18px">
+ <div class="row sp"><span class="circle" style="background:var(--soft)">←</span><span style="font:500 12.5px Inter;color:var(--muted)">Déjà inscrit ? <b style="color:var(--fg)">Connexion</b></span></div>
+ <div><div class="ttl">Créer mon compte</div><div class="mut" style="font-size:13px;margin-top:6px">Ce choix ne pourra plus être modifié.</div></div>
+ <div class="types">
+  <div class="type"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span><b>Joueur</b><span>Suivre les tournois, les lives et les résultats.</span></div>
+  <div class="type on"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/></svg></span><b>Chef de clan</b><span>Inscrire mon squad aux tournois.</span></div></div>
+ <div class="fld"><label>Pseudo en jeu</label><div class="in">PWV Kaizen</div></div>
+ <div class="fld"><label>UID Call of Duty: Mobile</label><div class="in m">6728000000000000</div></div>
+ <div class="two"><div class="fld"><label>Nom du clan</label><div class="in fx">Phantom Wolves</div></div><div class="fld"><label>Tag</label><div class="in">PWV</div></div></div>
+ <div class="fld"><label>Mot de passe</label><div class="in">••••••••</div></div>
+ <div class="cta">Créer mon compte chef de clan</div>
+</div></div><div class="cap">Création de compte</div></div>
+
+<div class="col"><div class="phone"><div class="sb"><span>18:06</span><i>●●● ▮</i></div><div class="scr" style="gap:15px">
+ <div class="row sp"><span class="circle" style="background:var(--soft)">✕</span><span style="font:600 14px Inter">BR Cup Saison 2</span><span style="width:36px"></span></div>
+ <div class="step"><i class="on"></i><i class="on"></i><i></i></div>
+ <div><div class="ttl" style="font-size:26px">Ton squad</div><div class="mut" style="font-size:13px;margin-top:4px">4 joueurs. Pseudo et UID identiques au compte en jeu.</div></div>
+ <div class="tk" style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center"><div><div class="mut" style="font-size:11px">Équipe</div><b class="g" style="font-size:16px">Phantom Wolves</b></div><span class="tag" style="font-size:12px">PWV</span></div>
+ <div style="display:grid;gap:9px">
+  <div class="prow"><span class="n c">C</span><span class="in">PWV Kaizen</span><span class="in m">6728000000000000</span></div>
+  <div class="prow"><span class="n">2</span><span class="in">PWV Nova</span><span class="in m">6728000000007919</span></div>
+  <div class="prow"><span class="n">3</span><span class="in">PWV Rift</span><span class="in m">6728000000015838</span></div>
+  <div class="prow"><span class="n">4</span><span class="in ph">Pseudo</span><span class="in ph m">UID</span></div></div>
+ <div class="fld"><label>Contact pour le code du salon</label><div class="in">Discord · kaizen#1000</div></div>
+ <div class="chk"><i>✓</i><span>J'ai lu le règlement. Mes joueurs s'engagent à le respecter.</span></div>
+ <div class="cta" style="opacity:.35">Envoyer l'inscription <i>→</i></div>
+ <div class="note">Il manque le joueur 4.</div>
+</div></div><div class="cap">Inscription du squad · chef de clan</div></div>
+
+<div class="col"><div class="phone"><div class="sb"><span>18:07</span><i>●●● ▮</i></div><div class="scr">
+ <div class="g" style="font:700 30px/1 Geist;letter-spacing:-.045em">Mon clan</div>
+ <div class="tk"><div class="top"><div class="row sp"><span class="status"><span class="dot"></span>En attente de validation</span><span class="tag">PWV</span></div>
+  <div class="big" style="font-size:22px">BR Cup Saison 2</div><div class="mut" style="font-size:12.5px;margin-top:4px">Sam. 8 nov. · 18:00 · Isolated</div></div>
+  <div class="cut"></div><div class="stub" style="display:block">
+  <div class="tl"><div class="d"><span>Inscription envoyée<small>Aujourd'hui, 18:06</small></span></div><div class="n"><span>Validation par l'organisateur<small>Tu seras notifié</small></span></div><div><span>Code du salon<small>Envoyé 15 min avant la partie 1</small></span></div></div></div></div>
+ <div class="h2">Squad <a>Modifier</a></div>
+ <div class="roster"><div><span>PWV Kaizen · chef</span><span>6728…0000</span></div><div><span>PWV Nova</span><span>6728…7919</span></div><div><span>PWV Rift</span><span>6728…5838</span></div><div><span>PWV Zekk</span><span>6728…3757</span></div></div>
+ <div class="h2">Historique <a>3 tournois</a></div>
+ <div class="tk lst"><div class="date"><span>Oct</span><b>18</b></div><div class="inf"><div class="row sp"><h4>Scrim BR #12</h4><span style="font:700 13px Geist;background:var(--y);padding:3px 8px;border-radius:7px">#1</span></div><div class="mut" style="font-size:12px;margin-top:2px">72 pts · 30 kills</div></div></div>
+</div>
+<div class="dock"><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4h10v5a5 5 0 0 1-10 0V4zM8 21h8M12 17v4"/></svg></span><span class="on"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/></svg></span><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span></div>
+</div><div class="cap">Mon clan · suivi de l'inscription</div></div>
+
+</div></body></html>

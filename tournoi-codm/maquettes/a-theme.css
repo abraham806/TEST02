@@ -1,0 +1,64 @@
+
+.hello{display:flex;justify-content:space-between;align-items:center}
+.hello small{display:block;color:var(--muted);font-size:12.5px}
+.hello b{font:600 17px Geist;letter-spacing:-.02em}
+.days{display:flex;gap:8px}
+.day{flex:1;border-radius:14px;padding:8px 0;text-align:center;background:var(--soft);font-size:11px;color:var(--muted)}
+.day b{display:block;font:600 17px Geist;color:var(--fg);letter-spacing:-.02em}
+.day.on{background:var(--fg);color:#bdbdbd}.day.on b{color:#fff}
+.day.has::after{content:"";display:block;width:5px;height:5px;border-radius:50%;background:var(--y);margin:4px auto 0}
+/* billet */
+.tk{position:relative;border-radius:22px;background:#fff;border:1px solid var(--line);overflow:hidden}
+.tk .top{padding:16px 18px 14px}
+.tk .cut{position:relative;height:0;border-top:1.5px dashed #dcdcd8;margin:0 14px}
+.tk .cut::before,.tk .cut::after{content:"";position:absolute;top:-11px;width:22px;height:22px;border-radius:50%;background:#fff;border:1px solid var(--line)}
+.tk .cut::before{left:-26px}.tk .cut::after{right:-26px}
+.tk .stub{padding:12px 18px 14px;display:flex;justify-content:space-between;align-items:center}
+.tk.live{border:0;background:linear-gradient(145deg,#ffd84d 0%,#ffc400 55%,#ffb800 100%)}
+.tk.live .cut{border-color:rgb(0 0 0/.25)}
+.tk.live .cut::before,.tk.live .cut::after{border:0;background:#fff}
+.livep{display:inline-flex;align-items:center;gap:6px;background:var(--fg);color:#fff;font:600 11px Inter;padding:4px 9px;border-radius:99px}
+.livep .dot{background:var(--y)}
+.big{font:700 26px/1.05 Geist;letter-spacing:-.04em;margin-top:12px}
+.mini{display:flex;gap:16px;margin-top:10px;font-size:12px}
+.mini b{display:block;font:600 14px Geist}
+.btnk{background:var(--fg);color:#fff;font:600 12.5px Inter;padding:9px 14px;border-radius:99px}
+.btnw{background:#fff;color:var(--fg);font:600 12.5px Inter;padding:9px 14px;border-radius:99px;border:1px solid var(--line)}
+.lst{display:flex;gap:0;align-items:stretch}
+.date{width:66px;flex:none;display:grid;place-content:center;text-align:center;border-right:1.5px dashed #dcdcd8}
+.date b{font:700 24px/1 Geist;letter-spacing:-.04em}.date span{font:600 10.5px Inter;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.lst .inf{padding:12px 14px;flex:1}
+.lst .inf h4{margin:0;font:600 15px Geist;letter-spacing:-.02em}
+.bar{height:4px;border-radius:2px;background:var(--soft);margin-top:8px}.bar i{display:block;height:100%;border-radius:2px;background:var(--y)}
+.dock{position:absolute;left:50%;transform:translateX(-50%);bottom:22px;display:flex;gap:6px;background:var(--fg);padding:6px;border-radius:24px;box-shadow:0 14px 30px rgb(0 0 0/.25)}
+.dock span{width:54px;height:46px;border-radius:18px;display:grid;place-items:center;color:#8d8d92}
+.dock span.on{background:var(--y);color:var(--fg)}
+.h2{font:600 15px Geist;letter-spacing:-.02em;display:flex;justify-content:space-between}
+.h2 a{font:500 12.5px Inter;color:var(--muted)}
+/* tournoi */
+.cover{margin:-6px -20px 0;height:250px;background:radial-gradient(130% 90% at 100% 0%,#ffe27a 0%,#ffc400 45%,#ffb300 100%);padding:16px 20px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.cover::after{content:"";position:absolute;right:-60px;bottom:-80px;width:260px;height:260px;border-radius:50%;border:44px solid rgb(255 255 255/.18)}
+.circle{width:36px;height:36px;border-radius:50%;background:rgb(255 255 255/.65);display:grid;place-items:center}
+.cover h2{margin:0;font:700 31px/1 Geist;letter-spacing:-.045em}
+.sheet{margin:-28px 0 0;position:relative;z-index:2}
+.facts{display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center}
+.facts div{padding:12px 4px}.facts div+div{border-left:1px solid var(--line)}
+.facts b{display:block;font:600 16px Geist;letter-spacing:-.02em}.facts span{font-size:11px;color:var(--muted)}
+.cta{background:var(--fg);color:#fff;border-radius:18px;padding:15px;text-align:center;font:600 14.5px Inter;display:flex;justify-content:center;gap:8px;align-items:center}
+.cta i{font-style:normal;color:var(--y)}
+.stack{display:flex}.stack span{width:38px;height:38px;border-radius:50%;border:2px solid #fff;margin-left:-9px;display:grid;place-items:center;font:600 9px Geist;background:#efefec}
+.stack span:first-child{margin-left:0}
+.rule{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13px}
+.rule b{font:500 11px "Geist Mono";color:#a07800;padding-top:2px}
+/* résultats */
+.champ{border-radius:24px;background:var(--fg);color:#fff;padding:20px;position:relative;overflow:hidden}
+.champ::before{content:"";position:absolute;inset:auto -40px -90px auto;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgb(255 196 0/.55),rgb(255 196 0/0) 65%)}
+.champ small{color:var(--y);font:600 11px Inter;letter-spacing:.08em;text-transform:uppercase}
+.champ h3{margin:8px 0 2px;font:700 28px/1 Geist;letter-spacing:-.04em}
+.champ .pts{font:600 44px/1 Geist;letter-spacing:-.05em;color:var(--y);margin-top:16px}
+.lb{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.lb .r{width:20px;font:600 13px "Geist Mono";color:var(--muted)}
+.lb .n{flex:1;font-weight:500}
+.lb .p{font:600 15px Geist;letter-spacing:-.02em}
+.mvp{display:flex;gap:12px;align-items:center;background:var(--ys);border-radius:18px;padding:12px 14px}
+.mvp .b{background:var(--fg);color:var(--y);font:700 12px Geist;padding:8px 10px;border-radius:10px}

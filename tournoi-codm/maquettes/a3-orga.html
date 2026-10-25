@@ -1,0 +1,79 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="a-theme.css">
+<style>
+.ttl{font:700 28px/1.02 Geist;letter-spacing:-.045em}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpi div{border:1px solid var(--line);border-radius:16px;padding:10px 12px}
+.kpi b{display:block;font:700 22px/1.1 Geist;letter-spacing:-.04em}
+.kpi span{font-size:11px;color:var(--muted)}
+.kpi .y{background:linear-gradient(160deg,#ffe066,#ffc400);border-color:transparent}.kpi .y span{color:#5c4600}
+.filt{display:flex;gap:6px}.filt span{font:600 12px Inter;padding:6px 11px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.filt span.on{background:var(--fg);color:#fff;border-color:var(--fg)}
+.req{border:1px solid var(--line);border-radius:18px;padding:12px 14px;display:grid;gap:10px}
+.req h4{margin:0;font:600 15px Geist;letter-spacing:-.02em}
+.req .pl{display:flex;gap:5px;flex-wrap:wrap}.req .pl span{font:500 11px Inter;background:var(--soft);border-radius:6px;padding:3px 7px}
+.acts{display:flex;gap:8px}.acts span{flex:1;text-align:center;border-radius:12px;padding:9px;font:600 12.5px Inter}
+.acts .v{background:var(--fg);color:#fff}.acts .r{border:1px solid var(--line);color:var(--live)}
+.ok{font:600 11px Inter;color:var(--ok);background:#e8f6ee;border-radius:99px;padding:3px 8px}
+.seg{display:flex;background:var(--soft);border-radius:14px;padding:4px}.seg span{flex:1;text-align:center;padding:7px 0;border-radius:10px;font:600 12px Inter;color:var(--muted)}
+.seg span.on{background:#fff;color:var(--fg);box-shadow:0 1px 3px rgb(0 0 0/.08)}
+.entry{display:grid;grid-template-columns:1fr 64px 84px;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.entry .hd{font:500 10.5px Inter;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.box{border:1px solid #dcdcd8;border-radius:10px;padding:6px 0;text-align:center;font:600 13px "Geist Mono"}
+.box.y{background:var(--ys);border-color:#f0d36b}
+.stp{display:flex;align-items:center;justify-content:space-between;border:1px solid #dcdcd8;border-radius:10px;padding:3px 4px;font:600 13px "Geist Mono"}
+.stp i{width:22px;height:22px;border-radius:7px;background:var(--soft);display:grid;place-items:center;font-style:normal;font-family:Inter}
+.warn{font-size:12px;color:#8a6500;background:var(--ys);border-radius:12px;padding:9px 12px}
+.sw{width:42px;height:24px;border-radius:99px;background:var(--fg);position:relative;flex:none}.sw::after{content:"";position:absolute;right:3px;top:3px;width:18px;height:18px;border-radius:50%;background:var(--y)}
+.sw.off{background:#dcdcd8}.sw.off::after{right:auto;left:3px;background:#fff}
+.setting{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+.setting b{font:600 14px Geist;letter-spacing:-.02em;display:block}
+.setting small{color:var(--muted);font-size:12px}
+.livebox{border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.thumb{height:118px;background:linear-gradient(135deg,#1b1b1e,#0b0b0c);position:relative;display:grid;place-items:center}
+.thumb::after{content:"";position:absolute;inset:auto -30px -60px auto;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgb(255 196 0/.45),rgb(255 196 0/0) 65%)}
+.play{width:44px;height:44px;border-radius:50%;background:var(--y);display:grid;place-items:center;z-index:1}
+</style></head><body>
+<div class="board-head"><div><div class="k">Direction A · Billet de match · 3/3</div><h1>Espace organisateur</h1><p>Valider les squads jusqu'à 25 équipes, saisir chaque partie (place et kills des 25 équipes) avec calcul automatique des points, puis publier la liste, les lives et la page de résultats.</p></div>
+<div class="refs">Visible <b>uniquement</b> par les comptes organisateurs, via le bouton « Gestion » du dock.</div></div>
+<div class="phones">
+
+<div class="col"><div class="phone"><div class="sb"><span>16:20</span><i>●●● ▮</i></div><div class="scr">
+ <div><div class="mut" style="font-size:12px">Gestion · BR Cup Saison 2</div><div class="ttl" style="margin-top:2px">Inscriptions</div></div>
+ <div class="kpi"><div class="y"><b>18<span style="font-size:14px;color:#5c4600">/25</span></b><span>Validées</span></div><div><b>4</b><span>En attente</span></div><div><b>72</b><span>Joueurs</span></div></div>
+ <div class="filt"><span class="on">En attente · 4</span><span>Validées</span><span>Refusées</span></div>
+ <div class="req"><div class="row sp"><h4>Iron Vipers <span class="tag">IVP</span></h4><span class="mut" style="font-size:11.5px">il y a 2 h</span></div><div class="pl"><span>IVP Steel</span><span>IVP Bolt</span><span>IVP Cobra</span><span>IVP Axe</span></div><div class="acts"><span class="v">Valider</span><span class="r">Refuser</span></div></div>
+ <div class="req"><div class="row sp"><h4>Night Raid <span class="tag">NRD</span></h4><span class="mut" style="font-size:11.5px">il y a 5 h</span></div><div class="pl"><span>NRD Owl</span><span>NRD Dusk</span><span>NRD Rook</span><span style="background:var(--ys);color:#8a6500">UID en double</span></div><div class="acts"><span class="v">Valider</span><span class="r">Refuser</span></div></div>
+ <div class="req" style="padding-block:10px"><div class="row sp"><h4>Storm Squad <span class="tag">STS</span></h4><span class="ok">Validée</span></div></div>
+</div>
+<div class="dock"><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4h10v5a5 5 0 0 1-10 0V4zM8 21h8M12 17v4"/></svg></span><span class="on"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></span><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span></div>
+</div><div class="cap">Validation des squads</div></div>
+
+<div class="col"><div class="phone"><div class="sb"><span>21:34</span><i>●●● ▮</i></div><div class="scr" style="gap:13px">
+ <div class="row sp"><span class="circle" style="background:var(--soft)">←</span><span style="font:600 14px Inter">Scrim BR Hebdo #13</span><span class="livep"><span class="dot"></span>Live</span></div>
+ <div class="ttl" style="font-size:26px">Saisir la partie 2</div>
+ <div class="seg"><span>Partie 1 ✓</span><span class="on">Partie 2</span><span>Partie 3</span></div>
+ <div>
+  <div class="entry"><span class="hd">Équipe</span><span class="hd" style="text-align:center">Place</span><span class="hd" style="text-align:center">Kills</span></div>
+  <div class="entry"><span>Ghost Unit <span class="tag">GHU</span></span><span class="box y">1</span><span class="stp"><i>−</i>13<i>+</i></span></div>
+  <div class="entry"><span>Phantom Wolves <span class="tag">PWV</span></span><span class="box">2</span><span class="stp"><i>−</i>8<i>+</i></span></div>
+  <div class="entry"><span>Shadow Legion <span class="tag">SHL</span></span><span class="box">3</span><span class="stp"><i>−</i>7<i>+</i></span></div>
+  <div class="entry"><span>Black Mamba <span class="tag">BMB</span></span><span class="box">4</span><span class="stp"><i>−</i>5<i>+</i></span></div>
+  <div class="entry"><span>Red Falcons <span class="tag">RFC</span></span><span class="box" style="color:var(--faint)">—</span><span class="stp" style="color:var(--faint)"><i>−</i>0<i>+</i></span></div>
+  <div class="entry" style="border:0"><span class="mut">+ 20 équipes</span><span></span><span></span></div>
+ </div>
+ <div class="warn">4 / 25 places saisies. Les places restantes doivent être différentes.</div>
+ <div class="cta">Valider la partie 2 <i>→</i></div>
+</div></div><div class="cap">Saisie des résultats d'une partie</div></div>
+
+<div class="col"><div class="phone"><div class="sb"><span>23:05</span><i>●●● ▮</i></div><div class="scr" style="gap:12px">
+ <div><div class="mut" style="font-size:12px">Gestion · Scrim BR Hebdo #13</div><div class="ttl" style="margin-top:2px">Publication</div></div>
+ <div>
+  <div class="setting"><div><b>Liste des participants</b><small>25 équipes · 100 joueurs visibles</small></div><span class="sw"></span></div>
+  <div class="setting"><div><b>Règlement</b><small>7 articles · modifié le 20 oct.</small></div><span style="font:600 12.5px Inter">Modifier</span></div>
+  <div class="setting"><div><b>Page de résultats</b><small>3 / 3 parties saisies · MVP choisi</small></div><span class="sw off"></span></div></div>
+ <div class="h2">Lives <a>+ Ajouter</a></div>
+ <div class="livebox"><div class="thumb"><span class="play"><svg width="16" height="16" viewBox="0 0 24 24" fill="#0b0b0c"><path d="M7 4l13 8-13 8z"/></svg></span></div><div style="padding:11px 14px;display:flex;justify-content:space-between;align-items:center"><div><b style="font:600 14px Geist">Live du scrim · caster Nova</b><div class="mut" style="font-size:11.5px">YouTube · lecteur intégré</div></div><span style="font:600 12px Inter;color:var(--live)">Retirer</span></div></div>
+ <div class="cta" style="background:var(--y);color:var(--fg)">Publier les résultats</div>
+</div></div><div class="cap">Liste, lives et résultats</div></div>
+
+</div></body></html>
