@@ -1,50 +1,36 @@
-# Arène CODM — plateforme de tournois Call of Duty: Mobile
+# Gewgui : tournois Battle Royale Call of Duty: Mobile
 
-Prototype cliquable (`index.html`, un seul fichier, aucune installation) de la plateforme de gestion des tournois et scrims de la communauté.
-Ouvrir `index.html` dans un navigateur. Le rôle vient du compte : on choisit « Joueur » ou « Chef de clan » en créant son compte, et chacun ne voit que les menus et boutons de son rôle. Les comptes organisateurs sont créés par l'administration.
+Prototype cliquable (`index.html`, un seul fichier, aucune installation) de la plateforme de tournois et scrims de la communauté.
+Design « Billet de match » (maquettes dans `maquettes/`) : fond blanc, noir, accent jaune, titres en Geist, textes en Inter.
 
-Comptes de démonstration (page Connexion) : `NRD Owl` (joueur), `PWV Kaizen` (chef de clan), `Orga Arène` (organisateur), mot de passe `demo`.
+> Prototype : pas encore de serveur. Comptes et données sont des exemples enregistrés dans le navigateur (localStorage).
 
-Design : thème clair minimaliste (fond blanc, noir, accent jaune, dégradés jaunes discrets), titres en Geist, textes en Inter.
+Comptes de démonstration (page Connexion, mot de passe `demo`) : `NRD Onyx` (joueur), `PWV Kaizen` (chef de clan), `Orga Gewgui` (organisateur).
 
-> Prototype : pas encore de vrais comptes ni de base de données. Les données sont des exemples, enregistrées dans le navigateur (localStorage).
+## Format
+
+- Battle Royale en squad : 25 équipes de 4 joueurs titulaires (100 joueurs par lobby), plus 4 remplaçants optionnels par équipe.
+- Plusieurs parties par tournoi. Le classement additionne les points de placement et les points de kills de chaque partie.
+- Barème libre : l'organisateur fixe les points du Top 1, Top 2, Top 3… et les points par kill, tournoi par tournoi.
+- Égalité : plus de points de placement, puis plus de kills, puis meilleure place.
 
 ## Rôles
 
-| Rôle | Ce qu'il peut faire |
-|---|---|
-| **Visiteur** (non connecté) | Voir les tournois publiés, se connecter ou créer un compte |
-| **Joueur** | Voir tous les tournois, la liste publiée des équipes et joueurs, le règlement, les lives et la page de résultats |
-| **Chef de clan** | Tout ce que voit le joueur + inscrire son équipe (titulaires, remplaçants, UID CODM) et suivre le statut de ses inscriptions |
-| **Organisateur** | Tout + créer/modifier un tournoi, valider ou refuser les inscriptions, publier la liste des participants, écrire le règlement, ajouter les lives, saisir les parties, désigner le MVP et publier la page de résultats |
+Le rôle vient du compte, choisi à la création (Joueur ou Chef de clan). Les comptes organisateurs sont créés par l'administration.
 
-## Parcours d'un tournoi
+| Rôle | Dock | Ce qu'il peut faire |
+|---|---|---|
+| Visiteur | Tournois · Connexion | Voir les tournois, lives et résultats publiés |
+| Joueur | Tournois · Profil | Idem + retrouver les tournois où il est inscrit (via son UID) |
+| Chef de clan | Tournois · Mon clan · Profil | Inscrire son squad (4 titulaires + jusqu'à 4 remplaçants) et suivre la validation |
+| Organisateur | Tournois · Gestion · Profil | Créer un tournoi et son barème, valider les squads, publier la liste, saisir les parties, choisir le MVP, gérer les lives et publier les résultats |
 
-1. L'organisateur crée le tournoi (mode, format, date, places, taille d'équipe, barème).
-2. Les chefs de clan inscrivent leur équipe → statut « En attente ».
-3. L'organisateur valide ou refuse chaque équipe, puis publie la liste des participants.
-4. Jour J : statut « En direct », les lives sont visibles sur la page du tournoi (lecteur intégré YouTube/Twitch).
-5. L'organisateur saisit chaque partie (place + kills par équipe). Le classement se calcule tout seul.
-6. Il publie la page de résultats : podium, MVP, équipe la plus létale, classement général, détail de chaque partie.
+## Contrôles automatiques
 
-## Pages
+- Inscription : 4 titulaires obligatoires, UID de 6 à 20 chiffres, pas d'UID en double dans l'équipe ni déjà inscrit dans une autre équipe du tournoi.
+- Validation : alerte si un UID apparaît dans deux équipes, blocage au-delà de 25 équipes.
+- Saisie d'une partie : places de 1 à N, deux équipes ne peuvent pas avoir la même place.
 
-- **Tournois** : liste filtrable (inscriptions ouvertes, en direct, terminés). Le tournoi en direct est mis en avant.
-- Navigation : boutons arrondis flottants en bas sur mobile, différents selon le rôle.
-- **Page tournoi** : onglets Aperçu, Équipes, Règles, Live, Résultats.
-- **Inscription d'équipe** (chef de clan).
-- **Connexion / Créer un compte** (choix Joueur ou Chef de clan à l'inscription).
-- **Mon clan** (chef de clan) : ses inscriptions et leur statut.
-- **Profil** : infos du compte, tournois où le joueur apparaît (via son UID), déconnexion.
-- **Gestion** (organisateur) : Inscriptions, Infos & statut, Règles, Lives, Résultats, Nouveau tournoi.
+## Prochaine étape
 
-## Calcul du classement (Battle Royale)
-
-- Points de placement selon le barème du tournoi (par défaut 15, 12, 10, 8, 6, 4, 2, 1, 1, 1) + points par kill (1 par défaut).
-- Égalité : plus de points de placement, puis plus de kills, puis meilleure place.
-
-## Prochaine étape : la vraie application
-
-- Comptes et connexion (par ex. Discord ou numéro de téléphone) avec les 3 rôles.
-- Base de données partagée (tournois, équipes, joueurs, parties) pour que tout le monde voie les mêmes données.
-- Notifications aux chefs de clan (validation, code du salon).
+Brancher une vraie base de données (Supabase) pour les comptes, les rôles et les données partagées entre tous les joueurs.
