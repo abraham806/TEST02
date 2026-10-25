@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Arène CODM</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout : en-tête collant + sélecteur de rôle, contenu sur une colonne de 1100px max, barre d'onglets en bas sur mobile. Esthétique HUD tactique (ambre CODM sur graphite bleuté). */
+:root {
+  --bg: #0e1216;
+  --surface: #161b21;
+  --surface-2: #1e252d;
+  --line: #2a323c;
+  --fg: #e8ecef;
+  --muted: #8d99a5;
+  --accent: #f2b200;
+  --accent-fg: #17130a;
+  --live: #ff5252;
+  --ok: #3ccf7a;
+  --warn: #ff9f1a;
+  --info: #5aa9ff;
+  --gold: #f2b200; --silver: #b9c3cc; --bronze: #d08a52;
+  --font-display: "Chakra Petch", "Rajdhani", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r: 10px;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f2f4f6; --surface: #ffffff; --surface-2: #eaeef2; --line: #d6dce2;
+    --fg: #11161b; --muted: #5a6571; --accent: #d59c00; --accent-fg: #17130a;
+    --live: #d92d2f; --ok: #16834a; --warn: #c26a00; --info: #1f6fd1;
+    --gold: #c99400; --silver: #7d8a96; --bronze: #a8622c;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #f2f4f6; --surface: #ffffff; --surface-2: #eaeef2; --line: #d6dce2;
+  --fg: #11161b; --muted: #5a6571; --accent: #d59c00; --accent-fg: #17130a;
+  --live: #d92d2f; --ok: #16834a; --warn: #c26a00; --info: #1f6fd1;
+  --gold: #c99400; --silver: #7d8a96; --bronze: #a8622c;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--fg);
+  font: 15px/1.55 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-bottom: 88px;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; margin: 0; text-wrap: balance; letter-spacing: .01em; }
+h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); }
+h2 { font-size: 1.3rem; }
+h3 { font-size: 1.05rem; }
+p { margin: 0; }
+a { color: var(--accent); }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mono { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.eyebrow { font-family: var(--font-data); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.wrap { max-width: 1100px; margin: 0 auto; }
+
+/* En-tête */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); }
+.top .wrap { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding-block: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; letter-spacing: .04em; text-transform: uppercase; background: none; border: 0; cursor: pointer; padding: 0; }
+.brand-mark { width: 30px; height: 30px; display: grid; place-items: center; background: var(--accent); color: var(--accent-fg); clip-path: polygon(0 0, 100% 0, 100% 70%, 70% 100%, 0 100%); font-size: .9rem; }
+.nav { display: flex; gap: 4px; }
+.nav button { background: none; border: 0; padding: 8px 12px; border-radius: 8px; cursor: pointer; color: var(--muted); font-weight: 500; }
+.nav button[aria-current="page"] { color: var(--fg); background: var(--surface-2); }
+.role { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.seg { display: inline-flex; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+.seg button { border: 0; background: none; padding: 6px 12px; border-radius: 999px; cursor: pointer; font-size: .85rem; color: var(--muted); white-space: nowrap; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); font-weight: 600; }
+
+/* Barre du bas (mobile) */
+.bottom-nav { display: none; }
+@media (max-width: 720px) {
+  .top .nav { display: none; }
+  .role { margin-left: 0; width: 100%; overflow-x: auto; }
+  .role .eyebrow { display: none; }
+  .bottom-nav { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--surface); border-top: 1px solid var(--line); padding: 6px max(16px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); justify-content: space-around; }
+  .bottom-nav button { flex: 1; background: none; border: 0; padding: 8px 4px; color: var(--muted); font-size: .8rem; cursor: pointer; border-radius: 8px; }
+  .bottom-nav button[aria-current="page"] { color: var(--accent); font-weight: 600; }
+}
+
+main { padding-block: 24px; display: grid; gap: 24px; }
+.demo-note { font-size: .82rem; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--r); padding: 8px 12px; }
+
+/* Boutons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--line); background: var(--surface-2); padding: 9px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; text-decoration: none; color: var(--fg); white-space: nowrap; }
+.btn:hover { border-color: var(--muted); }
+.btn-primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.btn-primary:hover { filter: brightness(1.08); border-color: var(--accent); }
+.btn-ghost { background: none; }
+.btn-sm { padding: 5px 10px; font-size: .82rem; }
+.btn-ok { color: var(--ok); }
+.btn-danger { color: var(--live); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+/* Pastilles de statut */
+.pill { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-data); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; border: 1px solid currentColor; white-space: nowrap; }
+.pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.pill-live { color: var(--live); }
+.pill-live::before { animation: blink 1.2s infinite; }
+.pill-ok { color: var(--ok); }
+.pill-warn { color: var(--warn); }
+.pill-info { color: var(--info); }
+.pill-muted { color: var(--muted); }
+.tag { font-family: var(--font-data); font-size: .72rem; font-weight: 600; padding: 2px 6px; border-radius: 4px; background: var(--surface-2); border: 1px solid var(--line); }
+@keyframes blink { 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) { .pill-live::before { animation: none; } }
+
+/* Liste des tournois */
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { border: 1px solid var(--line); background: none; padding: 6px 12px; border-radius: 999px; cursor: pointer; font-size: .85rem; color: var(--muted); }
+.chip[aria-pressed="true"] { border-color: var(--fg); color: var(--fg); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
+.card { text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; display: grid; gap: 12px; cursor: pointer; min-width: 0; }
+.card:hover { border-color: var(--muted); }
+.card--feature { grid-column: 1 / -1; border-color: color-mix(in srgb, var(--live) 50%, var(--line)); background: linear-gradient(120deg, color-mix(in srgb, var(--live) 9%, var(--surface)), var(--surface) 60%); }
+.card--feature h2 { font-size: 1.6rem; }
+.card-top { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: .88rem; color: var(--muted); }
+.meta b { color: var(--fg); font-weight: 600; }
+.slots { display: grid; gap: 6px; }
+.slots-bar { height: 6px; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
+.slots-bar span { display: block; height: 100%; background: var(--accent); }
+.slots-label { display: flex; justify-content: space-between; font-size: .8rem; color: var(--muted); }
+
+/* Page tournoi */
+.hero { display: grid; gap: 14px; padding-bottom: 4px; }
+.back { background: none; border: 0; color: var(--muted); cursor: pointer; padding: 0; justify-self: start; font-size: .9rem; }
+.facts { display: flex; flex-wrap: wrap; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.fact { flex: 1 1 150px; background: var(--surface); padding: 12px 14px; display: grid; gap: 2px; min-width: 0; }
+.fact strong { font-family: var(--font-display); font-size: 1.15rem; overflow-wrap: anywhere; }
+.tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.tabs button { background: none; border: 0; border-bottom: 2px solid transparent; padding: 10px 14px; cursor: pointer; color: var(--muted); font-weight: 500; white-space: nowrap; display: inline-flex; gap: 6px; align-items: center; }
+.tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--live); }
+.dot-ok { background: var(--ok); }
+.panel { display: grid; gap: 18px; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; display: grid; gap: 14px; min-width: 0; }
+.empty { text-align: center; padding: 36px 18px; color: var(--muted); display: grid; gap: 8px; justify-items: center; }
+.empty h3 { color: var(--fg); }
+
+/* Étapes du tournoi */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; list-style: none; margin: 0; padding: 0; counter-reset: s; }
+.steps li { counter-increment: s; border-top: 3px solid var(--line); padding-top: 8px; font-size: .88rem; color: var(--muted); }
+.steps li::before { content: "Étape " counter(s); display: block; font-family: var(--font-data); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; }
+.steps li.done { border-color: var(--ok); color: var(--fg); }
+.steps li.now { border-color: var(--accent); color: var(--fg); font-weight: 600; }
+@media (max-width: 560px) { .steps { grid-template-columns: 1fr 1fr; } }
+
+/* Équipes */
+.teams { display: grid; gap: 8px; }
+details.team { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); }
+details.team summary { list-style: none; cursor: pointer; padding: 12px 16px; display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; }
+details.team summary::-webkit-details-marker { display: none; }
+details.team summary .n { font-family: var(--font-data); color: var(--muted); font-size: .8rem; width: 2ch; text-align: right; }
+details.team summary .nm { font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+details.team summary .nm small { display: block; font-weight: 400; color: var(--muted); font-size: .8rem; }
+details.team[open] summary { border-bottom: 1px solid var(--line); }
+.roster { padding: 8px 16px 14px; }
+
+/* Tableaux */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); }
+table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { font-family: var(--font-data); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 400; background: var(--surface-2); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { text-align: right; font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+tr.top3 td:first-child { font-weight: 700; }
+.roster table th { background: none; }
+.roster table td, .roster table th { padding: 6px 4px; }
+
+/* Règles */
+ol.rules { margin: 0; padding: 0; list-style: none; counter-reset: r; display: grid; gap: 10px; }
+ol.rules li { counter-increment: r; display: grid; grid-template-columns: 3.2em 1fr; gap: 8px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); }
+ol.rules li::before { content: "Art. " counter(r); font-family: var(--font-data); font-size: .75rem; color: var(--accent); padding-top: 2px; }
+
+/* Live */
+.lives { display: grid; gap: 14px; }
+.live-card { display: grid; gap: 12px; }
+.player { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: #000; border-radius: 8px; overflow: hidden; }
+.player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* Résultats */
+.podium { display: grid; grid-template-columns: 1fr 1.15fr 1fr; gap: 12px; align-items: end; }
+.pod { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; gap: 6px; text-align: center; justify-items: center; min-width: 0; }
+.pod .rank { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; line-height: 1; }
+.pod .tn { font-weight: 600; overflow-wrap: anywhere; }
+.pod .pts { font-family: var(--font-data); font-size: .85rem; color: var(--muted); }
+.pod-1 { padding-block: 26px; border-color: var(--gold); }
+.pod-1 .rank { color: var(--gold); font-size: 3rem; }
+.pod-2 .rank { color: var(--silver); }
+.pod-3 .rank { color: var(--bronze); }
+@media (max-width: 560px) { .podium { grid-template-columns: 1fr; } .pod-1 { order: -1; } }
+.mvp { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.mvp-badge { font-family: var(--font-display); font-weight: 700; background: var(--accent); color: var(--accent-fg); padding: 10px 14px; border-radius: 8px; letter-spacing: .08em; }
+.split { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+
+/* Formulaires */
+form { display: grid; gap: 16px; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label, .lbl { font-size: .85rem; font-weight: 500; }
+.field .hint { font-size: .78rem; color: var(--muted); }
+input[type="text"], input[type="number"], input[type="date"], input[type="time"], input[type="url"], select, textarea {
+  width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 9px 12px; min-width: 0;
+}
+textarea { min-height: 160px; resize: vertical; line-height: 1.5; }
+input:focus, select:focus, textarea:focus { border-color: var(--accent); outline: none; }
+.fields-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.player-row { display: grid; grid-template-columns: 2.6em 1fr 1fr; gap: 8px; align-items: center; }
+.player-row .n { font-family: var(--font-data); font-size: .78rem; color: var(--muted); }
+@media (max-width: 480px) { .player-row { grid-template-columns: 1fr 1fr; } .player-row .n { grid-column: 1 / -1; } }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: .9rem; }
+.check input { margin-top: 4px; accent-color: var(--accent); }
+.score-in { width: 5.5em !important; text-align: right; font-family: var(--font-data); }
+
+/* Gestion */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; }
+.stat strong { display: block; font-family: var(--font-display); font-size: 1.6rem; }
+.subtabs { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.toast { position: fixed; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 10px 18px; border-radius: 8px; font-weight: 500; z-index: 40; max-width: calc(100% - 32px); }
+footer { padding-block: 8px 24px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: .82rem; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <button class="brand" data-action="go" data-view="home" aria-label="Accueil"><span class="brand-mark">AC</span>Arène CODM</button>
+    <nav class="nav" id="nav"></nav>
+    <div class="role">
+      <span class="eyebrow">Voir en tant que</span>
+      <div class="seg" id="roles" role="group" aria-label="Rôle de démonstration">
+        <button data-action="role" data-role="joueur">Joueur</button>
+        <button data-action="role" data-role="chef">Chef de clan</button>
+        <button data-action="role" data-role="orga">Organisateur</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="app"></main>
+
+<footer class="wrap">
+  <span>Prototype : les données sont des exemples, enregistrées uniquement dans ce navigateur.</span>
+  <button class="btn btn-ghost btn-sm" data-action="reset" id="reset-btn">Réinitialiser les exemples</button>
+</footer>
+
+<nav class="bottom-nav" id="bottom-nav"></nav>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function () {
+  "use strict";
+  const KEY = "arene-codm-v1";
+  const ROLES = { joueur: "Joueur", chef: "Chef de clan", orga: "Organisateur" };
+  const STATUTS = {
+    inscriptions: { label: "Inscriptions ouvertes", cls: "pill-ok" },
+    closes: { label: "Inscriptions closes", cls: "pill-warn" },
+    en_cours: { label: "En direct", cls: "pill-live" },
+    termine: { label: "Terminé", cls: "pill-muted" }
+  };
+  const TEAM_STATUT = {
+    en_attente: { label: "En attente", cls: "pill-warn" },
+    validee: { label: "Validée", cls: "pill-ok" },
+    refusee: { label: "Refusée", cls: "pill-muted" }
+  };
+  const BAREME_BR = [15, 12, 10, 8, 6, 4, 2, 1, 1, 1];
+
+  /* ---------- Données d'exemple ---------- */
+  const CLANS = [
+    ["Phantom Wolves", "PWV", ["Kaizen", "Nova", "Rift", "Zekk", "Lynx"]],
+    ["Ghost Unit", "GHU", ["Spectre", "Hollow", "Vex", "Kano", "Drift"]],
+    ["Black Mamba", "BMB", ["Venom", "Coil", "Fang", "Sly", "Mojo"]],
+    ["Shadow Legion", "SHL", ["Umbra", "Raze", "Onyx", "Kyro", "Blitz"]],
+    ["Red Falcons", "RFC", ["Talon", "Ember", "Hawk", "Pyro", "Jinx"]],
+    ["Night Raid", "NRD", ["Owl", "Dusk", "Rook", "Mako", "Zero"]],
+    ["Iron Vipers", "IVP", ["Steel", "Bolt", "Cobra", "Axe", "Flint"]],
+    ["Storm Squad", "STS", ["Thor", "Gale", "Volt", "Haze", "Rain"]]
+  ];
+  function uid(i, j) { return String(6728000000000000 + i * 104729 + j * 7919).slice(0, 16); }
+  function mkTeam(tid, i, size, subs, statut, extra) {
+    const [nom, tag, names] = CLANS[i];
+    const players = names.slice(0, size).map((n, j) => ({ pseudo: tag + " " + n, uid: uid(i, j) }));
+    const remplacants = names.slice(size, size + subs).map((n, j) => ({ pseudo: tag + " " + n, uid: uid(i, j + size) }));
+    return Object.assign({ id: tid + "-" + i, tournoiId: tid, nom, tag, chef: tag + " " + names[0], contact: "Discord : " + names[0].toLowerCase() + "#" + (1000 + i * 37), joueurs: players, remplacants, statut, inscritLe: "2026-10-" + String(10 + i).padStart(2, "0"), chefId: "c" + i }, extra || {});
+  }
+  const RULES_BR = [
+    "Chaque équipe compte 4 joueurs titulaires et au plus 1 remplaçant.",
+    "Le pseudo et l'UID déclarés à l'inscription doivent correspondre au compte utilisé en jeu, sinon l'équipe est disqualifiée.",
+    "Le code du salon privé est envoyé aux chefs de clan 15 minutes avant la première partie.",
+    "Barème de placement : 1er 15 pts, 2e 12, 3e 10, 4e 8, 5e 6, 6e 4, 7e 2, 8e à 10e 1 pt. Chaque kill rapporte 1 point.",
+    "En cas d'égalité, l'équipe qui a le plus de points de placement passe devant, puis celle qui a le plus de kills.",
+    "Le chef de clan envoie une capture du tableau final de chaque partie à l'organisation.",
+    "Logiciel tiers, émulateur non autorisé ou triche : disqualification immédiate de l'équipe."
+  ];
+  const RULES_MP = [
+    "Équipes de 5 joueurs titulaires et 1 remplaçant maximum.",
+    "Matchs en BO5 dans l'ordre Hardpoint, Search & Destroy, Control, Hardpoint, Search & Destroy.",
+    "Hardpoint : 250 points, 10 minutes. Search & Destroy : premier à 7 manches, prolongation plafonnée à 20. Control : premier à 3 manches.",
+    "Phase de poules : maps tirées au sort. Playoffs : veto des maps entre capitaines.",
+    "Les équipes ont 10 minutes de retard maximum, au-delà la manche est perdue.",
+    "Le pseudo et l'UID déclarés à l'inscription doivent correspondre au compte utilisé en jeu.",
+    "Toute contestation passe par le chef de clan, avec capture d'écran à l'appui."
+  ];
+
+  function seed() {
+    const t1 = { id: "t1", nom: "Scrim BR Hebdo #12", mode: "Battle Royale", format: "Scrim · 3 parties", date: "2026-10-18", heure: "20:00", slots: 16, teamSize: 4, subs: 1, prize: "Rôle Discord « Champion » + 10 000 CP", description: "Scrim hebdomadaire Battle Royale sur Isolated. Trois parties, classement au cumul des points de placement et des kills.", statut: "termine", listePubliee: true, regles: RULES_BR.slice(), bareme: BAREME_BR.slice(), killPts: 1, lives: [{ titre: "Diffusion officielle (exemple)", url: "https://www.youtube.com/@CallofDutyMobile" }], resultats: { parties: [], mvp: { joueur: "PWV Kaizen", teamId: "t1-0", kills: 14 }, publie: true } };
+    const t2 = { id: "t2", nom: "Clash Cup Saison 2", mode: "Multijoueur 5v5", format: "Poules + élimination directe", date: "2026-11-08", heure: "18:00", slots: 16, teamSize: 5, subs: 1, prize: "50 000 FCFA + 2 Battle Pass", description: "Tournoi multijoueur 5v5 en BO5. Phase de poules le samedi, playoffs le dimanche. Inscriptions ouvertes aux clans de la communauté.", statut: "inscriptions", listePubliee: false, regles: RULES_MP.slice(), bareme: [1, 0], killPts: 0, lives: [], resultats: { parties: [], mvp: null, publie: false } };
+    const t3 = { id: "t3", nom: "Scrim BR Hebdo #13", mode: "Battle Royale", format: "Scrim · 3 parties", date: "2026-10-25", heure: "20:00", slots: 16, teamSize: 4, subs: 1, prize: "Rôle Discord « Champion » + 10 000 CP", description: "Scrim hebdomadaire Battle Royale. Partie 1 jouée, parties 2 et 3 en cours.", statut: "en_cours", listePubliee: true, regles: RULES_BR.slice(), bareme: BAREME_BR.slice(), killPts: 1, lives: [{ titre: "Live du scrim (exemple : remplacez par votre lien)", url: "https://www.youtube.com/@CallofDutyMobile" }], resultats: { parties: [], mvp: null, publie: false } };
+    const teams = [];
+    for (let i = 0; i < 8; i++) teams.push(mkTeam("t1", i, 4, 1, "validee", i === 0 ? { chefId: "moi" } : null));
+    for (let i = 0; i < 8; i++) teams.push(mkTeam("t3", i, 4, 1, "validee"));
+    teams.push(mkTeam("t2", 2, 5, 0, "validee"));
+    teams.push(mkTeam("t2", 1, 5, 0, "validee"));
+    teams.push(mkTeam("t2", 3, 5, 0, "validee"));
+    teams.push(mkTeam("t2", 4, 5, 0, "en_attente"));
+    teams.push(mkTeam("t2", 6, 5, 0, "en_attente"));
+    const games = [
+      ["Partie 1 · Isolated", [1, 3, 2, 5, 4, 7, 6, 8], [12, 7, 9, 4, 6, 2, 5, 3]],
+      ["Partie 2 · Isolated", [2, 1, 4, 3, 6, 5, 8, 7], [8, 13, 5, 7, 3, 6, 2, 4]],
+      ["Partie 3 · Blackout", [1, 4, 3, 2, 5, 8, 7, 6], [10, 6, 8, 9, 4, 1, 3, 5]]
+    ];
+    t1.resultats.parties = games.map(([nom, pl, k]) => ({ nom, lignes: pl.map((p, i) => ({ teamId: "t1-" + i, place: p, kills: k[i] })) }));
+    t3.resultats.parties = [{ nom: "Partie 1 · Isolated", lignes: [3, 1, 5, 2, 4, 8, 6, 7].map((p, i) => ({ teamId: "t3-" + i, place: p, kills: [6, 11, 4, 9, 5, 2, 7, 3][i] })) }];
+    return { tournois: [t3, t2, t1], teams, nextId: 1 };
+  }
+
+  function load() { try { const s = localStorage.getItem(KEY); return s ? JSON.parse(s) : null; } catch (e) { return null; } }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* stockage indisponible */ } }
+  function loadUi() { try { return JSON.parse(localStorage.getItem(KEY + "-ui")) || {}; } catch (e) { return {}; } }
+  function saveUi() { try { localStorage.setItem(KEY + "-ui", JSON.stringify({ role: ui.role })); } catch (e) { /* ignoré */ } }
+
+  let S = load() || seed();
+  const ui = Object.assign({ role: "joueur", view: "home", tid: null, tab: "apercu", filter: "tous", mtid: null, mtab: "inscriptions", resetArmed: false }, loadUi());
+  const app = document.getElementById("app");
+
+  /* ---------- Utilitaires ---------- */
+  function esc(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+  function newId(p) { S.nextId = (S.nextId || 1) + 1; return p + Date.now().toString(36) + S.nextId; }
+  function T(id) { return S.tournois.find(t => t.id === id); }
+  function teamsOf(tid, statut) { return S.teams.filter(x => x.tournoiId === tid && (!statut || x.statut === statut)); }
+  function teamById(id) { return S.teams.find(x => x.id === id); }
+  function fmtDate(d) {
+    try { return new Intl.DateTimeFormat("fr-FR", { weekday: "short", day: "numeric", month: "long" }).format(new Date(d + "T12:00:00")); } catch (e) { return d; }
+  }
+  function pill(s) { const x = STATUTS[s] || STATUTS.termine; return '<span class="pill ' + x.cls + '">' + x.label + "</span>"; }
+  function tpill(s) { const x = TEAM_STATUT[s]; return '<span class="pill ' + x.cls + '">' + x.label + "</span>"; }
+  function toast(msg) {
+    const el = document.getElementById("toast"); el.textContent = msg; el.hidden = false;
+    clearTimeout(toast.t); toast.t = setTimeout(() => { el.hidden = true; }, 2600);
+  }
+  function standings(t) {
+    const rows = {};
+    for (const p of t.resultats.parties) for (const l of p.lignes) {
+      if (!l.place) continue;
+      const r = rows[l.teamId] || (rows[l.teamId] = { teamId: l.teamId, pp: 0, kills: 0, games: 0, best: 999 });
+      r.pp += t.bareme[l.place - 1] || 0; r.kills += Number(l.kills) || 0; r.games++; r.best = Math.min(r.best, l.place);
+    }
+    return Object.values(rows)
+      .map(r => Object.assign(r, { total: r.pp + r.kills * (t.killPts || 0) }))
+      .sort((a, b) => b.total - a.total || b.pp - a.pp || b.kills - a.kills || a.best - b.best);
+  }
+  function embedUrl(url) {
+    try {
+      const u = new URL(url); const h = u.hostname.replace(/^www\.|^m\./, "");
+      if (h === "youtube.com" && u.searchParams.get("v")) return "https://www.youtube.com/embed/" + encodeURIComponent(u.searchParams.get("v"));
+      if (h === "youtube.com" && /^\/(live|embed)\/[\w-]+/.test(u.pathname)) return "https://www.youtube.com/embed/" + u.pathname.split("/")[2];
+      if (h === "youtu.be") return "https://www.youtube.com/embed/" + u.pathname.slice(1);
+      if (h === "twitch.tv" && /^\/[\w]+$/.test(u.pathname)) return "https://player.twitch.tv/?channel=" + u.pathname.slice(1) + "&parent=" + location.hostname;
+    } catch (e) { /* lien invalide */ }
+    return null;
+  }
+  function platform(url) {
+    try { const h = new URL(url).hostname; if (/youtu/.test(h)) return "YouTube"; if (/twitch/.test(h)) return "Twitch"; if (/facebook|fb\./.test(h)) return "Facebook"; if (/tiktok/.test(h)) return "TikTok"; return h.replace(/^www\./, ""); } catch (e) { return "Lien"; }
+  }
+  function canSeeList(t) { return t.listePubliee || ui.role === "orga"; }
+  function canSeeResults(t) { return t.resultats.publie || ui.role === "orga"; }
+
+  /* ---------- Vues ---------- */
+  function slotsHtml(t) {
+    const n = teamsOf(t.id).filter(x => x.statut !== "refusee").length;
+    const pct = Math.min(100, Math.round(n / t.slots * 100));
+    return '<div class="slots"><div class="slots-label"><span>Équipes inscrites</span><span class="mono">' + n + " / " + t.slots + '</span></div><div class="slots-bar"><span style="width:' + pct + '%"></span></div></div>';
+  }
+
+  function viewHome() {
+    const filters = [["tous", "Tous"], ["inscriptions", "Inscriptions ouvertes"], ["en_cours", "En direct"], ["termine", "Terminés"]];
+    const list = S.tournois.filter(t => ui.filter === "tous" || t.statut === ui.filter || (ui.filter === "inscriptions" && t.statut === "closes"));
+    let html = '<section class="hero"><span class="eyebrow">Call of Duty: Mobile · communauté</span><h1>Tournois & scrims</h1><p class="muted">Inscriptions des clans, listes des participants, règlements, lives et résultats au même endroit.</p></section>';
+    html += '<div class="chips">' + filters.map(([k, l]) => '<button class="chip" data-action="filter" data-f="' + k + '" aria-pressed="' + (ui.filter === k) + '">' + l + "</button>").join("") + "</div>";
+    if (!list.length) return html + '<div class="box empty"><h3>Aucun tournoi ici</h3><p>Change de filtre pour voir les autres tournois.</p></div>';
+    html += '<div class="grid">' + list.map(t => {
+      const feature = t.statut === "en_cours";
+      const leader = feature ? standings(t)[0] : null;
+      return '<button class="card' + (feature ? " card--feature" : "") + '" data-action="open" data-id="' + t.id + '">' +
+        '<div class="card-top">' + pill(t.statut) + '<span class="eyebrow">' + esc(t.mode) + "</span></div>" +
+        "<h2>" + esc(t.nom) + "</h2>" +
+        '<div class="meta"><span><b>' + fmtDate(t.date) + "</b> · " + esc(t.heure) + "</span><span>" + esc(t.format) + "</span></div>" +
+        '<div class="meta"><span>Récompense : <b>' + esc(t.prize) + "</b></span></div>" +
+        (feature ? '<div class="meta"><span>En tête : <b>' + (leader ? esc(teamById(leader.teamId).nom) + " · " + leader.total + " pts" : "aucune partie jouée") + "</b></span>" + (t.lives.length ? "<span>Live disponible</span>" : "") + "</div>" : slotsHtml(t)) +
+        "</button>";
+    }).join("") + "</div>";
+    return html;
+  }
+
+  function stepIndex(t) { return t.resultats.publie ? 4 : t.statut === "en_cours" ? 2 : t.listePubliee ? 2 : t.statut === "termine" ? 3 : 0; }
+
+  function viewTournoi() {
+    const t = T(ui.tid); if (!t) { ui.view = "home"; return viewHome(); }
+    const validees = teamsOf(t.id, "validee");
+    const mine = teamsOf(t.id).find(x => x.chefId === "moi");
+    let cta = "";
+    if (ui.role === "chef") {
+      if (mine) cta = '<span class="muted">Ton équipe <b>' + esc(mine.nom) + "</b> est inscrite</span> " + tpill(mine.statut);
+      else if (t.statut === "inscriptions") cta = '<button class="btn btn-primary" data-action="register" data-id="' + t.id + '">Inscrire mon équipe</button>';
+    } else if (ui.role === "orga") {
+      cta = '<button class="btn btn-primary" data-action="manage" data-id="' + t.id + '">Gérer ce tournoi</button>';
+    }
+    if (t.statut === "en_cours" && t.lives.length) cta += ' <button class="btn" data-action="tab" data-tab="live">Regarder le live</button>';
+
+    const tabs = [["apercu", "Aperçu", ""], ["equipes", "Équipes", ""], ["regles", "Règles", ""], ["live", "Live", t.statut === "en_cours" && t.lives.length ? '<span class="dot"></span>' : ""], ["resultats", "Résultats", t.resultats.publie ? '<span class="dot dot-ok"></span>' : ""]];
+    let html = '<section class="hero"><button class="back" data-action="go" data-view="home">← Tous les tournois</button>' +
+      '<div class="row">' + pill(t.statut) + '<span class="eyebrow">' + esc(t.mode) + " · " + esc(t.format) + "</span></div>" +
+      "<h1>" + esc(t.nom) + "</h1>" +
+      '<div class="facts">' +
+      '<div class="fact"><span class="eyebrow">Date</span><strong>' + fmtDate(t.date) + "</strong></div>" +
+      '<div class="fact"><span class="eyebrow">Heure</span><strong class="mono">' + esc(t.heure) + "</strong></div>" +
+      '<div class="fact"><span class="eyebrow">Équipes</span><strong class="mono">' + teamsOf(t.id).filter(x => x.statut !== "refusee").length + " / " + t.slots + "</strong></div>" +
+      '<div class="fact"><span class="eyebrow">Format d\'équipe</span><strong>' + t.teamSize + " + " + t.subs + " rempl.</strong></div>" +
+      '<div class="fact"><span class="eyebrow">Récompense</span><strong>' + esc(t.prize) + "</strong></div>" +
+      "</div>" + (cta ? '<div class="row">' + cta + "</div>" : "") + "</section>";
+    html += '<div class="tabs" role="tablist">' + tabs.map(([k, l, d]) => '<button role="tab" data-action="tab" data-tab="' + k + '" aria-selected="' + (ui.tab === k) + '">' + l + d + "</button>").join("") + "</div>";
+    html += '<section class="panel">' + ({ apercu: tabApercu, equipes: tabEquipes, regles: tabRegles, live: tabLive, resultats: tabResultats }[ui.tab] || tabApercu)(t, validees) + "</section>";
+    return html;
+  }
+
+  function tabApercu(t) {
+    const step = stepIndex(t);
+    const steps = ["Inscriptions des clans", "Publication de la liste", "Tournoi en direct", "Résultats publiés"];
+    return '<div class="box"><span class="eyebrow">Présentation</span><p>' + esc(t.description) + "</p></div>" +
+      '<div class="box"><span class="eyebrow">Déroulement</span><ol class="steps">' + steps.map((s, i) => '<li class="' + (i < step ? "done" : i === step ? "now" : "") + '">' + s + "</li>").join("") + "</ol></div>" +
+      (t.bareme.length > 2 ? '<div class="box"><span class="eyebrow">Barème de points</span><div class="table-wrap"><table><thead><tr><th>Place</th>' + t.bareme.map((_, i) => '<th class="num">' + (i + 1) + (i ? "e" : "er") + "</th>").join("") + '<th class="num">Kill</th></tr></thead><tbody><tr><td>Points</td>' + t.bareme.map(p => '<td class="num">' + p + "</td>").join("") + '<td class="num">' + t.killPts + "</td></tr></tbody></table></div></div>" : "");
+  }
+
+  function rosterTable(team) {
+    const rows = team.joueurs.map((p, i) => "<tr><td>Titulaire</td><td>" + esc(p.pseudo) + '</td><td class="mono">' + esc(p.uid) + "</td></tr>").join("") +
+      team.remplacants.map(p => '<tr><td class="muted">Remplaçant</td><td>' + esc(p.pseudo) + '</td><td class="mono">' + esc(p.uid) + "</td></tr>").join("");
+    return '<div class="roster"><div class="table-wrap" style="border:0"><table><thead><tr><th></th><th>Pseudo</th><th>UID CODM</th></tr></thead><tbody>' + rows + "</tbody></table></div></div>";
+  }
+
+  function tabEquipes(t, validees) {
+    const total = teamsOf(t.id).filter(x => x.statut !== "refusee").length;
+    if (!canSeeList(t)) return '<div class="box empty"><h3>Liste pas encore publiée</h3><p>' + total + " équipe" + (total > 1 ? "s" : "") + " inscrite" + (total > 1 ? "s" : "") + ". L'organisateur publiera la liste des équipes validées et de leurs joueurs à la clôture des inscriptions.</p></div>";
+    let html = !t.listePubliee ? '<p class="demo-note">Liste non publiée : seuls les organisateurs la voient pour l\'instant.</p>' : "";
+    if (!validees.length) return html + '<div class="box empty"><h3>Aucune équipe validée</h3><p>Les équipes apparaîtront ici après validation.</p></div>';
+    html += '<p class="muted">' + validees.length + " équipes validées · " + validees.reduce((n, x) => n + x.joueurs.length + x.remplacants.length, 0) + " joueurs</p>";
+    html += '<div class="teams">' + validees.map((x, i) => '<details class="team"><summary><span class="n">' + (i + 1) + '</span><span class="nm">' + esc(x.nom) + " <small>Chef de clan : " + esc(x.chef) + " · " + x.joueurs.length + " joueurs" + (x.remplacants.length ? " + " + x.remplacants.length + " rempl." : "") + '</small></span><span class="tag">' + esc(x.tag) + "</span></summary>" + rosterTable(x) + "</details>").join("") + "</div>";
+    return html;
+  }
+
+  function tabRegles(t) {
+    if (!t.regles.length) return '<div class="box empty"><h3>Règlement à venir</h3><p>L\'organisateur n\'a pas encore publié les règles.</p></div>';
+    return '<ol class="rules">' + t.regles.map(r => "<li><span>" + esc(r) + "</span></li>").join("") + "</ol>";
+  }
+
+  function tabLive(t) {
+    if (!t.lives.length) return '<div class="box empty"><h3>Aucun live pour l\'instant</h3><p>Les liens de diffusion seront ajoutés ici le jour du tournoi.</p></div>';
+    return '<div class="lives">' + t.lives.map(l => {
+      const e = embedUrl(l.url);
+      return '<div class="box live-card"><div class="card-top"><h3>' + esc(l.titre) + '</h3><span class="eyebrow">' + esc(platform(l.url)) + "</span></div>" +
+        (e ? '<div class="player"><iframe src="' + esc(e) + '" title="' + esc(l.titre) + '" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>' : '<p class="muted">Ce lien ne peut pas être intégré au lecteur : ouvre-le sur la plateforme.</p>') +
+        '<div class="row"><a class="btn" href="' + esc(l.url) + '" target="_blank" rel="noopener">Ouvrir sur ' + esc(platform(l.url)) + " ↗</a></div></div>";
+    }).join("") + "</div>";
+  }
+
+  function standingsTable(t, st) {
+    return '<div class="table-wrap"><table><thead><tr><th>#</th><th>Équipe</th><th class="num">Parties</th><th class="num">Pts placement</th><th class="num">Kills</th><th class="num">Total</th></tr></thead><tbody>' +
+      st.map((r, i) => { const x = teamById(r.teamId); return '<tr class="' + (i < 3 ? "top3" : "") + '"><td class="mono">' + (i + 1) + "</td><td>" + esc(x ? x.nom : "?") + ' <span class="tag">' + esc(x ? x.tag : "") + '</span></td><td class="num">' + r.games + '</td><td class="num">' + r.pp + '</td><td class="num">' + r.kills + '</td><td class="num"><b>' + r.total + "</b></td></tr>"; }).join("") +
+      "</tbody></table></div>";
+  }
+
+  function tabResultats(t) {
+    if (!canSeeResults(t)) return '<div class="box empty"><h3>Résultats pas encore publiés</h3><p>' + (t.statut === "en_cours" ? "Le tournoi est en cours. Suis le live en attendant le classement final." : "La page de résultats apparaîtra ici à la fin du tournoi.") + "</p></div>";
+    const st = standings(t);
+    if (!st.length) return '<div class="box empty"><h3>Aucune partie saisie</h3><p>L\'organisateur saisit les résultats depuis l\'espace Gestion.</p></div>';
+    let html = !t.resultats.publie ? '<p class="demo-note">Aperçu organisateur : ces résultats ne sont pas encore visibles par les joueurs.</p>' : "";
+    const pod = [1, 0, 2].map(i => st[i] ? '<div class="pod pod-' + (i + 1) + '"><span class="rank">' + (i + 1) + '</span><span class="tn">' + esc(teamById(st[i].teamId).nom) + '</span><span class="tag">' + esc(teamById(st[i].teamId).tag) + '</span><span class="pts">' + st[i].total + " pts · " + st[i].kills + " kills</span></div>" : "<div></div>").join("");
+    html += '<div class="podium">' + pod + "</div>";
+    const mvp = t.resultats.mvp;
+    const topKills = st.slice().sort((a, b) => b.kills - a.kills)[0];
+    html += '<div class="split">' +
+      (mvp && mvp.joueur ? '<div class="box mvp"><span class="mvp-badge">MVP</span><div><h3>' + esc(mvp.joueur) + '</h3><p class="muted">' + esc(teamById(mvp.teamId) ? teamById(mvp.teamId).nom : "") + (mvp.kills ? " · " + esc(mvp.kills) + " kills" : "") + "</p></div></div>" : "") +
+      '<div class="box"><span class="eyebrow">Équipe la plus létale</span><h3>' + esc(teamById(topKills.teamId).nom) + '</h3><p class="muted mono">' + topKills.kills + " kills sur " + topKills.games + " parties</p></div>" +
+      '<div class="box"><span class="eyebrow">Tournoi</span><h3>' + st.length + " équipes · " + t.resultats.parties.length + ' parties</h3><p class="muted">' + fmtDate(t.date) + " · " + esc(t.mode) + "</p></div></div>";
+    html += '<div class="box"><span class="eyebrow">Classement général</span>' + standingsTable(t, st) + "</div>";
+    html += t.resultats.parties.map(p => '<details class="team"><summary><span class="n"></span><span class="nm">' + esc(p.nom) + "</span><span class=\"eyebrow\">Détail</span></summary><div class=\"roster\"><div class=\"table-wrap\" style=\"border:0\"><table><thead><tr><th>Place</th><th>Équipe</th><th class=\"num\">Kills</th><th class=\"num\">Points</th></tr></thead><tbody>" +
+      p.lignes.filter(l => l.place).slice().sort((a, b) => a.place - b.place).map(l => '<tr><td class="mono">' + l.place + "</td><td>" + esc(teamById(l.teamId) ? teamById(l.teamId).nom : "?") + '</td><td class="num">' + l.kills + '</td><td class="num">' + ((t.bareme[l.place - 1] || 0) + l.kills * (t.killPts || 0)) + "</td></tr>").join("") + "</tbody></table></div></div></details>").join("");
+    return html;
+  }
+
+  /* Inscription d'équipe (chef de clan) */
+  function viewRegister() {
+    const t = T(ui.tid);
+    if (!t || t.statut !== "inscriptions") return '<div class="box empty"><h3>Inscriptions fermées</h3><button class="btn" data-action="go" data-view="home">Retour aux tournois</button></div>';
+    const prow = (k, i, label) => '<div class="player-row"><span class="n">' + label + '</span><input type="text" id="' + k + "-pseudo-" + i + '" name="' + k + "-pseudo-" + i + '" placeholder="Pseudo en jeu"' + (k === "j" ? " required" : "") + ' maxlength="30"><input type="text" id="' + k + "-uid-" + i + '" name="' + k + "-uid-" + i + '" placeholder="UID (chiffres)" inputmode="numeric" pattern="[0-9]{6,20}"' + (k === "j" ? " required" : "") + "></div>";
+    let players = ""; for (let i = 0; i < t.teamSize; i++) players += prow("j", i, "J" + (i + 1));
+    let subs = ""; for (let i = 0; i < t.subs; i++) subs += prow("r", i, "R" + (i + 1));
+    return '<section class="hero"><button class="back" data-action="open" data-id="' + t.id + '">← ' + esc(t.nom) + "</button><span class=\"eyebrow\">Inscription d'équipe</span><h1>Inscrire mon clan</h1><p class=\"muted\">" + t.teamSize + " titulaires" + (t.subs ? " et jusqu'à " + t.subs + " remplaçant" + (t.subs > 1 ? "s" : "") : "") + ". Le pseudo et l'UID doivent être ceux du compte utilisé en jeu.</p></section>" +
+      '<form class="box" data-form="register">' +
+      '<div class="fields-2"><div class="field"><label for="f-nom">Nom de l\'équipe</label><input type="text" id="f-nom" name="nom" required maxlength="40" placeholder="Ex. Phantom Wolves"></div>' +
+      '<div class="field"><label for="f-tag">Tag du clan</label><input type="text" id="f-tag" name="tag" required maxlength="5" placeholder="Ex. PWV"></div>' +
+      '<div class="field"><label for="f-chef">Ton pseudo (chef de clan)</label><input type="text" id="f-chef" name="chef" required maxlength="30"></div>' +
+      '<div class="field"><label for="f-contact">Contact</label><input type="text" id="f-contact" name="contact" required maxlength="60" placeholder="WhatsApp ou Discord"><span class="hint">Pour recevoir le code du salon.</span></div></div>' +
+      '<div class="field"><span class="lbl">Joueurs titulaires</span>' + players + "</div>" +
+      (t.subs ? '<div class="field"><span class="lbl">Remplaçants (optionnel)</span>' + subs + "</div>" : "") +
+      '<label class="check"><input type="checkbox" id="f-rules" name="rules" required> J\'ai lu le règlement du tournoi et mes joueurs s\'engagent à le respecter.</label>' +
+      '<div class="row"><button class="btn btn-primary" type="submit">Envoyer l\'inscription</button><button class="btn btn-ghost" type="button" data-action="open" data-id="' + t.id + '">Annuler</button></div></form>';
+  }
+
+  /* Mes équipes (chef de clan) */
+  function viewMine() {
+    const mine = S.teams.filter(x => x.chefId === "moi");
+    let html = '<section class="hero"><span class="eyebrow">Chef de clan</span><h1>Mes inscriptions</h1><p class="muted">Suis la validation de tes équipes par l\'organisateur.</p></section>';
+    if (!mine.length) return html + '<div class="box empty"><h3>Aucune inscription</h3><p>Choisis un tournoi aux inscriptions ouvertes pour inscrire ton équipe.</p><button class="btn btn-primary" data-action="go" data-view="home">Voir les tournois</button></div>';
+    return html + '<div class="teams">' + mine.map(x => { const t = T(x.tournoiId); return '<details class="team" open><summary><span class="tag">' + esc(x.tag) + '</span><span class="nm">' + esc(x.nom) + " <small>" + esc(t ? t.nom : "") + " · " + (t ? fmtDate(t.date) : "") + "</small></span>" + tpill(x.statut) + "</summary>" + rosterTable(x) + '<div class="roster"><button class="btn btn-sm" data-action="open" data-id="' + x.tournoiId + '">Voir le tournoi</button></div></details>'; }).join("") + "</div>";
+  }
+
+  /* Gestion (organisateur) */
+  function viewManage() {
+    if (!ui.mtid || !T(ui.mtid)) ui.mtid = S.tournois[0] && S.tournois[0].id;
+    const t = T(ui.mtid);
+    let html = '<section class="hero"><span class="eyebrow">Organisateur</span><h1>Gestion des tournois</h1></section>';
+    html += '<div class="row"><div class="chips">' + S.tournois.map(x => '<button class="chip" data-action="mtid" data-id="' + x.id + '" aria-pressed="' + (x.id === ui.mtid) + '">' + esc(x.nom) + "</button>").join("") + '</div><button class="btn btn-primary btn-sm" data-action="go" data-view="create">+ Nouveau tournoi</button></div>';
+    if (!t) return html + '<div class="box empty"><h3>Aucun tournoi</h3><p>Crée ton premier tournoi.</p></div>';
+    const subs = [["inscriptions", "Inscriptions"], ["infos", "Infos & statut"], ["regles", "Règles"], ["lives", "Lives"], ["resultats", "Résultats"]];
+    html += '<div class="tabs" role="tablist">' + subs.map(([k, l]) => '<button role="tab" data-action="mtab" data-tab="' + k + '" aria-selected="' + (ui.mtab === k) + '">' + l + "</button>").join("") + "</div>";
+    html += '<section class="panel">' + ({ inscriptions: mInscriptions, infos: mInfos, regles: mRegles, lives: mLives, resultats: mResultats }[ui.mtab])(t) + "</section>";
+    return html;
+  }
+
+  function mInscriptions(t) {
+    const all = teamsOf(t.id);
+    const c = s => all.filter(x => x.statut === s).length;
+    let html = '<div class="stats"><div class="stat"><span class="eyebrow">En attente</span><strong>' + c("en_attente") + '</strong></div><div class="stat"><span class="eyebrow">Validées</span><strong>' + c("validee") + " / " + t.slots + '</strong></div><div class="stat"><span class="eyebrow">Refusées</span><strong>' + c("refusee") + '</strong></div><div class="stat"><span class="eyebrow">Liste</span><strong>' + (t.listePubliee ? "Publiée" : "Privée") + "</strong></div></div>";
+    html += '<div class="row"><button class="btn ' + (t.listePubliee ? "" : "btn-primary") + '" data-action="publishList">' + (t.listePubliee ? "Retirer la liste publique" : "Publier la liste des participants") + '</button><button class="btn btn-ghost" data-action="preview" data-tab="equipes">Voir la page publique</button></div>';
+    if (!all.length) return html + '<div class="box empty"><h3>Aucune inscription</h3><p>Les chefs de clan inscrivent leur équipe depuis la page du tournoi.</p></div>';
+    html += '<div class="table-wrap"><table><thead><tr><th>Équipe</th><th>Chef de clan</th><th>Contact</th><th class="num">Joueurs</th><th>Statut</th><th>Actions</th></tr></thead><tbody>' +
+      all.map(x => "<tr><td><span class=\"tag\">" + esc(x.tag) + "</span> " + esc(x.nom) + "</td><td>" + esc(x.chef) + '</td><td class="muted">' + esc(x.contact) + '</td><td class="num">' + x.joueurs.length + "+" + x.remplacants.length + "</td><td>" + tpill(x.statut) + '</td><td><div class="row">' +
+        (x.statut !== "validee" ? '<button class="btn btn-sm btn-ok" data-action="teamStatut" data-id="' + x.id + '" data-s="validee">Valider</button>' : "") +
+        (x.statut !== "refusee" ? '<button class="btn btn-sm btn-danger" data-action="teamStatut" data-id="' + x.id + '" data-s="refusee">Refuser</button>' : "") +
+        (x.statut !== "en_attente" ? '<button class="btn btn-sm btn-ghost" data-action="teamStatut" data-id="' + x.id + '" data-s="en_attente">En attente</button>' : "") +
+        "</div></td></tr>").join("") + "</tbody></table></div>";
+    return html;
+  }
+
+  function infosForm(t, isNew) {
+    const v = k => esc(t ? t[k] : "");
+    const opt = (k, val, label) => '<option value="' + val + '"' + (t && t[k] === val ? " selected" : "") + ">" + label + "</option>";
+    return '<form class="box" data-form="' + (isNew ? "create" : "infos") + '">' +
+      '<div class="fields-2"><div class="field"><label for="i-nom">Nom du tournoi</label><input type="text" id="i-nom" name="nom" required value="' + v("nom") + '" placeholder="Ex. Scrim BR Hebdo #14"></div>' +
+      '<div class="field"><label for="i-mode">Mode</label><select id="i-mode" name="mode">' + opt("mode", "Battle Royale", "Battle Royale") + opt("mode", "Multijoueur 5v5", "Multijoueur 5v5") + "</select></div>" +
+      '<div class="field"><label for="i-format">Format</label><input type="text" id="i-format" name="format" required value="' + v("format") + '" placeholder="Ex. Scrim · 3 parties"></div>' +
+      '<div class="field"><label for="i-statut">Statut</label><select id="i-statut" name="statut">' + Object.entries(STATUTS).map(([k, s]) => opt("statut", k, s.label)).join("") + "</select></div>" +
+      '<div class="field"><label for="i-date">Date</label><input type="date" id="i-date" name="date" required value="' + v("date") + '"></div>' +
+      '<div class="field"><label for="i-heure">Heure</label><input type="time" id="i-heure" name="heure" required value="' + v("heure") + '"></div>' +
+      '<div class="field"><label for="i-slots">Nombre d\'équipes max</label><input type="number" id="i-slots" name="slots" min="2" max="128" required value="' + (t ? t.slots : 16) + '"></div>' +
+      '<div class="field"><label for="i-size">Joueurs titulaires par équipe</label><input type="number" id="i-size" name="teamSize" min="1" max="6" required value="' + (t ? t.teamSize : 4) + '"></div>' +
+      '<div class="field"><label for="i-subs">Remplaçants max</label><input type="number" id="i-subs" name="subs" min="0" max="3" required value="' + (t ? t.subs : 1) + '"></div>' +
+      '<div class="field"><label for="i-prize">Récompense</label><input type="text" id="i-prize" name="prize" value="' + v("prize") + '" placeholder="Ex. 10 000 CP"></div></div>' +
+      '<div class="field"><label for="i-desc">Présentation</label><textarea id="i-desc" name="description" style="min-height:90px">' + v("description") + "</textarea></div>" +
+      '<div class="fields-2"><div class="field"><label for="i-bareme">Barème de placement</label><input type="text" id="i-bareme" name="bareme" class="mono" value="' + esc(t ? t.bareme.join(", ") : BAREME_BR.join(", ")) + '"><span class="hint">Points du 1er, 2e, 3e… séparés par des virgules.</span></div>' +
+      '<div class="field"><label for="i-kill">Points par kill</label><input type="number" id="i-kill" name="killPts" min="0" max="10" step="0.5" value="' + (t ? t.killPts : 1) + '"></div></div>' +
+      '<div class="row"><button class="btn btn-primary" type="submit">' + (isNew ? "Créer le tournoi" : "Enregistrer") + "</button></div></form>";
+  }
+  function mInfos(t) { return infosForm(t, false); }
+  function viewCreate() {
+    return '<section class="hero"><button class="back" data-action="go" data-view="manage">← Gestion</button><span class="eyebrow">Organisateur</span><h1>Nouveau tournoi</h1></section>' + infosForm({ nom: "", mode: "Battle Royale", format: "Scrim · 3 parties", statut: "inscriptions", date: "2026-11-01", heure: "20:00", slots: 16, teamSize: 4, subs: 1, prize: "", description: "", bareme: BAREME_BR, killPts: 1 }, true);
+  }
+
+  function mRegles(t) {
+    return '<form class="box" data-form="regles"><div class="field"><label for="r-text">Règlement</label><textarea id="r-text" name="regles" style="min-height:260px">' + esc(t.regles.join("\n")) + '</textarea><span class="hint">Un article par ligne. Ils seront numérotés automatiquement.</span></div><div class="row"><button class="btn btn-primary" type="submit">Enregistrer le règlement</button><button class="btn btn-ghost" type="button" data-action="preview" data-tab="regles">Voir la page publique</button></div></form>';
+  }
+
+  function mLives(t) {
+    let html = t.lives.length ? '<div class="teams">' + t.lives.map((l, i) => '<div class="box"><div class="card-top"><div style="min-width:0"><h3>' + esc(l.titre) + '</h3><p class="muted" style="overflow-wrap:anywhere">' + esc(l.url) + '</p></div><button class="btn btn-sm btn-danger" data-action="delLive" data-i="' + i + '">Retirer</button></div></div>').join("") + "</div>" : "";
+    return html + '<form class="box" data-form="live"><h3>Ajouter un live</h3><div class="fields-2"><div class="field"><label for="l-titre">Titre</label><input type="text" id="l-titre" name="titre" required placeholder="Ex. Live Partie 2 – caster Nova"></div><div class="field"><label for="l-url">Lien du live</label><input type="url" id="l-url" name="url" required placeholder="https://youtube.com/watch?v=…"><span class="hint">YouTube et Twitch s\'affichent dans le lecteur intégré. Facebook et TikTok s\'ouvrent dans un nouvel onglet.</span></div></div><div class="row"><button class="btn btn-primary" type="submit">Ajouter le live</button></div></form>';
+  }
+
+  function mResultats(t) {
+    const val = teamsOf(t.id, "validee");
+    const st = standings(t);
+    let html = '<div class="row"><button class="btn ' + (t.resultats.publie ? "" : "btn-primary") + '" data-action="publishRes"' + (st.length ? "" : " disabled") + ">" + (t.resultats.publie ? "Masquer les résultats" : "Publier la page de résultats") + '</button><button class="btn btn-ghost" data-action="preview" data-tab="resultats">Voir la page publique</button></div>';
+    if (st.length) html += '<div class="box"><span class="eyebrow">Classement actuel</span>' + standingsTable(t, st) + "</div>";
+    if (t.resultats.parties.length) html += '<div class="box"><span class="eyebrow">Parties saisies</span><div class="teams">' + t.resultats.parties.map((p, i) => '<div class="card-top"><span>' + esc(p.nom) + ' <span class="muted">· ' + p.lignes.filter(l => l.place).length + ' équipes</span></span><button class="btn btn-sm btn-danger" data-action="delGame" data-i="' + i + '">Supprimer</button></div>').join("") + "</div></div>";
+    if (!val.length) return html + '<div class="box empty"><h3>Aucune équipe validée</h3><p>Valide des inscriptions pour pouvoir saisir des résultats.</p></div>';
+    html += '<form class="box" data-form="game"><h3>Saisir une partie</h3><div class="field"><label for="g-nom">Nom de la partie</label><input type="text" id="g-nom" name="nom" required value="Partie ' + (t.resultats.parties.length + 1) + '"></div>' +
+      '<div class="table-wrap"><table><thead><tr><th>Équipe</th><th class="num">Place</th><th class="num">Kills</th></tr></thead><tbody>' +
+      val.map(x => '<tr><td><span class="tag">' + esc(x.tag) + "</span> " + esc(x.nom) + '</td><td class="num"><input class="score-in" type="number" min="1" max="' + val.length + '" id="g-p-' + x.id + '" name="p-' + x.id + '" aria-label="Place ' + esc(x.nom) + '"></td><td class="num"><input class="score-in" type="number" min="0" max="99" id="g-k-' + x.id + '" name="k-' + x.id + '" aria-label="Kills ' + esc(x.nom) + '"></td></tr>').join("") +
+      '</tbody></table></div><span class="hint muted">Laisse la place vide pour une équipe absente.</span><div class="row"><button class="btn btn-primary" type="submit">Ajouter la partie</button></div></form>';
+    const m = t.resultats.mvp || {};
+    html += '<form class="box" data-form="mvp"><h3>MVP du tournoi</h3><div class="fields-2"><div class="field"><label for="m-j">Joueur</label><input type="text" id="m-j" name="joueur" value="' + esc(m.joueur) + '"></div><div class="field"><label for="m-t">Équipe</label><select id="m-t" name="teamId">' + val.map(x => '<option value="' + x.id + '"' + (m.teamId === x.id ? " selected" : "") + ">" + esc(x.nom) + "</option>").join("") + '</select></div><div class="field"><label for="m-k">Kills</label><input type="number" id="m-k" name="kills" min="0" value="' + esc(m.kills) + '"></div></div><div class="row"><button class="btn" type="submit">Enregistrer le MVP</button></div></form>';
+    return html;
+  }
+
+  /* ---------- Rendu ---------- */
+  const NAV = { joueur: [["home", "Tournois"]], chef: [["home", "Tournois"], ["mine", "Mes inscriptions"]], orga: [["home", "Tournois"], ["manage", "Gestion"]] };
+  const ALLOWED = { joueur: ["home", "tournoi"], chef: ["home", "tournoi", "register", "mine"], orga: ["home", "tournoi", "manage", "create"] };
+
+  function render() {
+    if (!ALLOWED[ui.role].includes(ui.view)) ui.view = "home";
+    document.querySelectorAll("#roles button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.role === ui.role)));
+    const navView = ui.view === "tournoi" || ui.view === "register" ? "home" : ui.view === "create" ? "manage" : ui.view;
+    const nav = NAV[ui.role].map(([v, l]) => '<button data-action="go" data-view="' + v + '"' + (navView === v ? ' aria-current="page"' : "") + ">" + l + "</button>").join("");
+    document.getElementById("nav").innerHTML = nav;
+    document.getElementById("bottom-nav").innerHTML = nav;
+    app.innerHTML = ({ home: viewHome, tournoi: viewTournoi, register: viewRegister, mine: viewMine, manage: viewManage, create: viewCreate }[ui.view])();
+  }
+  function go(view) { ui.view = view; render(); window.scrollTo(0, 0); }
+
+  /* ---------- Actions ---------- */
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-action]"); if (!b) return;
+    const a = b.dataset.action, t = T(ui.mtid);
+    if (a !== "reset" && ui.resetArmed) { ui.resetArmed = false; document.getElementById("reset-btn").textContent = "Réinitialiser les exemples"; }
+    switch (a) {
+      case "go": go(b.dataset.view); break;
+      case "role": ui.role = b.dataset.role; saveUi(); render(); toast("Vue : " + ROLES[ui.role]); break;
+      case "filter": ui.filter = b.dataset.f; render(); break;
+      case "open": ui.tid = b.dataset.id; ui.tab = "apercu"; go("tournoi"); break;
+      case "tab": ui.tab = b.dataset.tab; render(); break;
+      case "register": ui.tid = b.dataset.id; go("register"); break;
+      case "manage": ui.mtid = b.dataset.id; ui.mtab = "inscriptions"; go("manage"); break;
+      case "mtid": ui.mtid = b.dataset.id; render(); break;
+      case "mtab": ui.mtab = b.dataset.tab; render(); break;
+      case "preview": ui.tid = ui.mtid; ui.tab = b.dataset.tab; go("tournoi"); break;
+      case "teamStatut": {
+        const x = teamById(b.dataset.id); const tt = T(x.tournoiId);
+        if (b.dataset.s === "validee" && teamsOf(tt.id, "validee").length >= tt.slots) { toast("Toutes les places sont prises (" + tt.slots + ")."); break; }
+        x.statut = b.dataset.s; save(); render(); toast(x.nom + " : " + TEAM_STATUT[x.statut].label.toLowerCase()); break;
+      }
+      case "publishList": t.listePubliee = !t.listePubliee; save(); render(); toast(t.listePubliee ? "Liste des participants publiée" : "Liste retirée de la page publique"); break;
+      case "publishRes":
+        t.resultats.publie = !t.resultats.publie;
+        if (t.resultats.publie) t.statut = "termine";
+        save(); render(); toast(t.resultats.publie ? "Page de résultats publiée" : "Résultats masqués"); break;
+      case "delLive": t.lives.splice(Number(b.dataset.i), 1); save(); render(); toast("Live retiré"); break;
+      case "delGame": t.resultats.parties.splice(Number(b.dataset.i), 1); save(); render(); toast("Partie supprimée"); break;
+      case "reset":
+        if (!ui.resetArmed) { ui.resetArmed = true; b.textContent = "Confirmer la réinitialisation"; break; }
+        ui.resetArmed = false; b.textContent = "Réinitialiser les exemples";
+        S = seed(); save(); ui.view = "home"; render(); toast("Données d'exemple restaurées"); break;
+    }
+  });
+
+  document.addEventListener("submit", e => {
+    const f = e.target.closest("[data-form]"); if (!f) return;
+    e.preventDefault();
+    const fd = new FormData(f), g = k => String(fd.get(k) || "").trim();
+    const kind = f.dataset.form;
+    if (kind === "register") {
+      const t = T(ui.tid);
+      if (teamsOf(t.id).some(x => x.nom.toLowerCase() === g("nom").toLowerCase())) { toast("Une équipe porte déjà ce nom dans ce tournoi."); return; }
+      const read = (k, n) => { const out = []; for (let i = 0; i < n; i++) { const p = g(k + "-pseudo-" + i), u = g(k + "-uid-" + i); if (p) out.push({ pseudo: p, uid: u }); } return out; };
+      const joueurs = read("j", t.teamSize), remplacants = read("r", t.subs);
+      const uids = joueurs.concat(remplacants).map(p => p.uid).filter(Boolean);
+      if (new Set(uids).size !== uids.length) { toast("Deux joueurs ont le même UID. Vérifie la liste."); return; }
+      S.teams.push({ id: newId("x"), tournoiId: t.id, nom: g("nom"), tag: g("tag").toUpperCase(), chef: g("chef"), contact: g("contact"), joueurs, remplacants, statut: "en_attente", inscritLe: new Date().toISOString().slice(0, 10), chefId: "moi" });
+      save(); go("mine"); toast("Inscription envoyée. L'organisateur va la valider.");
+    } else if (kind === "infos" || kind === "create") {
+      const data = { nom: g("nom"), mode: g("mode"), format: g("format"), statut: g("statut"), date: g("date"), heure: g("heure"), slots: Number(g("slots")), teamSize: Number(g("teamSize")), subs: Number(g("subs")), prize: g("prize") || "À annoncer", description: g("description"), bareme: g("bareme").split(/[,;\s]+/).map(Number).filter(n => !isNaN(n)), killPts: Number(g("killPts")) || 0 };
+      if (kind === "create") {
+        const t = Object.assign({ id: newId("t"), listePubliee: false, regles: data.mode === "Battle Royale" ? RULES_BR.slice() : RULES_MP.slice(), lives: [], resultats: { parties: [], mvp: null, publie: false } }, data);
+        S.tournois.unshift(t); ui.mtid = t.id; ui.mtab = "inscriptions"; save(); go("manage"); toast("Tournoi créé. Règlement par défaut ajouté, à adapter.");
+      } else { Object.assign(T(ui.mtid), data); save(); render(); toast("Tournoi enregistré"); }
+    } else if (kind === "regles") {
+      T(ui.mtid).regles = g("regles").split("\n").map(s => s.trim()).filter(Boolean); save(); render(); toast("Règlement enregistré");
+    } else if (kind === "live") {
+      T(ui.mtid).lives.push({ titre: g("titre"), url: g("url") }); save(); render(); toast("Live ajouté");
+    } else if (kind === "game") {
+      const t = T(ui.mtid), val = teamsOf(t.id, "validee");
+      const lignes = val.map(x => ({ teamId: x.id, place: Number(g("p-" + x.id)) || 0, kills: Number(g("k-" + x.id)) || 0 }));
+      const places = lignes.filter(l => l.place).map(l => l.place);
+      if (!places.length) { toast("Saisis au moins une place."); return; }
+      if (new Set(places).size !== places.length) { toast("Deux équipes ont la même place. Corrige avant d'ajouter."); return; }
+      t.resultats.parties.push({ nom: g("nom"), lignes }); save(); render(); toast("Partie ajoutée au classement");
+    } else if (kind === "mvp") {
+      T(ui.mtid).resultats.mvp = { joueur: g("joueur"), teamId: g("teamId"), kills: Number(g("kills")) || 0 }; save(); render(); toast("MVP enregistré");
+    }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
