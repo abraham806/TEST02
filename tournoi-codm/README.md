@@ -1,7 +1,9 @@
 # Arène CODM — plateforme de tournois Call of Duty: Mobile
 
 Prototype cliquable (`index.html`, un seul fichier, aucune installation) de la plateforme de gestion des tournois et scrims de la communauté.
-Ouvrir `index.html` dans un navigateur. Le sélecteur « Voir en tant que » en haut permet de passer d'un rôle à l'autre.
+Ouvrir `index.html` dans un navigateur. Le rôle vient du compte : on choisit « Joueur » ou « Chef de clan » en créant son compte, et chacun ne voit que les menus et boutons de son rôle. Les comptes organisateurs sont créés par l'administration.
+
+Comptes de démonstration (page Connexion) : `NRD Owl` (joueur), `PWV Kaizen` (chef de clan), `Orga Arène` (organisateur), mot de passe `demo`.
 
 > Prototype : pas encore de vrais comptes ni de base de données. Les données sont des exemples, enregistrées dans le navigateur (localStorage).
 
@@ -9,6 +11,7 @@ Ouvrir `index.html` dans un navigateur. Le sélecteur « Voir en tant que » en 
 
 | Rôle | Ce qu'il peut faire |
 |---|---|
+| **Visiteur** (non connecté) | Voir les tournois publiés, se connecter ou créer un compte |
 | **Joueur** | Voir tous les tournois, la liste publiée des équipes et joueurs, le règlement, les lives et la page de résultats |
 | **Chef de clan** | Tout ce que voit le joueur + inscrire son équipe (titulaires, remplaçants, UID CODM) et suivre le statut de ses inscriptions |
 | **Organisateur** | Tout + créer/modifier un tournoi, valider ou refuser les inscriptions, publier la liste des participants, écrire le règlement, ajouter les lives, saisir les parties, désigner le MVP et publier la page de résultats |
@@ -25,9 +28,12 @@ Ouvrir `index.html` dans un navigateur. Le sélecteur « Voir en tant que » en 
 ## Pages
 
 - **Tournois** : liste filtrable (inscriptions ouvertes, en direct, terminés). Le tournoi en direct est mis en avant.
+- Navigation : boutons arrondis flottants en bas sur mobile, différents selon le rôle.
 - **Page tournoi** : onglets Aperçu, Équipes, Règles, Live, Résultats.
 - **Inscription d'équipe** (chef de clan).
-- **Mes inscriptions** (chef de clan).
+- **Connexion / Créer un compte** (choix Joueur ou Chef de clan à l'inscription).
+- **Mon clan** (chef de clan) : ses inscriptions et leur statut.
+- **Profil** : infos du compte, tournois où le joueur apparaît (via son UID), déconnexion.
 - **Gestion** (organisateur) : Inscriptions, Infos & statut, Règles, Lives, Résultats, Nouveau tournoi.
 
 ## Calcul du classement (Battle Royale)

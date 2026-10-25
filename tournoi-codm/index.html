@@ -78,21 +78,36 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .nav { display: flex; gap: 4px; }
 .nav button { background: none; border: 0; padding: 8px 12px; border-radius: 8px; cursor: pointer; color: var(--muted); font-weight: 500; }
 .nav button[aria-current="page"] { color: var(--fg); background: var(--surface-2); }
-.role { margin-left: auto; display: flex; align-items: center; gap: 8px; }
-.seg { display: inline-flex; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
-.seg button { border: 0; background: none; padding: 6px 12px; border-radius: 999px; cursor: pointer; font-size: .85rem; color: var(--muted); white-space: nowrap; }
-.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); font-weight: 600; }
+.nav button svg { display: none; }
+.account { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.me { display: flex; align-items: center; gap: 10px; background: none; border: 0; cursor: pointer; padding: 4px; border-radius: 999px; }
+.avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-2); border: 1px solid var(--line); font-family: var(--font-display); font-weight: 700; font-size: .85rem; }
+.me-txt { display: grid; text-align: left; line-height: 1.2; }
+.me-txt b { font-size: .9rem; }
+.me-txt span { font-size: .72rem; color: var(--muted); }
 
-/* Barre du bas (mobile) */
-.bottom-nav { display: none; }
+/* Boutons de navigation flottants (mobile) */
+.dock { display: none; }
 @media (max-width: 720px) {
   .top .nav { display: none; }
-  .role { margin-left: 0; width: 100%; overflow-x: auto; }
-  .role .eyebrow { display: none; }
-  .bottom-nav { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--surface); border-top: 1px solid var(--line); padding: 6px max(16px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); justify-content: space-around; }
-  .bottom-nav button { flex: 1; background: none; border: 0; padding: 8px 4px; color: var(--muted); font-size: .8rem; cursor: pointer; border-radius: 8px; }
-  .bottom-nav button[aria-current="page"] { color: var(--accent); font-weight: 600; }
+  .me-txt { display: none; }
+  .dock { display: flex; gap: 10px; position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 20; }
+  .dock button { width: 72px; height: 60px; display: grid; place-items: center; align-content: center; gap: 3px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; color: var(--muted); font-size: .7rem; font-weight: 600; cursor: pointer; box-shadow: 0 6px 20px rgb(0 0 0 / .18); }
+  .dock button svg { width: 22px; height: 22px; }
+  .dock button[aria-current="page"] { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
 }
+
+/* Connexion / inscription */
+.auth { max-width: 460px; width: 100%; margin: 0 auto; display: grid; gap: 18px; }
+.types { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.type { text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; display: grid; gap: 4px; cursor: pointer; }
+.type b { font-family: var(--font-display); font-size: 1.05rem; }
+.type span { font-size: .82rem; color: var(--muted); }
+.type[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.switch { text-align: center; font-size: .9rem; color: var(--muted); }
+.link { background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; font-weight: 600; text-decoration: underline; }
+.demo-accounts { display: grid; gap: 8px; }
+.demo-accounts .row button { flex: 1 1 120px; }
 
 main { padding-block: 24px; display: grid; gap: 24px; }
 .demo-note { font-size: .82rem; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--r); padding: 8px 12px; }
@@ -216,7 +231,7 @@ form { display: grid; gap: 16px; }
 .field { display: grid; gap: 6px; min-width: 0; }
 .field label, .lbl { font-size: .85rem; font-weight: 500; }
 .field .hint { font-size: .78rem; color: var(--muted); }
-input[type="text"], input[type="number"], input[type="date"], input[type="time"], input[type="url"], select, textarea {
+input[type="text"], input[type="number"], input[type="date"], input[type="time"], input[type="url"], input[type="password"], select, textarea {
   width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 9px 12px; min-width: 0;
 }
 textarea { min-height: 160px; resize: vertical; line-height: 1.5; }
@@ -245,14 +260,7 @@ footer { padding-block: 8px 24px; display: flex; justify-content: space-between;
   <div class="wrap">
     <button class="brand" data-action="go" data-view="home" aria-label="Accueil"><span class="brand-mark">AC</span>Arène CODM</button>
     <nav class="nav" id="nav"></nav>
-    <div class="role">
-      <span class="eyebrow">Voir en tant que</span>
-      <div class="seg" id="roles" role="group" aria-label="Rôle de démonstration">
-        <button data-action="role" data-role="joueur">Joueur</button>
-        <button data-action="role" data-role="chef">Chef de clan</button>
-        <button data-action="role" data-role="orga">Organisateur</button>
-      </div>
-    </div>
+    <div class="account" id="account"></div>
   </div>
 </header>
 
@@ -263,14 +271,14 @@ footer { padding-block: 8px 24px; display: flex; justify-content: space-between;
   <button class="btn btn-ghost btn-sm" data-action="reset" id="reset-btn">Réinitialiser les exemples</button>
 </footer>
 
-<nav class="bottom-nav" id="bottom-nav"></nav>
+<nav class="dock" id="dock" aria-label="Navigation"></nav>
 <div class="toast" id="toast" hidden></div>
 
 <script>
 (function () {
   "use strict";
-  const KEY = "arene-codm-v1";
-  const ROLES = { joueur: "Joueur", chef: "Chef de clan", orga: "Organisateur" };
+  const KEY = "arene-codm-v2";
+  const ROLES = { joueur: "Joueur", chef: "Chef de clan", orga: "Organisateur", invite: "Visiteur" };
   const STATUTS = {
     inscriptions: { label: "Inscriptions ouvertes", cls: "pill-ok" },
     closes: { label: "Inscriptions closes", cls: "pill-warn" },
@@ -326,7 +334,7 @@ footer { padding-block: 8px 24px; display: flex; justify-content: space-between;
     const t2 = { id: "t2", nom: "Clash Cup Saison 2", mode: "Multijoueur 5v5", format: "Poules + élimination directe", date: "2026-11-08", heure: "18:00", slots: 16, teamSize: 5, subs: 1, prize: "50 000 FCFA + 2 Battle Pass", description: "Tournoi multijoueur 5v5 en BO5. Phase de poules le samedi, playoffs le dimanche. Inscriptions ouvertes aux clans de la communauté.", statut: "inscriptions", listePubliee: false, regles: RULES_MP.slice(), bareme: [1, 0], killPts: 0, lives: [], resultats: { parties: [], mvp: null, publie: false } };
     const t3 = { id: "t3", nom: "Scrim BR Hebdo #13", mode: "Battle Royale", format: "Scrim · 3 parties", date: "2026-10-25", heure: "20:00", slots: 16, teamSize: 4, subs: 1, prize: "Rôle Discord « Champion » + 10 000 CP", description: "Scrim hebdomadaire Battle Royale. Partie 1 jouée, parties 2 et 3 en cours.", statut: "en_cours", listePubliee: true, regles: RULES_BR.slice(), bareme: BAREME_BR.slice(), killPts: 1, lives: [{ titre: "Live du scrim (exemple : remplacez par votre lien)", url: "https://www.youtube.com/@CallofDutyMobile" }], resultats: { parties: [], mvp: null, publie: false } };
     const teams = [];
-    for (let i = 0; i < 8; i++) teams.push(mkTeam("t1", i, 4, 1, "validee", i === 0 ? { chefId: "moi" } : null));
+    for (let i = 0; i < 8; i++) teams.push(mkTeam("t1", i, 4, 1, "validee", i === 0 ? { chefId: "u-chef" } : null));
     for (let i = 0; i < 8; i++) teams.push(mkTeam("t3", i, 4, 1, "validee"));
     teams.push(mkTeam("t2", 2, 5, 0, "validee"));
     teams.push(mkTeam("t2", 1, 5, 0, "validee"));
@@ -340,16 +348,22 @@ footer { padding-block: 8px 24px; display: flex; justify-content: space-between;
     ];
     t1.resultats.parties = games.map(([nom, pl, k]) => ({ nom, lignes: pl.map((p, i) => ({ teamId: "t1-" + i, place: p, kills: k[i] })) }));
     t3.resultats.parties = [{ nom: "Partie 1 · Isolated", lignes: [3, 1, 5, 2, 4, 8, 6, 7].map((p, i) => ({ teamId: "t3-" + i, place: p, kills: [6, 11, 4, 9, 5, 2, 7, 3][i] })) }];
-    return { tournois: [t3, t2, t1], teams, nextId: 1 };
+    const users = [
+      { id: "u-joueur", pseudo: "NRD Owl", uid: uid(5, 0), role: "joueur", pass: "demo" },
+      { id: "u-chef", pseudo: "PWV Kaizen", uid: uid(0, 0), role: "chef", clan: "Phantom Wolves", tag: "PWV", pass: "demo" },
+      { id: "u-orga", pseudo: "Orga Arène", uid: "", role: "orga", pass: "demo" }
+    ];
+    return { tournois: [t3, t2, t1], teams, users, session: null, nextId: 1 };
   }
 
   function load() { try { const s = localStorage.getItem(KEY); return s ? JSON.parse(s) : null; } catch (e) { return null; } }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* stockage indisponible */ } }
-  function loadUi() { try { return JSON.parse(localStorage.getItem(KEY + "-ui")) || {}; } catch (e) { return {}; } }
-  function saveUi() { try { localStorage.setItem(KEY + "-ui", JSON.stringify({ role: ui.role })); } catch (e) { /* ignoré */ } }
 
   let S = load() || seed();
-  const ui = Object.assign({ role: "joueur", view: "home", tid: null, tab: "apercu", filter: "tous", mtid: null, mtab: "inscriptions", resetArmed: false }, loadUi());
+  const ui = { view: "home", tid: null, tab: "apercu", filter: "tous", mtid: null, mtab: "inscriptions", resetArmed: false, signupType: "joueur", after: null };
+  /* Le rôle vient du compte connecté, jamais d'un choix dans l'interface. */
+  function me() { return S.users.find(u => u.id === S.session) || null; }
+  function role() { const u = me(); return u ? u.role : "invite"; }
   const app = document.getElementById("app");
 
   /* ---------- Utilitaires ---------- */
@@ -391,8 +405,8 @@ footer { padding-block: 8px 24px; display: flex; justify-content: space-between;
   function platform(url) {
     try { const h = new URL(url).hostname; if (/youtu/.test(h)) return "YouTube"; if (/twitch/.test(h)) return "Twitch"; if (/facebook|fb\./.test(h)) return "Facebook"; if (/tiktok/.test(h)) return "TikTok"; return h.replace(/^www\./, ""); } catch (e) { return "Lien"; }
   }
-  function canSeeList(t) { return t.listePubliee || ui.role === "orga"; }
-  function canSeeResults(t) { return t.resultats.publie || ui.role === "orga"; }
+  function canSeeList(t) { return t.listePubliee || role() === "orga"; }
+  function canSeeResults(t) { return t.resultats.publie || role() === "orga"; }
 
   /* ---------- Vues ---------- */
   function slotsHtml(t) {
@@ -426,13 +440,15 @@ footer { padding-block: 8px 24px; display: flex; justify-content: space-between;
   function viewTournoi() {
     const t = T(ui.tid); if (!t) { ui.view = "home"; return viewHome(); }
     const validees = teamsOf(t.id, "validee");
-    const mine = teamsOf(t.id).find(x => x.chefId === "moi");
+    const mine = me() && teamsOf(t.id).find(x => x.chefId === me().id);
     let cta = "";
-    if (ui.role === "chef") {
+    if (role() === "chef") {
       if (mine) cta = '<span class="muted">Ton équipe <b>' + esc(mine.nom) + "</b> est inscrite</span> " + tpill(mine.statut);
       else if (t.statut === "inscriptions") cta = '<button class="btn btn-primary" data-action="register" data-id="' + t.id + '">Inscrire mon équipe</button>';
-    } else if (ui.role === "orga") {
+    } else if (role() === "orga") {
       cta = '<button class="btn btn-primary" data-action="manage" data-id="' + t.id + '">Gérer ce tournoi</button>';
+    } else if (role() === "invite" && t.statut === "inscriptions") {
+      cta = '<button class="btn btn-primary" data-action="go" data-view="login">Se connecter pour inscrire son équipe</button>';
     }
     if (t.statut === "en_cours" && t.lives.length) cta += ' <button class="btn" data-action="tab" data-tab="live">Regarder le live</button>';
 
@@ -522,12 +538,13 @@ footer { padding-block: 8px 24px; display: flex; justify-content: space-between;
     if (!t || t.statut !== "inscriptions") return '<div class="box empty"><h3>Inscriptions fermées</h3><button class="btn" data-action="go" data-view="home">Retour aux tournois</button></div>';
     const prow = (k, i, label) => '<div class="player-row"><span class="n">' + label + '</span><input type="text" id="' + k + "-pseudo-" + i + '" name="' + k + "-pseudo-" + i + '" placeholder="Pseudo en jeu"' + (k === "j" ? " required" : "") + ' maxlength="30"><input type="text" id="' + k + "-uid-" + i + '" name="' + k + "-uid-" + i + '" placeholder="UID (chiffres)" inputmode="numeric" pattern="[0-9]{6,20}"' + (k === "j" ? " required" : "") + "></div>";
     let players = ""; for (let i = 0; i < t.teamSize; i++) players += prow("j", i, "J" + (i + 1));
+    players = players.replace('id="j-pseudo-0" name="j-pseudo-0"', 'id="j-pseudo-0" name="j-pseudo-0" value="' + esc(me().pseudo) + '"').replace('id="j-uid-0" name="j-uid-0"', 'id="j-uid-0" name="j-uid-0" value="' + esc(me().uid) + '"');
     let subs = ""; for (let i = 0; i < t.subs; i++) subs += prow("r", i, "R" + (i + 1));
     return '<section class="hero"><button class="back" data-action="open" data-id="' + t.id + '">← ' + esc(t.nom) + "</button><span class=\"eyebrow\">Inscription d'équipe</span><h1>Inscrire mon clan</h1><p class=\"muted\">" + t.teamSize + " titulaires" + (t.subs ? " et jusqu'à " + t.subs + " remplaçant" + (t.subs > 1 ? "s" : "") : "") + ". Le pseudo et l'UID doivent être ceux du compte utilisé en jeu.</p></section>" +
       '<form class="box" data-form="register">' +
-      '<div class="fields-2"><div class="field"><label for="f-nom">Nom de l\'équipe</label><input type="text" id="f-nom" name="nom" required maxlength="40" placeholder="Ex. Phantom Wolves"></div>' +
-      '<div class="field"><label for="f-tag">Tag du clan</label><input type="text" id="f-tag" name="tag" required maxlength="5" placeholder="Ex. PWV"></div>' +
-      '<div class="field"><label for="f-chef">Ton pseudo (chef de clan)</label><input type="text" id="f-chef" name="chef" required maxlength="30"></div>' +
+      '<div class="fields-2"><div class="field"><label for="f-nom">Nom de l\'équipe</label><input type="text" id="f-nom" name="nom" required maxlength="40" value="' + esc(me().clan) + '"></div>' +
+      '<div class="field"><label for="f-tag">Tag du clan</label><input type="text" id="f-tag" name="tag" required maxlength="5" value="' + esc(me().tag) + '"></div>' +
+      '<div class="field"><label for="f-chef">Ton pseudo (chef de clan)</label><input type="text" id="f-chef" name="chef" required maxlength="30" value="' + esc(me().pseudo) + '"></div>' +
       '<div class="field"><label for="f-contact">Contact</label><input type="text" id="f-contact" name="contact" required maxlength="60" placeholder="WhatsApp ou Discord"><span class="hint">Pour recevoir le code du salon.</span></div></div>' +
       '<div class="field"><span class="lbl">Joueurs titulaires</span>' + players + "</div>" +
       (t.subs ? '<div class="field"><span class="lbl">Remplaçants (optionnel)</span>' + subs + "</div>" : "") +
@@ -537,8 +554,8 @@ footer { padding-block: 8px 24px; display: flex; justify-content: space-between;
 
   /* Mes équipes (chef de clan) */
   function viewMine() {
-    const mine = S.teams.filter(x => x.chefId === "moi");
-    let html = '<section class="hero"><span class="eyebrow">Chef de clan</span><h1>Mes inscriptions</h1><p class="muted">Suis la validation de tes équipes par l\'organisateur.</p></section>';
+    const mine = S.teams.filter(x => x.chefId === me().id);
+    let html = '<section class="hero"><span class="eyebrow">Chef de clan</span><h1>Mon clan</h1><p class="muted">Tes inscriptions aux tournois et leur validation par l\'organisateur.</p></section>';
     if (!mine.length) return html + '<div class="box empty"><h3>Aucune inscription</h3><p>Choisis un tournoi aux inscriptions ouvertes pour inscrire ton équipe.</p><button class="btn btn-primary" data-action="go" data-view="home">Voir les tournois</button></div>';
     return html + '<div class="teams">' + mine.map(x => { const t = T(x.tournoiId); return '<details class="team" open><summary><span class="tag">' + esc(x.tag) + '</span><span class="nm">' + esc(x.nom) + " <small>" + esc(t ? t.nom : "") + " · " + (t ? fmtDate(t.date) : "") + "</small></span>" + tpill(x.statut) + "</summary>" + rosterTable(x) + '<div class="roster"><button class="btn btn-sm" data-action="open" data-id="' + x.tournoiId + '">Voir le tournoi</button></div></details>'; }).join("") + "</div>";
   }
@@ -620,20 +637,80 @@ footer { padding-block: 8px 24px; display: flex; justify-content: space-between;
     return html;
   }
 
+  /* ---------- Comptes ---------- */
+  function viewLogin() {
+    return '<div class="auth"><section class="hero"><span class="eyebrow">Connexion</span><h1>Content de te revoir</h1><p class="muted">Ton compte détermine ce que tu peux faire sur la plateforme.</p></section>' +
+      '<form class="box" data-form="login"><div class="field"><label for="a-pseudo">Pseudo</label><input type="text" id="a-pseudo" name="pseudo" required autocomplete="username"></div>' +
+      '<div class="field"><label for="a-pass">Mot de passe</label><input type="password" id="a-pass" name="pass" required autocomplete="current-password"></div>' +
+      '<button class="btn btn-primary" type="submit">Se connecter</button></form>' +
+      '<p class="switch">Pas encore de compte ? <button class="link" data-action="go" data-view="signup">Créer un compte</button></p>' +
+      '<div class="box demo-accounts"><span class="eyebrow">Prototype · comptes de démonstration</span><p class="muted" style="font-size:.85rem">Pour tester chaque type de compte sans en créer un.</p><div class="row">' +
+      S.users.filter(u => ["u-joueur", "u-chef", "u-orga"].includes(u.id)).map(u => '<button class="btn btn-sm" data-action="demoLogin" data-id="' + u.id + '">' + ROLES[u.role] + "</button>").join("") + "</div></div></div>";
+  }
+
+  function viewSignup() {
+    const ty = ui.signupType;
+    return '<div class="auth"><section class="hero"><span class="eyebrow">Inscription</span><h1>Créer mon compte</h1><p class="muted">Choisis ton type de compte. Il ne pourra plus être changé ensuite.</p></section>' +
+      '<div class="types" role="group" aria-label="Type de compte">' +
+      '<button class="type" data-action="signupType" data-t="joueur" aria-pressed="' + (ty === "joueur") + '"><b>Joueur</b><span>Suivre les tournois, les lives et les résultats.</span></button>' +
+      '<button class="type" data-action="signupType" data-t="chef" aria-pressed="' + (ty === "chef") + '"><b>Chef de clan</b><span>Inscrire ton équipe aux tournois et suivre ses inscriptions.</span></button></div>' +
+      '<form class="box" data-form="signup"><div class="field"><label for="s-pseudo">Pseudo en jeu</label><input type="text" id="s-pseudo" name="pseudo" required maxlength="30" autocomplete="username"></div>' +
+      '<div class="field"><label for="s-uid">UID Call of Duty: Mobile</label><input type="text" id="s-uid" name="uid" required inputmode="numeric" pattern="[0-9]{6,20}"><span class="hint">Visible dans ton profil en jeu.</span></div>' +
+      (ty === "chef" ? '<div class="fields-2"><div class="field"><label for="s-clan">Nom du clan</label><input type="text" id="s-clan" name="clan" required maxlength="40"></div><div class="field"><label for="s-tag">Tag du clan</label><input type="text" id="s-tag" name="tag" required maxlength="5"></div></div>' : "") +
+      '<div class="field"><label for="s-pass">Mot de passe</label><input type="password" id="s-pass" name="pass" required minlength="4" autocomplete="new-password"></div>' +
+      '<button class="btn btn-primary" type="submit">Créer mon compte ' + (ty === "chef" ? "chef de clan" : "joueur") + "</button></form>" +
+      '<p class="switch">Déjà inscrit ? <button class="link" data-action="go" data-view="login">Se connecter</button></p>' +
+      '<p class="switch" style="font-size:.8rem">Les comptes organisateurs sont créés par l\'administration de la communauté.</p></div>';
+  }
+
+  function viewProfile() {
+    const u = me();
+    const played = S.teams.filter(x => x.statut === "validee" && x.joueurs.concat(x.remplacants).some(p => u.uid && p.uid === u.uid));
+    let html = '<section class="hero"><span class="eyebrow">' + ROLES[u.role] + '</span><div class="row"><span class="avatar" style="width:56px;height:56px;font-size:1.2rem">' + esc(initials(u.pseudo)) + "</span><h1>" + esc(u.pseudo) + "</h1></div></section>";
+    html += '<div class="facts"><div class="fact"><span class="eyebrow">Type de compte</span><strong>' + ROLES[u.role] + "</strong></div>" +
+      (u.uid ? '<div class="fact"><span class="eyebrow">UID CODM</span><strong class="mono">' + esc(u.uid) + "</strong></div>" : "") +
+      (u.clan ? '<div class="fact"><span class="eyebrow">Clan</span><strong>' + esc(u.clan) + ' <span class="tag">' + esc(u.tag) + "</span></strong></div>" : "") + "</div>";
+    if (u.role !== "orga") html += '<div class="box"><span class="eyebrow">Mes tournois</span>' + (played.length ? '<div class="teams">' + played.map(x => '<div class="card-top"><span>' + esc(T(x.tournoiId).nom) + ' <span class="muted">· ' + esc(x.nom) + '</span></span><button class="btn btn-sm" data-action="open" data-id="' + x.tournoiId + '">Voir</button></div>').join("") + "</div>" : '<p class="muted">Tu apparaîtras ici dès que ton clan t\'aura inscrit à un tournoi avec ton UID.</p>') + "</div>";
+    return html + '<div class="row"><button class="btn btn-danger" data-action="logout">Se déconnecter</button></div>';
+  }
+  function initials(n) { return String(n || "?").split(/\s+/).map(w => w[0]).join("").slice(0, 2).toUpperCase(); }
+
   /* ---------- Rendu ---------- */
-  const NAV = { joueur: [["home", "Tournois"]], chef: [["home", "Tournois"], ["mine", "Mes inscriptions"]], orga: [["home", "Tournois"], ["manage", "Gestion"]] };
-  const ALLOWED = { joueur: ["home", "tournoi"], chef: ["home", "tournoi", "register", "mine"], orga: ["home", "tournoi", "manage", "create"] };
+  const ICONS = {
+    home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>',
+    mine: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6l8-3z"/></svg>',
+    manage: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>',
+    profile: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
+    login: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>'
+  };
+  const NAV = {
+    invite: [["home", "Tournois"], ["login", "Connexion"]],
+    joueur: [["home", "Tournois"], ["profile", "Profil"]],
+    chef: [["home", "Tournois"], ["mine", "Mon clan"], ["profile", "Profil"]],
+    orga: [["home", "Tournois"], ["manage", "Gestion"], ["profile", "Profil"]]
+  };
+  const ALLOWED = {
+    invite: ["home", "tournoi", "login", "signup"],
+    joueur: ["home", "tournoi", "profile"],
+    chef: ["home", "tournoi", "register", "mine", "profile"],
+    orga: ["home", "tournoi", "manage", "create", "profile"]
+  };
 
   function render() {
-    if (!ALLOWED[ui.role].includes(ui.view)) ui.view = "home";
-    document.querySelectorAll("#roles button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.role === ui.role)));
-    const navView = ui.view === "tournoi" || ui.view === "register" ? "home" : ui.view === "create" ? "manage" : ui.view;
-    const nav = NAV[ui.role].map(([v, l]) => '<button data-action="go" data-view="' + v + '"' + (navView === v ? ' aria-current="page"' : "") + ">" + l + "</button>").join("");
+    const r = role();
+    if (!ALLOWED[r].includes(ui.view)) ui.view = "home";
+    const navView = ui.view === "tournoi" || ui.view === "register" ? "home" : ui.view === "create" ? "manage" : ui.view === "signup" ? "login" : ui.view;
+    const nav = NAV[r].map(([v, l]) => '<button data-action="go" data-view="' + v + '"' + (navView === v ? ' aria-current="page"' : "") + ">" + ICONS[v] + "<span>" + l + "</span></button>").join("");
     document.getElementById("nav").innerHTML = nav;
-    document.getElementById("bottom-nav").innerHTML = nav;
-    app.innerHTML = ({ home: viewHome, tournoi: viewTournoi, register: viewRegister, mine: viewMine, manage: viewManage, create: viewCreate }[ui.view])();
+    document.getElementById("dock").innerHTML = nav;
+    const u = me();
+    document.getElementById("account").innerHTML = u
+      ? '<button class="me" data-action="go" data-view="profile" aria-label="Mon profil"><span class="me-txt"><b>' + esc(u.pseudo) + "</b><span>" + ROLES[u.role] + '</span></span><span class="avatar">' + esc(initials(u.pseudo)) + "</span></button>"
+      : (ui.view === "login" || ui.view === "signup" ? "" : '<button class="btn btn-sm" data-action="go" data-view="login">Se connecter</button><button class="btn btn-sm btn-primary" data-action="go" data-view="signup">Créer un compte</button>');
+    app.innerHTML = ({ home: viewHome, tournoi: viewTournoi, register: viewRegister, mine: viewMine, manage: viewManage, create: viewCreate, login: viewLogin, signup: viewSignup, profile: viewProfile }[ui.view])();
   }
   function go(view) { ui.view = view; render(); window.scrollTo(0, 0); }
+  function signIn(u) { S.session = u.id; save(); go(ui.after || "home"); ui.after = null; toast("Connecté : " + u.pseudo + " (" + ROLES[u.role] + ")"); }
 
   /* ---------- Actions ---------- */
   document.addEventListener("click", e => {
@@ -642,7 +719,9 @@ footer { padding-block: 8px 24px; display: flex; justify-content: space-between;
     if (a !== "reset" && ui.resetArmed) { ui.resetArmed = false; document.getElementById("reset-btn").textContent = "Réinitialiser les exemples"; }
     switch (a) {
       case "go": go(b.dataset.view); break;
-      case "role": ui.role = b.dataset.role; saveUi(); render(); toast("Vue : " + ROLES[ui.role]); break;
+      case "signupType": ui.signupType = b.dataset.t; render(); break;
+      case "demoLogin": signIn(S.users.find(u => u.id === b.dataset.id)); break;
+      case "logout": S.session = null; save(); go("home"); toast("Déconnecté"); break;
       case "filter": ui.filter = b.dataset.f; render(); break;
       case "open": ui.tid = b.dataset.id; ui.tab = "apercu"; go("tournoi"); break;
       case "tab": ui.tab = b.dataset.tab; render(); break;
@@ -675,14 +754,23 @@ footer { padding-block: 8px 24px; display: flex; justify-content: space-between;
     e.preventDefault();
     const fd = new FormData(f), g = k => String(fd.get(k) || "").trim();
     const kind = f.dataset.form;
-    if (kind === "register") {
+    if (kind === "login") {
+      const u = S.users.find(x => x.pseudo.toLowerCase() === g("pseudo").toLowerCase() && x.pass === g("pass"));
+      if (!u) { toast("Pseudo ou mot de passe incorrect."); return; }
+      signIn(u);
+    } else if (kind === "signup") {
+      if (S.users.some(x => x.pseudo.toLowerCase() === g("pseudo").toLowerCase())) { toast("Ce pseudo a déjà un compte. Connecte-toi."); return; }
+      const u = { id: newId("u"), pseudo: g("pseudo"), uid: g("uid"), role: ui.signupType, pass: g("pass") };
+      if (u.role === "chef") { u.clan = g("clan"); u.tag = g("tag").toUpperCase(); }
+      S.users.push(u); signIn(u);
+    } else if (kind === "register") {
       const t = T(ui.tid);
       if (teamsOf(t.id).some(x => x.nom.toLowerCase() === g("nom").toLowerCase())) { toast("Une équipe porte déjà ce nom dans ce tournoi."); return; }
       const read = (k, n) => { const out = []; for (let i = 0; i < n; i++) { const p = g(k + "-pseudo-" + i), u = g(k + "-uid-" + i); if (p) out.push({ pseudo: p, uid: u }); } return out; };
       const joueurs = read("j", t.teamSize), remplacants = read("r", t.subs);
       const uids = joueurs.concat(remplacants).map(p => p.uid).filter(Boolean);
       if (new Set(uids).size !== uids.length) { toast("Deux joueurs ont le même UID. Vérifie la liste."); return; }
-      S.teams.push({ id: newId("x"), tournoiId: t.id, nom: g("nom"), tag: g("tag").toUpperCase(), chef: g("chef"), contact: g("contact"), joueurs, remplacants, statut: "en_attente", inscritLe: new Date().toISOString().slice(0, 10), chefId: "moi" });
+      S.teams.push({ id: newId("x"), tournoiId: t.id, nom: g("nom"), tag: g("tag").toUpperCase(), chef: g("chef"), contact: g("contact"), joueurs, remplacants, statut: "en_attente", inscritLe: new Date().toISOString().slice(0, 10), chefId: me().id });
       save(); go("mine"); toast("Inscription envoyée. L'organisateur va la valider.");
     } else if (kind === "infos" || kind === "create") {
       const data = { nom: g("nom"), mode: g("mode"), format: g("format"), statut: g("statut"), date: g("date"), heure: g("heure"), slots: Number(g("slots")), teamSize: Number(g("teamSize")), subs: Number(g("subs")), prize: g("prize") || "À annoncer", description: g("description"), bareme: g("bareme").split(/[,;\s]+/).map(Number).filter(n => !isNaN(n)), killPts: Number(g("killPts")) || 0 };
